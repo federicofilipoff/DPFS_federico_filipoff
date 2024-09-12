@@ -1,13 +1,15 @@
-# Temática del sitio y Público objetivo
-__Temática__:
+# Sprint 1
+
+## Temática del sitio y Público objetivo
+### __Temática__:
 Venta minorísta de periféricos de PC y otros dispositivos: teclados, mouses, auriculares.
 
-__Público objetivo__:
+### __Público objetivo__:
 El sitio web esta dirigido a usuarios casuales o no.
 Ofreciendo opciones variadas en calidad y precio, para profesionales o gamers
 con mayores exigencias, así como para aquellos que prefieren alternativas más económicas.
 
-# Sitios web referentes
+## Sitios web referentes
 - [Mexx](https://www.mexx.com.ar/)
 - [Easy](https://www.easy.com.ar/)
 - [Morshop](https://www.morshop.com.ar/)
@@ -24,9 +26,19 @@ Elegí los sitios mencionados ya que comparten una estructura similar:
 
 Considero que estos sitios cubren los aspectos básicos de una tienda virtual.
 
-# Wireframe
+## Wireframe
 Adjunto en el repositorio /wireframe
 
-# Opcional
+## Opcional
 logo: adjunté una versión preliminar.
 tipografías: roboto mono, roboto, open sans.
+
+# Sprint 2
+Archivo retro.md con el resultado de la retrospectiva.
+
+Maquetación del sitio
+- Home (index.html)
+- Detalle del producto (productDetail.html)
+- Carrito de compras (productCart.html)
+- Formulario de registro (register.html)
+- Formulario de login (login.html)
