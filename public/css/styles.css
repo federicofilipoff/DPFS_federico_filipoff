@@ -1,0 +1,185 @@
+* {
+    box-sizing: border-box;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    /* Configurar fuente */
+    font-family: "Roboto Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 550;
+    font-style: normal;
+    text-decoration: none;
+}
+
+body {
+    background-image: linear-gradient(to bottom, #dddedf, #e1f2fc);
+}
+
+svg {
+    width: 30px;
+    height: 30px;
+    fill: white;
+}
+
+a:hover,
+svg:hover {
+    fill: rgb(236, 107, 33);
+    color: rgb(236, 107, 33);
+    transition: ease 0.5s;
+}
+
+/* Estilos del ENCABEZADO y BARRA DE NAVEGACION */
+header {
+    top: 0;
+    position: sticky;
+    background-image: linear-gradient(to right, #a9c5da, #153963);
+    box-shadow: 0 4px 8px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+nav img {
+    max-width: 100%;
+    max-height: 60px;
+    height: auto;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    margin-right: 25px;
+    gap: 15px;
+}
+
+#search-button {
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid white;
+    background-color: rgba(255, 77, 0, 0);
+    transition: ease 0.5s;
+}
+
+#search-button:hover {
+    background-color: rgb(225, 94, 38);
+    border: 1px solid black;
+    transition: ease 0.5s;
+}
+
+#search-input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+/* Estilos MAIN */
+.categoria {
+    margin: 2% 5%;
+    padding: 2%;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+/* Estilos del PIE DE PAGINA */
+footer {
+    background-color: black;
+    padding: 20px;
+    color: rgb(236, 107, 33);
+}
+
+footer div {
+    align-items: center;
+}
+
+footer div ul li {
+    margin: 10px 0;
+}
+
+footer a {
+    color: white;
+    font-size: 14px;
+}
+
+footer svg {
+    transition: ease 0.5s;    
+}
+
+footer svg:hover {
+    transition: ease 0.5s;
+    transform: translateX(5px);
+}
+
+.footer-icons {
+    display: flex;
+}
+
+.footer-icons li {
+    padding-right: 25px;
+}
+
+/* DISEÑO RESPONSIVO */
+/* CELULAR */
+@media (max-width: 769px) {
+
+    /* Estilos del menú de navegación */
+    nav img {
+        max-height: 30px;
+    }
+
+    #carrito,
+    #usuario {
+        display: none;
+    }
+
+    #search-input {
+        width: 200px;
+    }
+
+}
+
+/* TABLET */
+@media (min-width: 770px) and (max-width: 1024px) {
+
+    #menu {
+        display: none;
+    }
+
+    nav img {
+        max-height: 50px;
+    }
+
+    #search-input {
+        width: 300px;
+    }
+}
+
+/* MONITOR */
+@media (min-width: 1025px) {
+
+    #menu {
+        display: none;
+    }
+
+    header {
+        margin: 0 10%;
+        padding: 5px 15px;
+        border-bottom-right-radius: 25px;
+        border-bottom-left-radius: 25px;
+    }
+
+    #search-input {
+        width: 350px;
+    }
+
+    footer {
+        display: flex;
+        justify-content: space-around;
+    }
+
+}

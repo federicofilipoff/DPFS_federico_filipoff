@@ -1,10 +1,10 @@
 # Sprint 1
 
 ## Temática del sitio y Público objetivo
-### __Temática__:
+### __Temática__
 Venta minorísta de periféricos de PC y otros dispositivos: teclados, mouses, auriculares.
 
-### __Público objetivo__:
+### __Público objetivo__
 El sitio web esta dirigido a usuarios casuales o no.
 Ofreciendo opciones variadas en calidad y precio, para profesionales o gamers
 con mayores exigencias, así como para aquellos que prefieren alternativas más económicas.
@@ -34,7 +34,9 @@ logo: adjunté una versión preliminar.
 tipografías: roboto mono, roboto, open sans.
 
 # Sprint 2
-Archivo retro.md con el resultado de la retrospectiva.
+
+## Tablero de trabajo
+https://trello.com/b/KH3AHzKK/dh-venture-capitals
 
 Maquetación del sitio
 - Home (index.html)
