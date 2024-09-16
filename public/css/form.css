@@ -46,7 +46,7 @@ hr {
     border: 1px solid rgba(0, 0, 0, 0.350);
 }
 
-button {
+.registro button {
     border: 2px solid rgba(0, 0, 0, 0.100);
     padding: 7.5px;
     background: none;
