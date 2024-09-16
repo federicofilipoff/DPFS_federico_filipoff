@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/form.css">
+    <title>Registro</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <%- include('partials/header') %>
+        <main>
+            <form class="registro" action="/register" method="POST">
+                <div class="data-form">
+                    <input type="text" name="nombre" id="nombre" placeholder="Nombre" autocomplete="off" required>
+                    <input type="text" name="apellido" id="apellido" placeholder="Apellido" autocomplete="off" required>
+                    <input type="email" name="email" id="email" placeholder="Correo" autocomplete="off" required>
+                    <input type="password" name="clave" id="clave" placeholder="Contraseña" autocomplete="off" requier>
+                    <input type="tel" name="telefono" id="telefono" placeholder="Teléfono" autocomplete="off" required>
+                </div>
+                <div class="terminos">
+                    <input type="checkbox" name="terminos" required>
+                    Acepto los términos y condiciones
+                </div>
+                <hr>
+                <button type="submit" id="registrar">Registrarme</button>
+            </form>
+        </main>
+        <%- include('partials/footer') %>
+</body>
+
+</html>

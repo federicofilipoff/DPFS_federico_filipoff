@@ -1,0 +1,67 @@
+main {
+    margin: 75px 0;
+}
+
+.registro {
+    display: flex;
+    flex-direction: column;
+
+    max-width: 350px;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(128, 128, 128, 0.5);
+    border-radius: 20px;
+    background-color: #f9f9f9;
+}
+
+.data-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.data-form input {
+    padding: 5px 10px;
+    margin: 5px 0;
+    border: 2px solid rgba(128, 128, 128, 0.250);
+    border-radius: 10px;
+   
+}
+
+.data-form input:focus {
+    outline: none;
+    border: 2px solid rgba(236, 107, 33, 0.500);
+}
+
+.terminos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 10px;
+    font-size: 12px;
+}
+
+hr {
+    margin: 15px 5%;
+    border: 1px solid rgba(0, 0, 0, 0.350);
+}
+
+button {
+    border: 2px solid rgba(0, 0, 0, 0.100);
+    padding: 7.5px;
+    background: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.250);
+}
+
+#registrar {
+    background-color: rgba(150, 150, 150, 0.350);
+}
+
+#registrar:hover {
+    background-color: rgba(236, 107, 33);
+    transition: all 0.5s ease;
+    color: white;
+}

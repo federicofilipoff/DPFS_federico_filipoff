@@ -3,17 +3,24 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    text-decoration: none;
 
     /* Configurar fuente */
-    font-family: "Roboto Mono", monospace;
-    font-optical-sizing: auto;
-    font-weight: 550;
-    font-style: normal;
-    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;     
+
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     background-image: linear-gradient(to bottom, #dddedf, #e1f2fc);
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }
 
 svg {
@@ -24,8 +31,8 @@ svg {
 
 a:hover,
 svg:hover {
-    fill: rgb(236, 107, 33);
     color: rgb(236, 107, 33);
+    fill: rgb(236, 107, 33);
     transition: ease 0.5s;
 }
 
@@ -57,25 +64,39 @@ nav ul {
     gap: 15px;
 }
 
-#search-button {
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid white;
-    background-color: rgba(255, 77, 0, 0);
-    transition: ease 0.5s;
-}
-
-#search-button:hover {
-    background-color: rgb(225, 94, 38);
-    border: 1px solid black;
-    transition: ease 0.5s;
+#search-form {
+    display: flex;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 #search-input {
     padding: 10px;
-    border-radius: 5px;
     border: none;
+}
+
+#search-input:focus {
+    outline: none;
+}
+
+#search-button {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 10px;
+}
+
+#search-button svg {
+    width: 20px;
+    height: 20px;
+    fill: black;
+    cursor: pointer;
+}
+
+#search-button:hover {
+    background-color: #ccc;
 }
 
 /* Estilos MAIN */
@@ -129,16 +150,16 @@ footer svg:hover {
 
     /* Estilos del menú de navegación */
     nav img {
-        max-height: 30px;
+        max-height: 25px;
+    }
+
+    nav {
+        flex: none;
     }
 
     #carrito,
     #usuario {
         display: none;
-    }
-
-    #search-input {
-        width: 200px;
     }
 
 }
@@ -155,7 +176,7 @@ footer svg:hover {
     }
 
     #search-input {
-        width: 300px;
+        width: 400px;
     }
 }
 
@@ -166,15 +187,8 @@ footer svg:hover {
         display: none;
     }
 
-    header {
-        margin: 0 10%;
-        padding: 5px 15px;
-        border-bottom-right-radius: 25px;
-        border-bottom-left-radius: 25px;
-    }
-
     #search-input {
-        width: 350px;
+        width: 600px;
     }
 
     footer {
