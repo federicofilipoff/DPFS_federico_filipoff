@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/form.css">
-    <title>Registro</title>
+    <title>Acceder</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,23 +17,22 @@
 <body>
     <%- include('partials/header') %>
         <main>
-            <form class="registro" action="/register" method="POST">
-                <h2>Registrar usuario</h2>
+            <form class="login" action="/login" method="POST">
+                <h2>Ingresar usuario</h2>
                 <div class="data-form">
-                    <input type="text" name="nombre" id="nombre" placeholder="Nombre" autocomplete="off" required autofocus>
-                    <input type="text" name="apellido" id="apellido" placeholder="Apellido" autocomplete="off" required>
-                    <input type="email" name="email" id="email" placeholder="Correo" autocomplete="off" required>
+                    <input type="email" name="email" id="email" placeholder="Correo" autocomplete="off" required autofocus>
                     <input type="password" name="clave" id="clave" placeholder="Contraseña" autocomplete="off" requier>
-                </div>
-                <div class="terminos">
-                    <input id="terminos" type="checkbox" name="terminos" required>
-                    <label for="terminos">Acepto los términos y condiciones</label>
                 </div>
 
                 </div>
 
                 <hr>
-                <button type="submit" id="registrar">Registrarme</button>
+            
+                <div class="login-bn">
+                    <button type="submit" id="ingresar">Ingresar</button>
+                    <button type="submit" id="ingresar-google">Ingresar con Google</button>
+                    <a href="#" id="restaurar_pass">Restaurar Contraseña</a>
+                </div>
             </form>
         </main>
         <%- include('partials/footer') %>

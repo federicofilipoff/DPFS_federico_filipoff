@@ -8,8 +8,7 @@
     /* Configurar fuente */
     font-family: "Roboto", sans-serif;
     font-weight: 500;
-    font-style: normal;     
-
+    font-style: normal;
 }
 
 body {
@@ -29,11 +28,16 @@ svg {
     fill: white;
 }
 
-a:hover,
+a, svg {
+    transition: ease 0.5s
+}
+
+a:hover {
+    color: rgb(236, 107, 33)
+}
+
 svg:hover {
-    color: rgb(236, 107, 33);
-    fill: rgb(236, 107, 33);
-    transition: ease 0.5s;
+    fill: rgb(236, 107, 33)
 }
 
 /* Estilos del ENCABEZADO y BARRA DE NAVEGACION */
@@ -46,9 +50,9 @@ header {
 
 nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    padding: 5px;
+    padding: 10px 0;
 }
 
 nav img {
@@ -59,8 +63,6 @@ nav img {
 
 nav ul {
     display: flex;
-    align-items: center;
-    margin-right: 25px;
     gap: 15px;
 }
 
@@ -71,7 +73,7 @@ nav ul {
 }
 
 #search-input {
-    padding: 10px;
+    padding-left: 10px;
     border: none;
 }
 
@@ -85,7 +87,7 @@ nav ul {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    padding: 10px;
+    padding: 5px;
 }
 
 #search-button svg {
@@ -114,10 +116,6 @@ footer {
     color: rgb(236, 107, 33);
 }
 
-footer div {
-    align-items: center;
-}
-
 footer div ul li {
     margin: 10px 0;
 }
@@ -127,13 +125,8 @@ footer a {
     font-size: 14px;
 }
 
-footer svg {
-    transition: ease 0.5s;    
-}
-
 footer svg:hover {
-    transition: ease 0.5s;
-    transform: translateX(5px);
+    transform: translateY(2.5px);
 }
 
 .footer-icons {
@@ -141,25 +134,41 @@ footer svg:hover {
 }
 
 .footer-icons li {
-    padding-right: 25px;
+    padding: 10px;
 }
+
 
 /* DISEÑO RESPONSIVO */
 /* CELULAR */
 @media (max-width: 769px) {
 
     /* Estilos del menú de navegación */
-    nav img {
-        max-height: 25px;
-    }
-
     nav {
         flex: none;
+    }
+
+    nav img {
+        max-height: 40px;
+        margin: 0 15px;
+    }
+
+    #search-input {
+        width: 100px;
     }
 
     #carrito,
     #usuario {
         display: none;
+    }
+
+    footer div {
+        text-align: center;
+        margin: 20px 0;
+
+    }
+
+    .footer-icons {
+        justify-content: center;
     }
 
 }
@@ -176,8 +185,19 @@ footer svg:hover {
     }
 
     #search-input {
-        width: 400px;
+        width: 200px;
     }
+
+    footer {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .footer-icons li {
+        padding: 0;
+        margin-right: 20px;
+    }
+
 }
 
 /* MONITOR */
@@ -188,12 +208,17 @@ footer svg:hover {
     }
 
     #search-input {
-        width: 600px;
+        width: 400px;
     }
 
     footer {
         display: flex;
         justify-content: space-around;
+    }
+
+    .footer-icons li {
+        padding: 0;
+        margin-right: 20px;
     }
 
 }

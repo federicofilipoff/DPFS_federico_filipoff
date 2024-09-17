@@ -12,12 +12,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Definir rutas
-app.get('/inicio', (req, res) => {
+app.get('/', (req, res) => {
   res.render('index')
 })
 
 app.get('/register', (req, res) => {
   res.render('register')
+})
+
+app.get('/login', (req, res) => {
+  res.render('login')
 })
 
 app.listen(port, () => {

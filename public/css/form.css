@@ -2,10 +2,11 @@ main {
     margin: 75px 0;
 }
 
-.registro {
+.registro, .login {
+    color: rgb(111, 111, 111);
     display: flex;
     flex-direction: column;
-
+    text-align: center;
     max-width: 350px;
     margin: auto;
     padding: 20px;
@@ -46,7 +47,8 @@ hr {
     border: 1px solid rgba(0, 0, 0, 0.350);
 }
 
-.registro button {
+.registro button,
+.login button {
     border: 2px solid rgba(0, 0, 0, 0.100);
     padding: 7.5px;
     background: none;
@@ -54,14 +56,43 @@ hr {
     cursor: pointer;
     transition: all 0.5s ease;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.250);
-}
-
-#registrar {
-    background-color: rgba(150, 150, 150, 0.350);
-}
-
-#registrar:hover {
-    background-color: rgba(236, 107, 33);
-    transition: all 0.5s ease;
     color: white;
+}
+
+.registro button:hover,
+.login button:hover {
+    opacity: 0.85;
+}
+
+.registro button:active,
+.login button:active {
+    transform: scale(0.80);
+}
+
+/* Registro */
+#registrar {
+    background-color: rgb(207, 94, 29);
+}
+
+/* Login */
+.login-bn {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-bn button {
+    margin: 10px 0;
+}
+
+#ingresar {
+    background-color: rgb(50, 83, 141);
+}
+
+#ingresar-google {
+    background-color: rgb(180, 48, 48);
+}
+
+#restaurar_pass {
+    font-size: 14px;
+    margin-top: 10px;
 }

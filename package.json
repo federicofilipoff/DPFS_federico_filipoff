@@ -2,5 +2,10 @@
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^4.21.0"
+  },
+
+  "scripts": {
+    "dev": "nodemon app.js"
   }
+
 }
