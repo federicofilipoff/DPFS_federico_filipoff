@@ -1,18 +1,46 @@
-main {
-    margin: 75px 0;
+@import url('variables.css');
+
+main form,
+main form input,
+main form button {
+    border-radius: 10px
+}
+
+main form button {
+    border: 2px solid rgba(0, 0, 0, 0.100);
+    padding: 7.5px;
+    background: none;
+    box-shadow: var(--box-shadow);
+    color: white;
+}
+
+main form button:hover {
+    opacity: 0.85;
+}
+
+main form button:active {
+    transform: scale(0.80);
+}
+
+main form {
+    color: rgb(134, 133, 133);
 }
 
 .registro, .login {
-    color: rgb(111, 111, 111);
     display: flex;
     flex-direction: column;
     text-align: center;
     max-width: 350px;
-    margin: auto;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(128, 128, 128, 0.5);
-    border-radius: 20px;
-    background-color: #f9f9f9;
+    gap: 5px;
+    box-shadow: var(--box-shadow);
+    background-color: var(--background-color-primary);
+}
+
+.login-bn {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .data-form {
@@ -23,69 +51,33 @@ main {
 .data-form input {
     padding: 5px 10px;
     margin: 5px 0;
-    border: 2px solid rgba(128, 128, 128, 0.250);
-    border-radius: 10px;
-   
+    border: 2px solid rgba(128, 128, 128, 0.250);   
 }
 
 .data-form input:focus {
-    outline: none;
-    border: 2px solid rgba(236, 107, 33, 0.500);
+    border: 2px solid var(--secondary-color);
 }
 
 .terminos {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
+    padding-left: 5px;
     gap: 10px;
     font-size: 12px;
 }
 
 hr {
-    margin: 15px 5%;
-    border: 1px solid rgba(0, 0, 0, 0.350);
-}
-
-.registro button,
-.login button {
-    border: 2px solid rgba(0, 0, 0, 0.100);
-    padding: 7.5px;
-    background: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.5s ease;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.250);
-    color: white;
-}
-
-.registro button:hover,
-.login button:hover {
-    opacity: 0.85;
-}
-
-.registro button:active,
-.login button:active {
-    transform: scale(0.80);
+    margin: 10px 10%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* Registro */
 #registrar {
-    background-color: rgb(207, 94, 29);
+    background-color: var(--secondary-color);
 }
 
 /* Login */
-.login-bn {
-    display: flex;
-    flex-direction: column;
-}
-
-.login-bn button {
-    margin: 10px 0;
-}
-
 #ingresar {
-    background-color: rgb(50, 83, 141);
+    background-color: var(--primary-color);
 }
 
 #ingresar-google {

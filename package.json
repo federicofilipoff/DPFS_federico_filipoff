@@ -5,7 +5,8 @@
   },
 
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "push": "git push https://github.com/federicofilipoff/DPFS_federico_filipoff"
   }
 
 }

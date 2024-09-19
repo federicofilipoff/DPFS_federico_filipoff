@@ -1,3 +1,5 @@
+@import url('variables.css');
+
 * {
     box-sizing: border-box;
     list-style: none;
@@ -14,12 +16,12 @@
 body {
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(to bottom, #dddedf, #e1f2fc);
-    min-height: 100vh;
+    gap: 50px;
 }
 
 main {
-    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
 svg {
@@ -28,24 +30,36 @@ svg {
     fill: white;
 }
 
-a, svg {
-    transition: ease 0.5s
+a,
+svg,
+button,
+.articulo {
+    transition: ease 0.35s
+}
+
+button {
+    cursor: pointer;
+}
+
+input:focus {
+    outline: none;
 }
 
 a:hover {
-    color: rgb(236, 107, 33)
+    color: var(--secondary-color);
 }
 
 svg:hover {
-    fill: rgb(236, 107, 33)
+    fill: var(--secondary-color);
 }
 
 /* Estilos del ENCABEZADO y BARRA DE NAVEGACION */
 header {
     top: 0;
     position: sticky;
-    background-image: linear-gradient(to right, #a9c5da, #153963);
-    box-shadow: 0 4px 8px;
+    background-image: linear-gradient(to right, white, var(--primary-color));
+    box-shadow: var(--box-shadow);
+    z-index: 1000;
 }
 
 nav {
@@ -68,7 +82,7 @@ nav ul {
 
 #search-form {
     display: flex;
-    border-radius: 15px;
+    border-radius: 25px;
     overflow: hidden;
 }
 
@@ -77,66 +91,53 @@ nav ul {
     border: none;
 }
 
-#search-input:focus {
-    outline: none;
-}
-
 #search-button {
     border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    padding: 5px;
+    padding: 2px;
 }
 
 #search-button svg {
-    width: 20px;
-    height: 20px;
     fill: black;
-    cursor: pointer;
 }
 
 #search-button:hover {
     background-color: #ccc;
 }
 
-/* Estilos MAIN */
-.categoria {
-    margin: 2% 5%;
-    padding: 2%;
-    border: 1px solid black;
-    border-radius: 10px;
-}
-
 /* Estilos del PIE DE PAGINA */
 footer {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 25px;
     background-color: black;
+    color: var(--secondary-color);
     padding: 20px;
-    color: rgb(236, 107, 33);
 }
 
-footer div ul li {
-    margin: 10px 0;
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.footer-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 10px;
 }
 
 footer a {
     color: white;
-    font-size: 14px;
 }
 
 footer svg:hover {
     transform: translateY(2.5px);
 }
-
-.footer-icons {
-    display: flex;
-}
-
-.footer-icons li {
-    padding: 10px;
-}
-
 
 /* DISEÑO RESPONSIVO */
 /* CELULAR */
@@ -161,16 +162,6 @@ footer svg:hover {
         display: none;
     }
 
-    footer div {
-        text-align: center;
-        margin: 20px 0;
-
-    }
-
-    .footer-icons {
-        justify-content: center;
-    }
-
 }
 
 /* TABLET */
@@ -188,16 +179,6 @@ footer svg:hover {
         width: 200px;
     }
 
-    footer {
-        display: flex;
-        justify-content: space-around;
-    }
-
-    .footer-icons li {
-        padding: 0;
-        margin-right: 20px;
-    }
-
 }
 
 /* MONITOR */
@@ -213,12 +194,8 @@ footer svg:hover {
 
     footer {
         display: flex;
+        flex-direction: row;
         justify-content: space-around;
-    }
-
-    .footer-icons li {
-        padding: 0;
-        margin-right: 20px;
     }
 
 }
