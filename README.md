@@ -36,7 +36,7 @@ tipografías: roboto mono, roboto, open sans.
 # Sprint 2
 
 ## Tablero de trabajo
-https://trello.com/b/KH3AHzKK/dh-venture-capitals
+https://trello.com/b/VLcUPaOK/dpfs-digitalhouse
 
 Maquetación del sitio
 - Home (index.html)

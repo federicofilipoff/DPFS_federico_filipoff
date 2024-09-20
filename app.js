@@ -5,7 +5,7 @@ const port = 3000
 
 // Configurar EJS como el motor de vistas
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src', 'views'));
 
 // Servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
@@ -17,11 +17,19 @@ app.get('/', (req, res) => {
 })
 
 app.get('/register', (req, res) => {
-  res.render('register')
+  res.render('users/register')
 })
 
 app.get('/login', (req, res) => {
-  res.render('login')
+  res.render('users/login')
+})
+
+app.get('/producto', (req, res) => {
+  res.render('products/productDetail')
+})
+
+app.get('/carrito', (req, res) => {
+  res.render('products/productCart')
 })
 
 app.listen(port, () => {

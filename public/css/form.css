@@ -1,81 +1,68 @@
 @import url('variables.css');
 
+main form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: rgb(133, 133, 133);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    padding: 20px;
+    background-color: var(--background-color-primary);
+}
+
 main form,
 main form input,
 main form button {
     border-radius: 10px
 }
 
-main form button {
-    border: 2px solid rgba(0, 0, 0, 0.100);
-    padding: 7.5px;
-    background: none;
-    box-shadow: var(--box-shadow);
-    color: white;
+main form input {
+    padding-left: 5px;
+    border: none;
+    border: 2px solid rgba(128, 128, 128, 0.2);
+    height: 32px;
 }
 
-main form button:hover {
-    opacity: 0.85;
+main form button {
+    box-shadow: var(--box-shadow);
+    padding: 7.5px;
+    color: white;
+    background: none;
+    border: none;
 }
 
 main form button:active {
     transform: scale(0.80);
 }
 
-main form {
-    color: rgb(134, 133, 133);
-}
-
-.registro, .login {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    max-width: 350px;
-    padding: 20px;
-    gap: 5px;
-    box-shadow: var(--box-shadow);
-    background-color: var(--background-color-primary);
-}
-
-.login-bn {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.data-form {
-    display: flex;
-    flex-direction: column;
-}
-
-.data-form input {
-    padding: 5px 10px;
-    margin: 5px 0;
-    border: 2px solid rgba(128, 128, 128, 0.250);   
-}
-
-.data-form input:focus {
+main form input:focus {
     border: 2px solid var(--secondary-color);
 }
 
 .terminos {
     display: flex;
+    flex-direction: row;
+    align-items: center;
     padding-left: 5px;
-    gap: 10px;
     font-size: 12px;
+    gap: 10px;
 }
 
 hr {
-    margin: 10px 10%;
+    margin: 5px 10%;
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* Registro */
+#restaurar_pass {
+    font-size: 14px;
+}
+
+/* DEFINIR COLOR DE BOTONES */
 #registrar {
     background-color: var(--secondary-color);
 }
 
-/* Login */
 #ingresar {
     background-color: var(--primary-color);
 }
@@ -84,7 +71,10 @@ hr {
     background-color: rgb(180, 48, 48);
 }
 
-#restaurar_pass {
-    font-size: 14px;
-    margin-top: 10px;
+@media (min-width: 770px) {
+
+    main form {
+        width: 350px;
+    }
+
 }

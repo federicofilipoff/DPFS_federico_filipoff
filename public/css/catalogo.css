@@ -4,10 +4,11 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 35px;
+    gap: 30px;
 }
 
 .articulo {
+    color: black;
     width: 350px;
     height: 500px;
     display: flex;

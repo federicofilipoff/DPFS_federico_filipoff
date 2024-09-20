@@ -15,27 +15,19 @@
 </head>
 
 <body>
-    <%- include('partials/header') %>
+    <%- include('../partials/header') %>
         <main>
             <form class="login" action="/login" method="POST">
                 <h2>Ingresar usuario</h2>
-                <div class="data-form">
-                    <input type="email" name="email" id="email" placeholder="Correo" autocomplete="off" required autofocus>
-                    <input type="password" name="clave" id="clave" placeholder="Contraseña" autocomplete="off" requier>
-                </div>
-
-                </div>
-
+                <input type="email" name="email" id="email" placeholder="Correo" autocomplete="off" required autofocus>
+                <input type="password" name="clave" id="clave" placeholder="Contraseña" autocomplete="off" requier>
                 <hr>
-            
-                <div class="login-bn">
-                    <button type="submit" id="ingresar">Ingresar</button>
-                    <button id="ingresar-google">Ingresar con Google</button>
-                    <a href="#" id="restaurar_pass">Restaurar Contraseña</a>
-                </div>
+                <button type="submit" id="ingresar">Ingresar</button>
+                <button id="ingresar-google">Ingresar con Google</button>
+                <a href="#" id="restaurar_pass">Restaurar Contraseña</a>
             </form>
         </main>
-        <%- include('partials/footer') %>
+        <%- include('../partials/footer') %>
 </body>
 
 </html>

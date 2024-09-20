@@ -13,15 +13,20 @@
     font-style: normal;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 25px;
 }
 
 main {
     display: flex;
     justify-content: center;
+    flex: 1;
 }
 
 svg {
@@ -45,12 +50,9 @@ input:focus {
     outline: none;
 }
 
-a:hover {
-    color: var(--secondary-color);
-}
-
-svg:hover {
-    fill: var(--secondary-color);
+a:hover,
+button:hover {
+    opacity: 0.70;
 }
 
 /* Estilos del ENCABEZADO y BARRA DE NAVEGACION */
@@ -100,10 +102,6 @@ nav ul {
     fill: black;
 }
 
-#search-button:hover {
-    background-color: #ccc;
-}
-
 /* Estilos del PIE DE PAGINA */
 footer {
     display: flex;
@@ -116,7 +114,8 @@ footer {
     padding: 20px;
 }
 
-.footer-info {
+.footer-info,
+.footer-info ul {
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -196,6 +195,10 @@ footer svg:hover {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+    }
+
+    .footer-info {
+        text-align: start;
     }
 
 }

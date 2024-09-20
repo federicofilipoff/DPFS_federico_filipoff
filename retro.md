@@ -21,3 +21,13 @@ equivocarme temprano y mejorar prematuramente.
 ## Hice mal
 
 ## Empezar hacer
+
+# Retrospectiva sobre el Sprint 3
+
+## Dejar de hacer
+
+## Hice bien
+
+## Hice mal
+
+## Empezar hacer
