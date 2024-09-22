@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('../partials/head', { title: 'Crear producto',
+stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
+
+    <%- include('../partials/header') %>
+    
+    <main>
+
+        <form action="/product/register" method="POST">
+            <h2>Registrar producto</h2>
+            <input type="text" name="productName" id="productName" placeholder="Nombre del producto" required>
+            <input type="text" name="productDescription" id="productDescription" placeholder="Descripción del producto" required>
+            <input type="file" name="image" id="image" accept="image/*" required>
+            <input type="text" name="category" id="category" placeholder="Categoría del producto" required>
+            <input type="text" name="colors" id="colors" placeholder="Color del producto" required>
+            <input type="text" name="size" id="size" placeholder="Dimensiones/tamaño" required>
+            <input type="number" name="productPrice" id="productPrice" placeholder="Precio" min="1" required>
+            <hr>
+            <button type="submit">Guardar Producto</button>
+        </form>
+
+    </main>
+
+    <%- include('../partials/footer') %>
+
+</html>

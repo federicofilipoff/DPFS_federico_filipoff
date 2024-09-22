@@ -1,12 +1,14 @@
 {
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "ejs": "^3.1.10",
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "mysql2": "^3.11.3",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
   },
-
   "scripts": {
     "dev": "nodemon app.js",
     "push": "git push https://github.com/federicofilipoff/DPFS_federico_filipoff"
   }
-
 }

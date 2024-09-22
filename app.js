@@ -1,38 +1,57 @@
 const express = require('express')
-const path = require('path');
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
+
+// Middleware para procesar JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Configurar EJS como el motor de vistas
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'src', 'views'));
+app.set('views', './src/views');
 
 // Servir archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('./public'));
 
+// Importar RUTAS
+const userRoutes = require('./src/routes/userRoutes');
+const productRoutes = require('./src/routes/productRoutes');
 
-// Definir rutas
+// Importar MODELOS de datos
+const User = require('./src/models/User');
+const Product = require('./src/models/Product');
+
+// Crear TABLA si no existe
+User.sync({ force: false })
+  .then(() => {
+    console.log('Tabla "User" sincronizada correctamente');
+  })
+  .catch((err) => {
+    console.error('Tabla "User" no sincronizada correctamente:', err);
+  });
+
+Product.sync({ force: false })
+  .then(() => {
+    console.log('Tabla "Product" sincronizada correctamente');
+  })
+  .catch((err) => {
+    console.error('Tabla "Product" no sincronizada correctamente:', err);
+});
+
+// ----------------------------------------------------------------------------
+// DEFINIR RUTAS
 app.get('/', (req, res) => {
-  res.render('index')
-})
+  res.render('index');
+});
 
-app.get('/register', (req, res) => {
-  res.render('users/register')
-})
+// USAR: rutas de usuario
+app.use('/user', userRoutes);
 
-app.get('/login', (req, res) => {
-  res.render('users/login')
-})
+// USAR: rutas de productos
+app.use('/product', productRoutes);
 
-app.get('/producto', (req, res) => {
-  res.render('products/productDetail')
-})
-
-app.get('/carrito', (req, res) => {
-  res.render('products/productCart')
-})
-
+// ----------------------------------------------------------------------------
+// EJECUTAR SERVIDOR
 app.listen(port, () => {
-  console.log(`Ejecutando servidor en el puerto ${port}`)
+  console.log(`Servidor ejecutado en http://localhost:${port}`)
 })
-

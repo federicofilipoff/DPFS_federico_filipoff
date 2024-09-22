@@ -1,31 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/form.css">
-    <title>Registro</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+<%- include('../partials/head', { title: 'Login',
+stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
 
 </head>
 
 <body>
     <%- include('../partials/header') %>
         <main>
-            <form class="registro" action="/register" method="POST">
+            <form class="registro" action="/user/register" method="POST">
                 <h2>Registrar usuario</h2>
-                <input type="text" name="nombre" id="nombre" placeholder="Nombre" autocomplete="off" required autofocus>
-                <input type="text" name="apellido" id="apellido" placeholder="Apellido" autocomplete="off" required>
+                <input type="text" name="firstName" id="firstName" placeholder="Nombre" autocomplete="off" required autofocus>
+                <input type="text" name="lastName" id="lastName" placeholder="Apellido" autocomplete="off" required>
                 <input type="email" name="email" id="email" placeholder="Correo" autocomplete="off" required>
-                <input type="password" name="clave" id="clave" placeholder="Contraseña" autocomplete="off" requier>
+                <input type="password" name="password" id="password" placeholder="Contraseña" autocomplete="off" required>
 
                 <div class="terminos">
-                    <input id="terminos" type="checkbox" name="terminos" required>
+                    <input type="checkbox" name="terminos" id="terminos" required>
                     <label for="terminos">Acepto los términos y condiciones</label>
                 </div>
 
