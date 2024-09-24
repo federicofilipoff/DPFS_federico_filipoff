@@ -2,97 +2,104 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
 
-// Registrar producto
-router.get('/register', (req, res) => {
+
+// [1] RUTA: LEER PRODUCTOS
+router.get('/', async (req, res) => {
+
+    try {
+      const productos = await Product.findAll();
+      res.json(productos);
+    } catch (err) {
+      res.status(500).send('Error al leer la base de datos');
+    }
+
+});
+
+// [2] RUTA: FORMULARIO PARA CREAR PRODUCTO
+router.get('/create', (req, res) => {
     res.render('../views/products/productCreate.ejs')
 })
 
-router.post('/register', async (req, res) => {
-
-    try {
-        const product = await Product.create(req.body);
-        res.json(product);
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error al guardar el producto' });
-    }
-});
-
-const articulos = [
-    {id:0, nombre: "teclado A", precio: 100},
-    {id:1, nombre: "teclado B", precio: 200},
-    {id:2, nombre: "teclado C", precio: 300},
-    {id:3, nombre: "teclado D", precio: 400},
-    {id:4, nombre: "teclado E", precio: 500},
-]
-
-router.get('/id/:id', (req, res) => {
-    const art = articulos.find(a => a.id === parseInt(req.params.id));
-    if (!art) return res.status(404).send("Artículo no encontrado")
-    else res.send(art)
-})
-
-router.get('/nombre/:nombre', (req, res) => {
-    const art = articulos.find(a => a.nombre === req.params.nombre);
-    if (!art) return res.status(404).send("Artículo no encontrado")
-    else res.send(art)
-})
-
-// router.get('/edit', (req, res) => {
-    //     res.render('../views/products/productEdit.ejs')
-    // })
-    
-// Mostrar producto existente
+// [3] RUTA: LEER PRODUCTO SEGÚN SU ID
 router.get('/:id', async (req, res) => {
+
     try {
-        const product = await Product.findByPk(req.params.id);
-        if (!product) return res.status(404).json({ error: 'Producto no encontrado' })
-        else res.send(product)
-        
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error al obtener el producto' });
+      const producto = await Product.findByPk(req.params.id);
+      if (!producto) {
+        return res.status(404).send('Producto no encontrado');
+      }
+      res.json(producto);
+    } catch (err) {
+      res.status(500).send('Error al leer la base de datos');
+    }
+
+});
+
+// [4] RUTA: CREAR PRODUCTO
+router.post('/', async (req, res) => {
+
+    try {
+      const { productName, productDescription, image, category, colors, size, productPrice } = req.body;
+  
+      // Crear un nuevo producto
+      const nuevoProducto = await Product.create({
+        productName,
+        productDescription,
+        image,
+        category,
+        colors,
+        size,
+        productPrice
+      });
+  
+      res.status(201).json(nuevoProducto);
+    } catch (err) {
+      res.status(500).send('Error al crear el Producto');
+    }
+
+});
+
+// [5] RUTA: FORMULARIO EDITAR PRODUCTO
+router.get('/:id/edit', async (req, res) => {
+    try {
+        const producto = await Product.findByPk(req.params.id);
+        if (!producto) {
+            return res.status(404).send('Producto no encontrado');
+        }
+        res.render('../views/products/productEdit.ejs', { producto });
+        } catch (err) {
+        res.status(500).send('Error al leer la base de datos');
     }
 });
 
+// [6] RUTA: EDITAR PRODUCTO
+router.put('/:id', async (req, res) => {
+  try {
+      const producto = await Product.findByPk(req.params.id);
+      if (!producto) {
+          return res.status(404).send('Producto no encontrado');
+      }
+      const { productName, productDescription, image, category, colors, size, productPrice } = req.body;
+      await producto.update({ productName, productDescription, image, category, colors, size, productPrice });
+      res.json(producto);
+  } catch (err) {
+      res.status(500).send('Error al actualizar el producto');
+  }
+});
 
-// Editar/Actualizar un producto existente
-// router.put('/:id', async (req, res) => {
-//     try {
-//         const product = await Product.findByPk(req.params.id);
-//         if (!product) {
-//             return res.status(404).json({ error: 'Producto no encontrado' });
-//         }
-//         await product.update(req.body);
-//         res.json(product);
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: 'Error al actualizar el producto' });
-//     }
-// });
+// [7] RUTA: ELIMINAR PRODUCTO
+router.delete('/:id', async (req, res) => {
+  try {
+      const producto = await Product.findByPk(req.params.id);
+      if (!producto) {
+          return res.status(404).send('Producto no encontrado');
+      }
+      await producto.destroy();
+      res.status(204).send();
+  } catch (err) {
+      res.status(500).send('Error al eliminar el producto');
+  }
+});
 
-
-// router.post('/edit', async (req, res) => {
-
-//     try {
-//         const product = await Product.create(req.body);
-//         res.json(product);
-
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: 'Error al guardar el usuario' });
-//     }
-// });
-
-
-router.get('/detail', (req, res) => {
-    res.render('../views/products/productDetail.ejs')
-})
-
-
-// router.get('/carrito', (req, res) => {
-//     res.render('products/productCart')
-// })
-
+// Exportar rutas
 module.exports = router;

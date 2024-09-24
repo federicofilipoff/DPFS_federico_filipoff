@@ -2,9 +2,14 @@ const express = require('express')
 const app = express();
 const port = 3000;
 
+// ----------------------------------------------------------------------------
 // Middleware para procesar JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Middleware para utilizar PUT o DELETE
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'));
 
 // Configurar EJS como el motor de vistas
 app.set('view engine', 'ejs');
@@ -21,6 +26,7 @@ const productRoutes = require('./src/routes/productRoutes');
 const User = require('./src/models/User');
 const Product = require('./src/models/Product');
 
+// ----------------------------------------------------------------------------
 // Crear TABLA si no existe
 User.sync({ force: false })
   .then(() => {
@@ -44,10 +50,10 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-// USAR: rutas de usuario
+// USAR: rutas de USUARIO
 app.use('/user', userRoutes);
 
-// USAR: rutas de productos
+// USAR: rutas de PRODUCTOS
 app.use('/product', productRoutes);
 
 // ----------------------------------------------------------------------------

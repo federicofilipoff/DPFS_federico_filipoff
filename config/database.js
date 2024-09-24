@@ -3,8 +3,6 @@ const { Sequelize } = require('sequelize');
 // Conexión con la base de datos
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  // storage: '../src/data/datos.db'
-  // storage: 'datos.db'
   storage: './src/data/datos.db'
 });
 
