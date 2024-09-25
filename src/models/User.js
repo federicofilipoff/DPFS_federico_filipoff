@@ -19,7 +19,17 @@ const User = sequelize.define('User', {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  category: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  image: {
+    type: DataTypes.STRING,
+    allowNull: true
   }
+}, {
+    timestamps: true
 });
 
 // Hook para hashear la contraseña antes de guardar el usuario

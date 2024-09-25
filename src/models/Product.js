@@ -12,7 +12,7 @@ const Product = sequelize.define('Product', {
     },
     image: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     category: {
         type: DataTypes.STRING,
@@ -20,12 +20,18 @@ const Product = sequelize.define('Product', {
     },
     colors: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
+    },
+    size: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
     productPrice: {
         type: DataTypes.FLOAT,
         allowNull: false
     }
+}, {
+    timestamps: true
 });
 
 module.exports = Product;

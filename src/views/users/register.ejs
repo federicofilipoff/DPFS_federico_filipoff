@@ -9,12 +9,18 @@ stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
 <body>
     <%- include('../partials/header') %>
         <main>
-            <form class="registro" action="/user/" method="POST">
+            <form class="registro" action="/user/" method="POST" enctype="multipart/form-data">
                 <h2>Registrar usuario</h2>
                 <input type="text" name="firstName" id="firstName" placeholder="Nombre" autocomplete="off" required autofocus>
                 <input type="text" name="lastName" id="lastName" placeholder="Apellido" autocomplete="off" required>
                 <input type="email" name="email" id="email" placeholder="Correo" autocomplete="off" required>
                 <input type="password" name="password" id="password" placeholder="Contraseña" autocomplete="off" required>
+                <select name="category" id="category" required>
+                    <option value="" disabled selected>Categoría</option>
+                    <option value="usuario">Usuario</option>
+                    <option value="administrador">Administrador</option>
+                </select>
+                <input type="file" name="image" id="image" accept="image/*" required>
 
                 <div class="terminos">
                     <input type="checkbox" name="terminos" id="terminos" required>
