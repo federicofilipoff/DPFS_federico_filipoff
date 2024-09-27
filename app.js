@@ -1,6 +1,6 @@
 const express = require('express')
-const path = require('path');
 const app = express();
+const path = require('path');
 
 // ----------------------------------------------------------------------------
 // CONFIGURACIONES
@@ -9,25 +9,43 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src', 'views'));
 
 // ----------------------------------------------------------------------------
-// Middleware para procesar JSON
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// DEFINIR RUTAS
+const middlewaresPath = path.join(__dirname, 'src', 'middlewares', 'index');
+const publicPath = path.join(__dirname, 'public');
+const userRoutesPath = path.join(__dirname, 'src', 'routes', 'userRoutes');
+const productRoutesPath = path.join(__dirname, 'src', 'routes', 'productRoutes');
+const UserPath = path.join(__dirname, 'src', 'models', 'User');
+const ProductPath = path.join(__dirname, 'src', 'models', 'Product');
 
-// Middleware para utilizar PUT o DELETE
-const methodOverride = require('method-override');
-app.use(methodOverride('_method'));
+// IMPORTAR MIDDLEWARES
+const {
+  bodyParser,
+  jsonParser,
+  methodOverrideMiddleware,
+  cookieParserMiddleware,
+  sessionMiddleware,
+  sessionToViewMiddleware
+} = require(middlewaresPath);
+
+// USAR LOS MIDDLEWARES
+app.use(jsonParser);
+app.use(bodyParser);
+app.use(methodOverrideMiddleware);
+app.use(cookieParserMiddleware);
+app.use(sessionMiddleware);
+app.use(sessionToViewMiddleware);
 
 // ----------------------------------------------------------------------------
 // Servir archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(publicPath));
 
 // Importar RUTAS
-const userRoutes = require(path.join(__dirname, 'src', 'routes', 'userRoutes'));
-const productRoutes = require(path.join(__dirname, 'src', 'routes', 'productRoutes'));
+const userRoutes = require(userRoutesPath);
+const productRoutes = require(productRoutesPath);
 
 // Importar MODELOS de datos
-const User = require(path.join(__dirname, 'src', 'models', 'User'));
-const Product = require(path.join(__dirname, 'src', 'models', 'Product'));
+const User = require(UserPath);
+const Product = require(ProductPath);
 
 // ----------------------------------------------------------------------------
 // Crear TABLA si no existe

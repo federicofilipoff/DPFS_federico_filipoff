@@ -1,20 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<%- include('../partials/head', { title: 'Login',
+<%- include('../partials/head', { title: 'Acceder usuario',
 stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
 
 <body>
     <%- include('../partials/header') %>
         <main>
-            <form class="login" action="/login" method="POST">
+            <form action="/" method="GET">
                 <h2>Ingresar usuario</h2>
+
+                <!-- Bloque para mostrar mensajes de error -->
+                <% if (typeof error !== 'undefined') { %>
+                    <p style="color: red;"><%= error %></p>
+                <% } %>
+
                 <input type="email" name="email" id="email" placeholder="Correo" autocomplete="off" required autofocus>
-                <input type="password" name="clave" id="clave" placeholder="Contraseña" autocomplete="off" requier>
+                <input type="password" name="password" id="password" placeholder="Contraseña" autocomplete="off" required>
+
+                <div class="checkbox-form">
+                    <input type="checkbox" name="remember" id="remember">
+                    <label for="remember">Recordar acceso de usuario</label>
+                </div>
+
                 <hr>
                 <button type="submit" id="ingresar">Ingresar</button>
-                <button id="ingresar-google">Ingresar con Google</button>
+                <a href="/user/create">Registrate</a>
                 <a href="#" id="restaurar_pass">Restaurar Contraseña</a>
+
             </form>
         </main>
     <%- include('../partials/footer') %>

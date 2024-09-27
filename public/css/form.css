@@ -40,7 +40,7 @@ main form input:focus {
     border: 2px solid var(--secondary-color);
 }
 
-.terminos {
+.checkbox-form {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -65,10 +65,6 @@ hr {
 
 #ingresar {
     background-color: var(--primary-color);
-}
-
-#ingresar-google {
-    background-color: rgb(180, 48, 48);
 }
 
 @media (min-width: 770px) {

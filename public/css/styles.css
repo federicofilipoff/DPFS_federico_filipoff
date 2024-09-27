@@ -13,6 +13,17 @@
     font-style: normal;
 }
 
+html {
+    /* Copiado de https://css-pattern.com/ */
+    --s: 50px; /* control the size*/
+    --c1: #f5f5f5;
+    --c2: #fcfcfc;
+    
+    --g:conic-gradient(at 90% 40%,#0000 75%,var(--c1) 0);
+    background: var(--g),var(--g) var(--s) var(--s) var(--c2);
+    background-size: calc(2*var(--s)) calc(2*var(--s));
+}
+
 html, body {
     height: 100%;
 }

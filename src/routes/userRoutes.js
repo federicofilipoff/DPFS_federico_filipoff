@@ -1,10 +1,16 @@
 const express = require('express');
-const path = require('path');
 const router = express.Router();
+const path = require('path');
+
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 // ----------------------------------------------------------------------------
-// IMPORTAR MODELO
+// IMPORTAR MODEL
 const User = require(path.join(__dirname, '..', 'models', 'User'));
+
+// IMPORTAR CONTROLLERS
+const userController = require(path.join(__dirname, '..', 'controllers', 'userController'));
 
 // ----------------------------------------------------------------------------
 // IMPORTAR MULTER Y CONFIGURAR DESTINO
@@ -17,104 +23,100 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}-${file.originalname}`);
   }
 });
-const upload = multer({ storage });
 
-// Usar Multer
+const upload = multer({ storage });
 upload.single('image');
 
 // ----------------------------------------------------------------------------
-// [1] RUTA: LEER USUARIOS
-router.get('/', async (req, res) => {
-  try {
-    const usuarios = await User.findAll();
-    res.json(usuarios);
-  } catch (err) {
-    res.status(500).send('Error al leer la base de datos');
-  }
-});
-
-// [2] RUTA: FORMULARIO PARA CREAR USUARIO
-router.get('/create', (req, res) => {
-    res.render(path.join(__dirname, '..', 'views', 'users', 'register.ejs'))
+// RUTA: ACCEDER USUARIO (GET)
+router.get('/login/', (req, res) => {
+  res.render(path.join(__dirname, '..', 'views', 'users', 'login.ejs'))
 })
 
-// [3] RUTA: LEER USUARIO SEGÚN SU ID
-router.get('/:id', async (req, res) => {
+// ----------------------------------------------------------------------------
+// RUTA: FORMULARIO DE LOGIN (GET)
+router.get('/login', (req, res) => {
+  res.render(path.join(__dirname, '..', 'views', 'users', 'login.ejs'), { error: null });
+});
+
+// ----------------------------------------------------------------------------
+// RUTA: PROCESAR LOGIN (POST)
+router.post('/login', async (req, res) => {
+  const { email, password, remember } = req.body;
+
   try {
-      const usuario = await User.findByPk(req.params.id);
-      if (!usuario) {
-          return res.status(404).send('Usuario no encontrado');
-      }
-      res.json(usuario);
-  } catch (err) {
-      res.status(500).send('Error al leer la base de datos');
+    // Buscar al usuario en la base de datos
+    const usuario = await User.findOne({ where: { email } });
+
+    if (!usuario) {
+      // Si no se encuentra el usuario, redirigir al login con un error
+      return res.render('users/login', { error: 'Usuario no encontrado' });
+    }
+
+    // Verificar que la contraseña sea correcta
+    const isMatch = await bcrypt.compare(password, usuario.password);
+
+    if (!isMatch) {
+      // Si la contraseña es incorrecta, redirigir al login con un error
+      return res.render('users/login', { error: 'Contraseña incorrecta' });
+    }
+
+    // Si las credenciales son correctas, generar el token JWT
+    const token = jwt.sign({
+      id: usuario.id,
+      firstName: usuario.firstName,
+      lastName: usuario.lastName,
+      email: usuario.email
+    }, 'tu_secreto_jwt', { expiresIn: remember ? '30d' : '1d' });
+
+    // Guardar el token en una cookie
+    res.cookie('token', token, { httpOnly: true, maxAge: remember ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000 });
+
+    // Redirigir al home (inicio) en caso de éxito
+    return res.redirect('/');
+  } catch (error) {
+    console.error('Error interno del servidor:', error);
+    return res.status(500).send('Error interno del servidor');
   }
 });
 
-// [4] RUTA: CREAR USUARIO
-router.post('/', upload.single('image'), async (req, res) => {
+// ----------------------------------------------------------------------------
+// RUTA: PERFIL DEL USUARIO
+router.get('/profile', (req, res) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.redirect('/user/login');
+  }
+
   try {
-    const { firstName, lastName, email, password, category } = req.body;
-    const image = req.file ? req.file.filename : null;
-
-    // Crear un nuevo usuario
-    const nuevoUsuario = await User.create({
-      firstName,
-      lastName,
-      email,
-      password,
-      category,
-      image
-    });
-
-    res.status(201).json(nuevoUsuario);
+    // Verificar el token
+    const decoded = jwt.verify(token, 'tu_secreto_jwt');
+    res.render(path.join(__dirname, '..', 'views', 'users', 'profile.ejs'), { user: decoded });
   } catch (err) {
-    console.error('Error al crear el usuario:', err);
-    res.status(500).send('Error al crear el usuario');
+    console.error('Token inválido:', err);
+    return res.redirect('/user/login');
   }
 });
 
-// [5] RUTA: FORMULARIO EDITAR USUARIO
-router.get('/:id/edit', async (req, res) => {
-  try {
-      const usuario = await User.findByPk(req.params.id);
-      if (!usuario) {
-          return res.status(404).send('Usuario no encontrado');
-      }
-      res.render(path.join(__dirname, '..', 'views', 'users', 'editar.ejs'), { usuario });
-  } catch (err) {
-      res.status(500).send('Error al leer la base de datos');
-  }
+// ----------------------------------------------------------------------------
+// RUTA: PROCESAR LOGOUT
+router.get('/logout', (req, res) => {
+  res.clearCookie('token'); // Eliminar cookie que contiene el token
+  res.redirect('/');
 });
 
-// [6] RUTA: EDITAR USUARIO
-router.put('/:id', async (req, res) => {
-  try {
-      const usuario = await User.findByPk(req.params.id);
-      if (!usuario) {
-          return res.status(404).send('Usuario no encontrado');
-      }
-      const { firstName, lastName, email, password, category } = req.body;
-      await usuario.update({ firstName, lastName, email, password, category });
-      res.json(usuario);
-  } catch (err) {
-      res.status(500).send('Error al actualizar el usuario');
-  }
-});
+// ----------------------------------------------------------------------------
+// RUTA DE USUARIOS
+// Respetar orden de rutas: rutas específicas vs rutas dinámicas
+router.get('/create', userController.formularioCrearUsuario);
+router.post('/', upload.single('image'), userController.crearUsuario);
+router.get('/', userController.visualizarUsuarios);
+router.get('/:id', userController.visualizarUsuario);
+router.get('/:id/edit', userController.formularioEditarUsuario);
+router.put('/:id', userController.editarUsuario);
+router.delete('/:id', userController.eliminarUsuario);
 
-// [7] RUTA: ELIMINAR USUARIO
-router.delete('/:id', async (req, res) => {
-  try {
-      const usuario = await User.findByPk(req.params.id);
-      if (!usuario) {
-          return res.status(404).send('Usuario no encontrado');
-      }
-      await usuario.destroy();
-      res.status(200).send('Dato eliminado');
-  } catch (err) {
-      res.status(500).send('Error al eliminar el usuario');
-  }
-});
-
+// ----------------------------------------------------------------------------
 // Exportar rutas
 module.exports = router;

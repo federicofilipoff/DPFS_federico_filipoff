@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<%- include('../partials/head', { title: 'Login',
+<%- include('../partials/head', { title: 'Registrar usuario',
 stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
 
 </head>
@@ -9,7 +9,7 @@ stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
 <body>
     <%- include('../partials/header') %>
         <main>
-            <form class="registro" action="/user/" method="POST" enctype="multipart/form-data">
+            <form action="/user/" method="POST" enctype="multipart/form-data">
                 <h2>Registrar usuario</h2>
                 <input type="text" name="firstName" id="firstName" placeholder="Nombre" autocomplete="off" required autofocus>
                 <input type="text" name="lastName" id="lastName" placeholder="Apellido" autocomplete="off" required>
@@ -22,7 +22,7 @@ stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
                 </select>
                 <input type="file" name="image" id="image" accept="image/*" required>
 
-                <div class="terminos">
+                <div class="checkbox-form">
                     <input type="checkbox" name="terminos" id="terminos" required>
                     <label for="terminos">Acepto los términos y condiciones</label>
                 </div>
@@ -30,6 +30,7 @@ stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
                 <hr>
 
                 <button type="submit" id="registrar">Registrarme</button>
+                <a href="/user/login">Inicia sesión</a>
 
             </form>
         </main>
