@@ -5,10 +5,28 @@
 stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
 
 <body>
-  <h1>HOLA USUARIO</h1>
-  <!-- <h1>Perfil de <%= user.firstName %> <%= user.lastName %></h1>
-  <p>Email: <%= user.email %></p>
-  <a href="/user/logout">Cerrar Sesión</a> -->
+  <%- include('../partials/header') %>
+      <main>
+        <ul>
+          <h1>HOLA USUARIO</h1>
+          <h2>Perfil de <%= user.firstName %> <%= user.lastName %></h2>
+          <h2>NOMBRE: <%= user.firstName %></h2>
+          <h2>APELLIDO: <%= user.lastName %></h2>
+          <h2>ID: <%= user.id %></h2>
+          <h2>Email: <%= user.email %></h2>
+          <pre>datos completos: <%= JSON.stringify(user, null, 2) %></pre>
+
+          <% if (user.image) { %>
+            <h2>Foto de Perfil:</h2>
+            <img src="/uploads/<%= user.image %>" alt="Foto de Perfil">
+          <% } else { %>
+            <p>No hay foto de perfil disponible.</p>
+          <% } %>
+
+          <a href="/user/logout">Cerrar Sesión</a>
+        </ul>
+      </main>
+  <%- include('../partials/footer') %>
 </body>
 
 </html>

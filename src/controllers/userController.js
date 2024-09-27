@@ -106,38 +106,38 @@ exports.iniciarSesion = async function (req, res) {
     const { email, password, remember } = req.body;
     
     try {
-      // Buscar al usuario en la base de datos
-      const usuario = await User.findOne({ where: { email } });
+        // Buscar al usuario en la base de datos
+        const usuario = await User.findOne({ where: { email } });
     
-      if (!usuario) {
-        // Si no se encuentra el usuario, redirigir al login con un error
-        return res.render('users/login', { error: 'Usuario no encontrado' });
-      }
+        if (!usuario) {
+            // Si no se encuentra el usuario, redirigir al login con un error
+            return res.render('users/login', { error: 'Usuario no encontrado' });
+        }
     
-      // Verificar que la contraseña sea correcta
-      const isMatch = await bcrypt.compare(password, usuario.password);
+        // Verificar que la contraseña sea correcta
+        const isMatch = await bcrypt.compare(password, usuario.password);
     
-      if (!isMatch) {
-        // Si la contraseña es incorrecta, redirigir al login con un error
-        return res.render('users/login', { error: 'Contraseña incorrecta' });
-      }
+        if (!isMatch) {
+            // Si la contraseña es incorrecta, redirigir al login con un error
+            return res.render('users/login', { error: 'Contraseña incorrecta' });
+        }
     
-      // Si las credenciales son correctas, generar el token JWT
-      const token = jwt.sign({
-        id: usuario.id,
-        firstName: usuario.firstName,
-        lastName: usuario.lastName,
-        email: usuario.email
-      }, 'secreto', { expiresIn: remember ? '30d' : '1d' });
+        // Si las credenciales son correctas, generar el token JWT
+        const token = jwt.sign({
+            id: usuario.id,
+            firstName: usuario.firstName,
+            lastName: usuario.lastName,
+            email: usuario.email
+        }, 'secreto', { expiresIn: remember ? '30d' : '1d' });
 
-      // Guardar el token en una cookie
-      res.cookie('token', token, { httpOnly: true, maxAge: remember ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000 });
+        // Guardar el token en una cookie
+        res.cookie('token', token, { httpOnly: true, maxAge: remember ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000 });
 
-      // Redirigir al home (inicio) en caso de éxito
-      return res.redirect('/');
+        // Redirigir al home (inicio) en caso de éxito
+        return res.redirect('/');
     } catch (error) {
-      console.error('Error interno del servidor:', error);
-      return res.status(500).send('Error interno del servidor');
+        console.error('Error interno del servidor:', error);
+        return res.status(500).send('Error interno del servidor');
     }
 };
   
