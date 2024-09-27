@@ -20,7 +20,12 @@
                 </a>
             </li>
             <li id="usuario">
-                <a href="/user/perfil">
+                <!-- Si existe sesión del usuario entonces redirigir a /profile -->
+                <% if (user) { %>
+                    <a href="/user/profile">
+                <% } else { %>
+                    <a href="/user/login">
+                <% } %>
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                         fill="#e8eaed">
                         <path

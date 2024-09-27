@@ -10,7 +10,7 @@ app.set('views', path.join(__dirname, 'src', 'views'));
 
 // ----------------------------------------------------------------------------
 // DEFINIR RUTAS
-const middlewaresPath = path.join(__dirname, 'src', 'middlewares', 'index');
+const middlewaresPath = path.join(__dirname, 'src', 'middlewares', 'middlewares');
 const publicPath = path.join(__dirname, 'public');
 const userRoutesPath = path.join(__dirname, 'src', 'routes', 'userRoutes');
 const productRoutesPath = path.join(__dirname, 'src', 'routes', 'productRoutes');
@@ -24,7 +24,8 @@ const {
   methodOverrideMiddleware,
   cookieParserMiddleware,
   sessionMiddleware,
-  sessionToViewMiddleware
+  sessionToViewMiddleware,
+  authMiddleware
 } = require(middlewaresPath);
 
 // USAR LOS MIDDLEWARES
@@ -34,6 +35,13 @@ app.use(methodOverrideMiddleware);
 app.use(cookieParserMiddleware);
 app.use(sessionMiddleware);
 app.use(sessionToViewMiddleware);
+app.use(authMiddleware);
+
+// Middleware global: útil para pasar la información del usuario a todas las vistas
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
 
 // ----------------------------------------------------------------------------
 // Servir archivos estáticos

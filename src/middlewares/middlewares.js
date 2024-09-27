@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
+const jwt = require('jsonwebtoken');
 
 // Middleware para procesar JSON y formularios
 const bodyParser = express.urlencoded({ extended: true });
@@ -27,6 +28,25 @@ const sessionToViewMiddleware = (req, res, next) => {
   next();
 };
 
+// verificar si el usuario está autenticado y luego usar esa información en tus vistas.
+const authMiddleware = (req, res, next) => {
+  const token = req.cookies.token;
+  if (!token) {
+      req.isAuthenticated = false;
+      return next();
+  }
+
+  jwt.verify(token, 'secreto', (err, decoded) => {
+    if (err) {
+        req.isAuthenticated = false;
+    } else {
+        req.isAuthenticated = true;
+        req.user = decoded;
+    }
+    next();
+});
+};
+
 // Exportar middlewares
 module.exports = {
   bodyParser,
@@ -34,5 +54,6 @@ module.exports = {
   methodOverrideMiddleware,
   cookieParserMiddleware,
   sessionMiddleware,
-  sessionToViewMiddleware
+  sessionToViewMiddleware,
+  authMiddleware
 };

@@ -7,7 +7,7 @@ stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
 <body>
     <%- include('../partials/header') %>
         <main>
-            <form action="/" method="GET">
+            <form action="/user/login" method="POST">
                 <h2>Ingresar usuario</h2>
 
                 <!-- Bloque para mostrar mensajes de error -->
@@ -26,7 +26,7 @@ stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
                 <hr>
                 <button type="submit" id="ingresar">Ingresar</button>
                 <a href="/user/create">Registrate</a>
-                <a href="#" id="restaurar_pass">Restaurar Contraseña</a>
+                <a href="#" id="restaurar_pass">Olvidé mi contraseña</a>
 
             </form>
         </main>

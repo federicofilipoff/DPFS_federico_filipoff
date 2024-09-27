@@ -54,10 +54,6 @@ hr {
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-#restaurar_pass {
-    font-size: 14px;
-}
-
 /* DEFINIR COLOR DE BOTONES */
 #registrar {
     background-color: var(--secondary-color);
