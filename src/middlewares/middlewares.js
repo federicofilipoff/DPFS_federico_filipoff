@@ -28,13 +28,13 @@ const sessionToViewMiddleware = (req, res, next) => {
   next();
 };
 
-// verificar si el usuario está autenticado y luego usar esa información en tus vistas.
+// Autenticar sesion de usuario
 const authMiddleware = (req, res, next) => {
-  const token = req.cookies.token;
-  if (!token) {
-      req.isAuthenticated = false;
-      return next();
-  }
+    const token = req.cookies.token;
+    if (!token) {
+        req.isAuthenticated = false;
+        return next();
+    }
 
   jwt.verify(token, 'secreto', (err, decoded) => {
     if (err) {
@@ -55,5 +55,5 @@ module.exports = {
   cookieParserMiddleware,
   sessionMiddleware,
   sessionToViewMiddleware,
-  authMiddleware
+  authMiddleware,
 };

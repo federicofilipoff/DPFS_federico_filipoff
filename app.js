@@ -25,7 +25,7 @@ const {
   cookieParserMiddleware,
   sessionMiddleware,
   sessionToViewMiddleware,
-  authMiddleware
+  authMiddleware,
 } = require(middlewaresPath);
 
 // USAR LOS MIDDLEWARES

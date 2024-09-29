@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-
-// IMPORTAR CONTROLLERS
+const multer = require('multer');
 const userController = require(path.join(__dirname, '..', 'controllers', 'userController'));
+const { validateLogin, validateRegister } = require(path.join(__dirname, '..', 'validators', 'userValidator'));
+
 
 // ----------------------------------------------------------------------------
-// IMPORTAR MULTER Y CONFIGURAR DESTINO
-const multer = require('multer');
-
 // Configuración de Multer
 const storage = multer.diskStorage({
   destination: path.join(__dirname, '..', '..', 'public', 'images', 'users'),
@@ -25,10 +23,10 @@ upload.single('image');
 // Respetar orden de rutas: rutas específicas vs rutas dinámicas
 router.get('/create', userController.formularioCrearUsuario);
 router.get('/login', userController.formularioAccesoUsuario);
-router.post('/login', userController.iniciarSesion)
+router.post('/login', validateLogin, userController.iniciarSesion)
 router.get('/profile', userController.perfilUsuario)
 router.get('/logout', userController.cerrarSesion)
-router.post('/', upload.single('image'), userController.crearUsuario);
+router.post('/', upload.single('image'), validateRegister, userController.crearUsuario);
 router.get('/', userController.visualizarUsuarios);
 router.get('/:id', userController.visualizarUsuario);
 router.put('/:id', userController.editarUsuario);
