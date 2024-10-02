@@ -8,7 +8,7 @@ const productValidator = require(path.join(__dirname, '..', 'validators', 'produ
 // ----------------------------------------------------------------------------
 // Configuración de Multer
 const storage = multer.diskStorage({
-  destination: path.join(__dirname, '..', '..', 'public', 'images', 'users'),
+  destination: path.join(__dirname, '..', '..', 'public', 'images', 'products'),
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);
   }
@@ -24,7 +24,7 @@ router.get('/create', productController.formularioCrearProducto);
 router.post('/', upload.single('image'), productValidator, productController.crearProducto);
 router.get('/', productController.visualizarProductos);
 router.get('/:id', productController.visualizarProducto);
-router.put('/:id', productController.editarProducto);
+router.put('/:id', upload.single('image'), productValidator, productController.editarProducto);
 router.delete('/:id', productController.eliminarProducto);
 router.get('/:id/edit', productController.formularioEditarProducto);
 

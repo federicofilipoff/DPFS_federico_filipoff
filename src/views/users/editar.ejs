@@ -9,7 +9,8 @@ stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
 <body>
     <%- include('../partials/header') %>
     <main>
-      <form class="registro" action="/user/<%= usuario.id %>?_method=PUT" method="POST">
+      <form id="editForm" class="registro" action="/user/<%= usuario.id %>?_method=PUT" method="POST">
+        <div id="errorMessages"></div>
         <h2>Editar usuario</h2>
         <input type="text" name="firstName" id="firstName" placeholder="Nombre" value="<%= usuario.firstName %>" autocomplete="off" required>
         <input type="text" name="lastName" id="lastName" placeholder="Apellido" value="<%= usuario.lastName %>" autocomplete="off" required>
@@ -25,6 +26,7 @@ stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
   
         <button type="submit" id="registrar">Guardar Cambios</button>
       </form>
+      <script src="/js/frontend-userValidation.js"></script>
     </main>
     <%- include('../partials/footer') %>
 </body>

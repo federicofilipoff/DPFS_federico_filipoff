@@ -45,30 +45,30 @@ const validateProduct = [
                 throw new Error('La categoría no existe en la base de datos');
             }
         }),
-    // check('colors')
-    //     .exists()
-    //     .withMessage('El color del producto es requerido')
-    //     .not()
-    //     .isEmpty()
-    //     .withMessage('El color del producto no debe estar vacío')
-    //     .custom(async (color) => {
-    //         const colorExists = await Product.findOne({ where: { color } });
-    //         if (!colorExists) {
-    //             throw new Error('El color no existe en la base de datos');
-    //         }
-    //     }),
-    // check('size')
-    //     .exists()
-    //     .withMessage('El tamaño del producto es requerido')
-    //     .not()
-    //     .isEmpty()
-    //     .withMessage('El tamaño del producto no debe estar vacío')
-    //     .custom(async (size) => {
-    //         const sizeExists = await Product.findOne({ where: { size } });
-    //         if (!sizeExists) {
-    //             throw new Error('El tamaño no existe en la base de datos');
-    //         }
-    //     }),
+    check('colors')
+        .exists()
+        .withMessage('El color del producto es requerido')
+        .not()
+        .isEmpty()
+        .withMessage('El color del producto no debe estar vacío')
+        .custom(async (color) => {
+            const colorExists = await Product.findOne({ where: { color } });
+            if (!colorExists) {
+                throw new Error('El color no existe en la base de datos');
+            }
+        }),
+    check('size')
+        .exists()
+        .withMessage('El tamaño del producto es requerido')
+        .not()
+        .isEmpty()
+        .withMessage('El tamaño del producto no debe estar vacío')
+        .custom(async (size) => {
+            const sizeExists = await Product.findOne({ where: { size } });
+            if (!sizeExists) {
+                throw new Error('El tamaño no existe en la base de datos');
+            }
+        }),
     check('productPrice')
         .exists()
         .withMessage('El precio del producto es requerido')

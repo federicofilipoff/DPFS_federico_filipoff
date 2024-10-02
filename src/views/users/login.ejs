@@ -7,13 +7,9 @@ stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
 <body>
     <%- include('../partials/header') %>
         <main>
-            <form action="/user/login" method="POST">
+            <form id="loginForm" action="/user/login" method="POST">
+                <div id="errorMessages"></div>
                 <h2>Ingresar usuario</h2>
-
-                <!-- Bloque para mostrar mensajes de error -->
-                <% if (typeof error !== 'undefined') { %>
-                    <p style="color: red;"><%= error %></p>
-                <% } %>
 
                 <input type="email" name="email" id="email" placeholder="Correo" autocomplete="off" required autofocus>
                 <input type="password" name="password" id="password" placeholder="Contraseña" autocomplete="off" required>
@@ -27,10 +23,9 @@ stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
                 <button type="submit" id="ingresar">Ingresar</button>
                 <a href="/user/create">Registrate</a>
                 <a href="#" id="restaurar_pass">Olvidé mi contraseña</a>
-
             </form>
+            <script src="/js/frontend-userValidation.js"></script>
         </main>
     <%- include('../partials/footer') %>
 </body>
-
 </html>

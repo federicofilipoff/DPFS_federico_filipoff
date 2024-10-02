@@ -29,7 +29,7 @@ router.get('/logout', userController.cerrarSesion)
 router.post('/', upload.single('image'), validateRegister, userController.crearUsuario);
 router.get('/', userController.visualizarUsuarios);
 router.get('/:id', userController.visualizarUsuario);
-router.put('/:id', userController.editarUsuario);
+router.put('/:id', validateRegister, userController.editarUsuario);
 router.delete('/:id', userController.eliminarUsuario);
 router.get('/:id/edit', userController.formularioEditarUsuario);
 
