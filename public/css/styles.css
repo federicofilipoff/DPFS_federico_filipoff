@@ -5,7 +5,6 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    text-decoration: none;
 
     /* Configurar fuente */
     font-family: "Roboto", sans-serif;
@@ -43,17 +42,15 @@ main {
     flex: 1;
 }
 
-svg {
-    width: 30px;
-    height: 30px;
-    fill: white;
-}
-
 a,
 svg,
 button,
 .articulo {
     transition: ease 0.35s
+}
+
+a {
+    text-decoration: none;
 }
 
 button {
@@ -66,15 +63,15 @@ input:focus {
 
 a:hover,
 button:hover {
-    opacity: 0.70;
+    opacity: 0.75;
 }
 
 /* Estilos del ENCABEZADO y BARRA DE NAVEGACION */
 header {
     top: 0;
     position: sticky;
+    /* position: fixed; */
     background-image: linear-gradient(to right, white, var(--primary-color));
-    box-shadow: var(--box-shadow);
     z-index: 1000;
 }
 
@@ -98,22 +95,20 @@ nav ul {
 
 #search-form {
     display: flex;
-    border-radius: 25px;
+    border-radius: 15px;
     overflow: hidden;
 }
 
 #search-input {
-    padding-left: 10px;
+    padding-left: 15px;
     border: none;
 }
 
 #search-button {
+    display: flex;
+    align-items: center;
+    padding: 5px;
     border: none;
-    padding: 2px;
-}
-
-#search-button svg {
-    fill: black;
 }
 
 /* Estilos del PIE DE PAGINA */
@@ -178,7 +173,7 @@ footer svg:hover {
 }
 
 /* TABLET */
-@media (min-width: 770px) and (max-width: 1024px) {
+@media (min-width: 770px) and (max-width: 1023px) {
 
     #menu {
         display: none;
@@ -195,18 +190,18 @@ footer svg:hover {
 }
 
 /* MONITOR */
-@media (min-width: 1025px) {
+@media (min-width: 1024px) {
 
     #menu {
         display: none;
     }
 
     #search-input {
-        width: 400px;
+        width: 500px;
+        height: 36px;
     }
 
     footer {
-        display: flex;
         flex-direction: row;
         justify-content: space-around;
     }
