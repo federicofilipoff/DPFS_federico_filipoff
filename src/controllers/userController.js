@@ -47,11 +47,13 @@ exports.crearUsuario = async function (req, res) {
             image
         });
 
-        res.status(201).json(nuevoUsuario);
+        res.status(201).json({ success: true, message: 'Usuario registrado exitosamente', usuario: nuevoUsuario });
+
     } catch (err) {
         console.error('Error al crear el usuario:', err);
-        res.status(500).send('Error al crear el usuario');
+        res.status(500).json({ success: false, message: 'Error al registrar el usuario', error: err.message });
     }
+
 };
 
 // [5] FORMULARIO EDITAR USUARIO

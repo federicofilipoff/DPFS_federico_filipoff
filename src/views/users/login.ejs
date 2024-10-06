@@ -8,7 +8,7 @@ stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
     <%- include('../partials/header') %>
         <main>
             <form id="loginForm" action="/user/login" method="POST">
-                <div id="errorMessages"></div>
+                <div id="validationMessage"></div>
                 <h2>Ingresar usuario</h2>
 
                 <input type="email" name="email" id="email" placeholder="Correo" autocomplete="off" required autofocus>

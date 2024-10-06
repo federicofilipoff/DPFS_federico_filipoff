@@ -4,38 +4,33 @@
 <%- include('../partials/head', { title: 'Registrar usuario',
 stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
 
-</head>
-
 <body>
     <%- include('../partials/header') %>
-        <main>
-            <form id="registerForm" action="/user/" method="POST" enctype="multipart/form-data">
-                <div id="errorMessages"></div>
-                <h2>Registrar usuario</h2>
-                <input type="text" name="firstName" id="firstName" placeholder="Nombre" autocomplete="off" required autofocus>
-                <input type="text" name="lastName" id="lastName" placeholder="Apellido" autocomplete="off" required>
-                <input type="email" name="email" id="email" placeholder="Correo" autocomplete="off" required>
-                <input type="password" name="password" id="password" placeholder="Contraseña" autocomplete="off" required>
-                <select name="category" id="category" required>
-                    <option value="" disabled selected>Categoría</option>
-                    <option value="usuario">Usuario</option>
-                    <option value="administrador">Administrador</option>
-                </select>
-                <input type="file" name="image" id="image" accept="image/*" required>
-        
-                <div class="checkbox-form">
-                    <input type="checkbox" name="terminos" id="terminos" required>
-                    <label for="terminos">Acepto los términos y condiciones</label>
-                </div>
-        
-                <hr>
-        
-                <button type="submit" id="registrar">Registrarme</button>
-                <a href="/user/login">Inicia sesión</a>
-            </form>
-            <script src="/js/frontend-userValidation.js"></script>
-        </main>
-        <%- include('../partials/footer') %>
+    <main>
+        <form id="registerForm" action="/user/" method="POST" enctype="multipart/form-data">
+            <div id="validationMessage"></div>
+            <h2>Registrar usuario</h2>
+            <input type="text" name="firstName" id="firstName" placeholder="Nombre" autocomplete="off" required autofocus>
+            <input type="text" name="lastName" id="lastName" placeholder="Apellido" autocomplete="off" required>
+            <input type="email" name="email" id="email" placeholder="Correo" autocomplete="off" required>
+            <input type="password" name="password" id="password" placeholder="Contraseña" autocomplete="off" required>
+            <select name="category" id="category" required>
+                <option value="" disabled selected>Categoría</option>
+                <option value="usuario">Usuario</option>
+                <option value="administrador">Administrador</option>
+            </select>
+            <input type="file" name="image" id="image" accept="image/*" required>
+            <div class="checkbox-form">
+                <input type="checkbox" name="terminos" id="terminos" required>
+                <label for="terminos">Acepto los términos y condiciones</label>
+            </div>
+            <hr>
+            <button type="submit" id="registrar">Registrarme</button>
+            <a href="/user/login">Inicia sesión</a>
+        </form>
+        <script src="/js/frontend-userValidation.js"></script>
+        <script src="/js/formEvent.js"></script>
+    </main>
+    <%- include('../partials/footer') %>
 </body>
-
 </html>

@@ -1,100 +1,125 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Validación del formulario de registro
+
     const registerForm = document.getElementById('registerForm');
+
     if (registerForm) {
-        registerForm.addEventListener('submit', function(event) {
+        registerForm.addEventListener('submit', async function(event) {
             event.preventDefault();
             const firstName = document.getElementById('firstName').value.trim();
             const lastName = document.getElementById('lastName').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
             const image = document.getElementById('image').files[0];
-            const errorMessages = [];
+            const validationMessage = [];
 
             // Validaciones
             if (firstName.length < 2) {
-                errorMessages.push('El nombre debe tener al menos 2 caracteres.');
+                validationMessage.push('El nombre debe tener al menos 2 caracteres.');
             }
 
             if (lastName.length < 2) {
-                errorMessages.push('El apellido debe tener al menos 2 caracteres.');
+                validationMessage.push('El apellido debe tener al menos 2 caracteres.');
             }
 
             if (!email) {
-                errorMessages.push('El email es requerido.');
+                validationMessage.push('El email es requerido.');
             } else if (!/\S+@\S+\.\S+/.test(email)) {
-                errorMessages.push('Debe ser un email válido.');
+                validationMessage.push('Debe ser un email válido.');
             }
 
             if (password.length < 8) {
-                errorMessages.push('La contraseña debe tener al menos 8 caracteres.');
+                validationMessage.push('La contraseña debe tener al menos 8 caracteres.');
             } else {
                 if (!/[a-z]/.test(password)) {
-                    errorMessages.push('La contraseña debe contener al menos una letra minúscula.');
+                    validationMessage.push('La contraseña debe contener al menos una letra minúscula.');
                 }
                 if (!/[A-Z]/.test(password)) {
-                    errorMessages.push('La contraseña debe contener al menos una letra mayúscula.');
+                    validationMessage.push('La contraseña debe contener al menos una letra mayúscula.');
                 }
                 if (!/\d/.test(password)) {
-                    errorMessages.push('La contraseña debe contener al menos un número.');
+                    validationMessage.push('La contraseña debe contener al menos un número.');
                 }
                 if (!/[@$!%*?&]/.test(password)) {
-                    errorMessages.push('La contraseña debe contener al menos un carácter especial.');
+                    validationMessage.push('La contraseña debe contener al menos un carácter especial.');
                 }
             }
 
             if (!image) {
-                errorMessages.push('La imagen es requerida.');
+                validationMessage.push('La imagen es requerida.');
             } else {
                 const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
                 if (!validImageTypes.includes(image.type)) {
-                    errorMessages.push('El archivo debe ser una imagen válida (JPG, JPEG, PNG, GIF).');
+                    validationMessage.push('El archivo debe ser una imagen válida (JPG, JPEG, PNG, GIF).');
                 }
             }
 
             // Mostrar mensajes de error o enviar el formulario
-            const errorContainer = document.getElementById('errorMessages');
-            errorContainer.innerHTML = '';
-            if (errorMessages.length > 0) {
-                errorMessages.forEach(message => {
+            const messageContainer = document.getElementById('validationMessage');
+            messageContainer.innerHTML = '';
+            if (validationMessage.length > 0) {
+                validationMessage.forEach(message => {
                     const errorElement = document.createElement('p');
                     errorElement.textContent = message;
-                    errorContainer.appendChild(errorElement);
+                    messageContainer.style.color = "red";
+                    messageContainer.appendChild(errorElement);
                 });
             } else {
-                registerForm.submit();
+                try {
+                    const formData = new FormData(registerForm);
+                    const response = await fetch(registerForm.action, {
+                        method: registerForm.method,
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        messageContainer.style.color = 'green';
+                        messageContainer.textContent = 'Usuario registrado exitosamente.';
+                        registerForm.reset();
+                    } else {
+                        const errorElement = document.createElement('p');
+                        errorElement.textContent = 'Ocurrió un error al registrar el usuario.';
+                        messageContainer.style.color = 'red';
+                        messageContainer.appendChild(errorElement);
+                    }
+                } catch (error) {
+                    const errorElement = document.createElement('p');
+                    errorElement.textContent = 'Ocurrió un error al registrar el usuario.';
+                    messageContainer.style.color = 'red';
+                    messageContainer.appendChild(errorElement);
+                }
             }
         });
     }
 
     // Validación del formulario de inicio de sesión
     const loginForm = document.getElementById('loginForm');
+
     if (loginForm) {
         loginForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
-            const errorMessages = [];
+            const validationMessage = [];
 
             // Validaciones
             if (!email) {
-                errorMessages.push('El email es requerido.');
+                validationMessage.push('El email es requerido.');
             } else if (!/\S+@\S+\.\S+/.test(email)) {
-                errorMessages.push('Debe ser un email válido.');
+                validationMessage.push('Debe ser un email válido.');
             }
 
             if (!password) {
-                errorMessages.push('La contraseña es requerida.');
+                validationMessage.push('La contraseña es requerida.');
             }
 
             // Mostrar mensajes de error o enviar el formulario
-            const errorContainer = document.getElementById('errorMessages');
-            errorContainer.innerHTML = '';
-            if (errorMessages.length > 0) {
-                errorMessages.forEach(message => {
+            const messageContainer = document.getElementById('validationMessage');
+            messageContainer.innerHTML = '';
+            if (validationMessage.length > 0) {
+                validationMessage.forEach(message => {
                     const errorElement = document.createElement('p');
                     errorElement.textContent = message;
-                    errorContainer.appendChild(errorElement);
+                    messageContainer.appendChild(errorElement);
                 });
             } else {
                 loginForm.submit();
@@ -104,58 +129,89 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Validación del formulario de edición de usuario
     const editForm = document.getElementById('editForm');
+
     if (editForm) {
-        editForm.addEventListener('submit', function(event) {
+        editForm.addEventListener('submit', async function(event) {
             event.preventDefault();
             const firstName = document.getElementById('firstName').value.trim();
             const lastName = document.getElementById('lastName').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
-            const errorMessages = [];
+            const validationMessage = [];
 
             // Validaciones
             if (firstName.length < 2) {
-                errorMessages.push('El nombre debe tener al menos 2 caracteres.');
+                validationMessage.push('El nombre debe tener al menos 2 caracteres.');
             }
 
             if (lastName.length < 2) {
-                errorMessages.push('El apellido debe tener al menos 2 caracteres.');
+                validationMessage.push('El apellido debe tener al menos 2 caracteres.');
             }
 
             if (!email) {
-                errorMessages.push('El email es requerido.');
+                validationMessage.push('El email es requerido.');
             } else if (!/\S+@\S+\.\S+/.test(email)) {
-                errorMessages.push('Debe ser un email válido.');
+                validationMessage.push('Debe ser un email válido.');
             }
 
-            if (password.length < 8) {
-                errorMessages.push('La contraseña debe tener al menos 8 caracteres.');
-            } else {
+            if (password && password.length < 8) {
+                validationMessage.push('La contraseña debe tener al menos 8 caracteres.');
+            } else if (password) { // Validaciones de contraseña solo si hay contraseña ingresada
                 if (!/[a-z]/.test(password)) {
-                    errorMessages.push('La contraseña debe contener al menos una letra minúscula.');
+                    validationMessage.push('La contraseña debe contener al menos una letra minúscula.');
                 }
                 if (!/[A-Z]/.test(password)) {
-                    errorMessages.push('La contraseña debe contener al menos una letra mayúscula.');
+                    validationMessage.push('La contraseña debe contener al menos una letra mayúscula.');
                 }
                 if (!/\d/.test(password)) {
-                    errorMessages.push('La contraseña debe contener al menos un número.');
+                    validationMessage.push('La contraseña debe contener al menos un número.');
                 }
                 if (!/[@$!%*?&]/.test(password)) {
-                    errorMessages.push('La contraseña debe contener al menos un carácter especial.');
+                    validationMessage.push('La contraseña debe contener al menos un carácter especial.');
+                }
+            }
+
+            if (image) {
+                const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                if (!validImageTypes.includes(image.type)) {
+                    validationMessage.push('El archivo debe ser una imagen válida (JPG, JPEG, PNG, GIF).');
                 }
             }
 
             // Mostrar mensajes de error o enviar el formulario
-            const errorContainer = document.getElementById('errorMessages');
-            errorContainer.innerHTML = '';
-            if (errorMessages.length > 0) {
-                errorMessages.forEach(message => {
+            const messageContainer = document.getElementById('validationMessage');
+            messageContainer.innerHTML = '';
+            if (validationMessage.length > 0) {
+                validationMessage.forEach(message => {
                     const errorElement = document.createElement('p');
                     errorElement.textContent = message;
-                    errorContainer.appendChild(errorElement);
+                    messageContainer.style.color = "red";
+                    messageContainer.appendChild(errorElement);
                 });
             } else {
-                editForm.submit();
+                try {
+                    const formData = new FormData(editForm);
+                    const response = await fetch(editForm.action, {
+                        method: editForm.method,
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        messageContainer.style.color = 'green';
+                        messageContainer.textContent = 'Usuario editado exitosamente.';
+                        editForm.reset();
+                    } else {
+                        const errorElement = document.createElement('p');
+                        errorElement.textContent = 'Ocurrió un error al editar el usuario.';
+                        messageContainer.style.color = 'red';
+                        messageContainer.appendChild(errorElement);
+                    }
+                } catch (error) {
+                    const errorElement = document.createElement('p');
+                    errorElement.textContent = 'Ocurrió un error al editar el usuario.';
+                    messageContainer.style.color = 'red';
+                    messageContainer.appendChild(errorElement);
+                }
             }
         });
     }

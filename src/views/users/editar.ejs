@@ -10,20 +10,13 @@ stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
     <%- include('../partials/header') %>
     <main>
       <form id="editForm" class="registro" action="/user/<%= usuario.id %>?_method=PUT" method="POST">
-        <div id="errorMessages"></div>
+        <div id="validationMessage"></div>
         <h2>Editar usuario</h2>
         <input type="text" name="firstName" id="firstName" placeholder="Nombre" value="<%= usuario.firstName %>" autocomplete="off" required>
         <input type="text" name="lastName" id="lastName" placeholder="Apellido" value="<%= usuario.lastName %>" autocomplete="off" required>
         <input type="email" name="email" id="email" placeholder="Correo" value="<%= usuario.email %>" autocomplete="off" required>
-        <input type="password" name="password" id="password" placeholder="Contraseña" value="<%= usuario.password %>" autocomplete="off" required>
-  
-        <div class="terminos">
-          <input type="checkbox" name="terminos" id="terminos" <%= usuario.terminos ? 'checked' : '' %> required>
-          <label for="terminos">Acepto los términos y condiciones</label>
-        </div>
-  
+        <input type="password" name="password" id="password" placeholder="Contraseña" value="<%= usuario.password %>" autocomplete="off" required> 
         <hr>
-  
         <button type="submit" id="registrar">Guardar Cambios</button>
       </form>
       <script src="/js/frontend-userValidation.js"></script>

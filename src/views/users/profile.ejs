@@ -15,10 +15,11 @@ stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
           <h2>ID: <%= user.id %></h2>
           <h2>Email: <%= user.email %></h2>
           <pre>datos completos: <%= JSON.stringify(user, null, 2) %></pre>
+          <h1>USER IMAGE: <%= user.image %></h1>
 
           <% if (user.image) { %>
             <h2>Foto de Perfil:</h2>
-            <img src="/uploads/<%= user.image %>" alt="Foto de Perfil">
+            <img src="/images/users/<%= user.image %>" alt="Foto de Perfil">
           <% } else { %>
             <p>No hay foto de perfil disponible.</p>
           <% } %>

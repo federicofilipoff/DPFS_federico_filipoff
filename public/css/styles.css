@@ -26,19 +26,10 @@ html {
     background-size: var(--s) var(--s), calc(var(--s)/5) calc(var(--s)/5);
   }
 
-html, body {
-    height: 100%;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
 main {
     display: flex;
     justify-content: center;
+    margin: 25px;
     flex: 1;
 }
 
@@ -46,11 +37,16 @@ a,
 svg,
 button,
 .articulo {
-    transition: ease 0.35s
+    transition: ease 0.35s;
 }
 
 a {
     text-decoration: none;
+}
+
+header a,
+footer a {
+    color: white;
 }
 
 button {
@@ -70,8 +66,7 @@ button:hover {
 header {
     top: 0;
     position: sticky;
-    /* position: fixed; */
-    background-image: linear-gradient(to right, white, var(--primary-color));
+    background-color: black;
     z-index: 1000;
 }
 
@@ -88,11 +83,6 @@ nav img {
     height: auto;
 }
 
-nav ul {
-    display: flex;
-    gap: 15px;
-}
-
 #search-form {
     display: flex;
     border-radius: 15px;
@@ -102,13 +92,26 @@ nav ul {
 #search-input {
     padding-left: 15px;
     border: none;
+    width: 100px;
+    height: 36px;
 }
 
-#search-button {
+#search-button,
+#menu-icon {
     display: flex;
     align-items: center;
     padding: 5px;
     border: none;
+}
+
+#menu-icon {
+    background-color: black;
+    color: white;
+    font-size: 30px;
+}
+
+.menu a {
+    gap: 25px;
 }
 
 /* Estilos del PIE DE PAGINA */
@@ -121,6 +124,7 @@ footer {
     background-color: black;
     color: var(--secondary-color);
     padding: 20px;
+    z-index: 1000;
 }
 
 .footer-info,
@@ -139,45 +143,20 @@ footer {
     margin-top: 10px;
 }
 
-footer a {
-    color: white;
-}
-
 footer svg:hover {
     transform: translateY(2.5px);
 }
 
-/* DISEÑO RESPONSIVO */
-/* CELULAR */
 @media (max-width: 769px) {
-
-    /* Estilos del menú de navegación */
-    nav {
-        flex: none;
-    }
 
     nav img {
         max-height: 40px;
         margin: 0 15px;
     }
 
-    #search-input {
-        width: 100px;
-    }
-
-    #carrito,
-    #usuario {
-        display: none;
-    }
-
 }
 
-/* TABLET */
 @media (min-width: 770px) and (max-width: 1023px) {
-
-    #menu {
-        display: none;
-    }
 
     nav img {
         max-height: 50px;
@@ -189,16 +168,48 @@ footer svg:hover {
 
 }
 
-/* MONITOR */
+@media (max-width: 1023px) {
+    .menu {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.85);
+        overflow-x: hidden;
+        transition: ease 0.5s;
+        padding-top: 50px;
+    }
+
+    .menu a {
+        padding: 10px 15px;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+    }
+      
+    .menu a:hover {
+        background-color: #575757;
+    }
+}
+
 @media (min-width: 1024px) {
 
+    #menu-icon {
+        display: none;
+    }
+
     #menu {
+        display: flex;
+        gap: 15px;
+    }
+
+    .icon-text {
         display: none;
     }
 
     #search-input {
-        width: 500px;
-        height: 36px;
+        width: 400px;
     }
 
     footer {
