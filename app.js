@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
 const path = require('path');
+const session = require('express-session');
 
 // ----------------------------------------------------------------------------
 // CONFIGURACIONES
@@ -54,6 +55,18 @@ const productRoutes = require(productRoutesPath);
 // Importar MODELOS de datos
 const User = require(UserPath);
 const Product = require(ProductPath);
+
+// ----------------------------------------------------------------------------
+app.use(session({
+  secret: 'secreto',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { 
+      httpOnly: true,
+      secure: false,
+      maxAge: 30 * 24 * 60 * 60 * 1000
+      }
+}));
 
 // ----------------------------------------------------------------------------
 // Crear TABLA si no existe

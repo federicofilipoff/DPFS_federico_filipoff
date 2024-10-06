@@ -30,22 +30,16 @@ const sessionToViewMiddleware = (req, res, next) => {
 
 // Autenticar sesion de usuario
 const authMiddleware = (req, res, next) => {
-    const token = req.cookies.token;
-    if (!token) {
-        req.isAuthenticated = false;
-        return next();
-    }
-
-  jwt.verify(token, 'secreto', (err, decoded) => {
-    if (err) {
-        req.isAuthenticated = false;
-    } else {
-        req.isAuthenticated = true;
-        req.user = decoded;
-    }
-    next();
-});
-}
+  // Check if the user is in the session
+  if (req.session.user) {
+      req.isAuthenticated = true; // User is authenticated
+      req.user = req.session.user; // Set the user object
+  } else {
+      req.isAuthenticated = false; // User is not authenticated
+  }
+  
+  next(); // Proceed to the next middleware or route handler
+};
 
 // Exportar middlewares
 module.exports = {

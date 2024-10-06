@@ -123,17 +123,24 @@ exports.iniciarSesion = async function (req, res) {
             // Si la contraseña es incorrecta, redirigir al login con un error
             return res.render('users/login', { error: 'Contraseña incorrecta' });
         }
+
+        // Store user info in the session
+        req.session.user = usuario;
+
+        // Set cookie options based on remember me
+        req.session.cookie.maxAge = remember ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000;
     
         // Si las credenciales son correctas, generar el token JWT
-        const token = jwt.sign({
-            id: usuario.id,
-            firstName: usuario.firstName,
-            lastName: usuario.lastName,
-            email: usuario.email
-        }, 'secreto', { expiresIn: remember ? '30d' : '1d' });
+        // const token = jwt.sign({
+        //     id: usuario.id,
+        //     firstName: usuario.firstName,
+        //     lastName: usuario.lastName,
+        //     email: usuario.email,
+        //     image: usuario.image
+        // }, 'secreto', { expiresIn: remember ? '30d' : '1d' });
 
-        // Guardar el token en una cookie
-        res.cookie('token', token, { httpOnly: true, maxAge: remember ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000 });
+        // // Guardar el token en una cookie
+        // res.cookie('token', token, { httpOnly: true, maxAge: remember ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000 });
 
         // Redirigir al home (inicio) en caso de éxito
         return res.redirect('/');
@@ -142,18 +149,53 @@ exports.iniciarSesion = async function (req, res) {
         return res.status(500).send('Error interno del servidor');
     }
 };
+
+
+
+// exports.iniciarSesion = async function (req, res) {
+//     const { email, password, remember } = req.body;
+
+//     // Example user validation (replace with your actual logic)
+//     const user = { id: 1, firstName: 'John', lastName: 'Doe', email }; // Mock user
+
+//     // If user is authenticated
+//     if (user) {
+//         // Store user info in the session
+//         req.session.user = user;
+
+//         // Set cookie options based on remember me
+//         req.session.cookie.maxAge = remember ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000;
+
+//         return res.status(200).json({ message: 'Login successful' });
+//     }
+
+//     return res.status(401).json({ message: 'Invalid credentials' });
+// };
+
+
   
 // PERFIL DEL USUARIO
 exports.perfilUsuario = async function (req, res) {
-    if (!req.user) {
+    if (!req.session.user) {
         return res.redirect('/user/login');
     }
 
-    res.render(path.join(__dirname, '..', 'views', 'users', 'profile.ejs'), { user: req.user });
+    res.render(path.join(__dirname, '..', 'views', 'users', 'profile.ejs'), { user: req.session.user });
 };
 
 //PROCESAR LOGOUT
+
+// exports.cerrarSesion = async function (req, res) {
+//     res.clearCookie('token');
+//     res.redirect('/');
+// };
+
 exports.cerrarSesion = async function (req, res) {
-    res.clearCookie('token');
-    res.redirect('/');
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).json({ message: 'Error al cerrarar sesión' });
+        }
+        res.clearCookie('connect.sid'); // Clear the session cookie
+        res.redirect('/');
+});
 };
