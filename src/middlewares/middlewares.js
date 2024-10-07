@@ -30,15 +30,19 @@ const sessionToViewMiddleware = (req, res, next) => {
 
 // Autenticar sesion de usuario
 const authMiddleware = (req, res, next) => {
-  // Check if the user is in the session
-  if (req.session.user) {
-      req.isAuthenticated = true; // User is authenticated
-      req.user = req.session.user; // Set the user object
+if (req.session.user) {
+    return next(); // User is authenticated
   } else {
-      req.isAuthenticated = false; // User is not authenticated
+    return res.redirect('/user/login'); // Redirect to login if not authenticated
   }
-  
-  next(); // Proceed to the next middleware or route handler
+};
+
+const guestMiddleware = (req, res, next) => {
+  if (req.session.user) {
+    return res.redirect('/user/profile');
+  } else {
+    return next();
+  }
 };
 
 // Exportar middlewares
@@ -50,4 +54,5 @@ module.exports = {
   sessionMiddleware,
   sessionToViewMiddleware,
   authMiddleware,
+  guestMiddleware
 };

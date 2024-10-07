@@ -26,7 +26,6 @@ const {
   cookieParserMiddleware,
   sessionMiddleware,
   sessionToViewMiddleware,
-  authMiddleware,
 } = require(middlewaresPath);
 
 // USAR LOS MIDDLEWARES
@@ -36,11 +35,10 @@ app.use(methodOverrideMiddleware);
 app.use(cookieParserMiddleware);
 app.use(sessionMiddleware);
 app.use(sessionToViewMiddleware);
-app.use(authMiddleware);
 
 // Middleware global: útil para pasar la información del usuario a todas las vistas
 app.use((req, res, next) => {
-  res.locals.user = req.user || null;
+  res.locals.user = req.session.user || null;
   next();
 });
 

@@ -1,0 +1,36 @@
+main {
+    justify-content: flex-start;
+}
+
+.perfil {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.perfil img {
+    width: 200px;
+    height: 200px;
+    border: 2px solid black;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px 0px;
+}
+
+.datos-usuario {
+    display: flex;
+    flex-direction: column;
+}
+
+.datos-usuario li {
+    margin-top: 10px;
+}
+
+.cerrar-sesion a {
+    color: black;
+    font-size: 12px;
+    transition: ease 0.1s;
+}
+
+.cerrar-sesion a:hover {
+    border-bottom: 2px solid orangered;
+}

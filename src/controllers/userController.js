@@ -1,7 +1,5 @@
 const path = require('path')
 const User = require(path.join('..', 'models', 'User'));
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
 // [1] LEER USUARIOS
 exports.visualizarUsuarios = async function (req, res) {
@@ -31,31 +29,6 @@ exports.formularioCrearUsuario = async function (req, res) {
     res.render(path.join(__dirname, '..', 'views', 'users', 'register.ejs'))
 };
 
-// [4] CREAR USUARIO
-exports.crearUsuario = async function (req, res) {
-    try {
-        const { firstName, lastName, email, password, category } = req.body;
-        const image = req.file ? req.file.filename : null;
-
-        // Crear un nuevo usuario
-        const nuevoUsuario = await User.create({
-            firstName,
-            lastName,
-            email,
-            password,
-            category,
-            image
-        });
-
-        res.status(201).json({ success: true, message: 'Usuario registrado exitosamente', usuario: nuevoUsuario });
-
-    } catch (err) {
-        console.error('Error al crear el usuario:', err);
-        res.status(500).json({ success: false, message: 'Error al registrar el usuario', error: err.message });
-    }
-
-};
-
 // [5] FORMULARIO EDITAR USUARIO
 exports.formularioEditarUsuario = async function (req, res) {
     try {
@@ -72,10 +45,7 @@ exports.formularioEditarUsuario = async function (req, res) {
 // [6] EDITAR USUARIO
 exports.editarUsuario = async function (req, res) {
     try {
-        const usuario = await User.findByPk(req.params.id);
-        if (!usuario) {
-            return res.status(404).send('Usuario no encontrado');
-        }
+        const usuario = req.session.user;
         const { firstName, lastName, email, password, category } = req.body;
         await usuario.update({ firstName, lastName, email, password, category });
         res.json(usuario);
@@ -103,99 +73,7 @@ exports.formularioAccesoUsuario = async function (req, res) {
     res.render(path.join(__dirname, '..', 'views', 'users', 'login.ejs'))
 };
 
-// PROCESAR LOGIN (POST)
-exports.iniciarSesion = async function (req, res) {
-    const { email, password, remember } = req.body;
-    
-    try {
-        // Buscar al usuario en la base de datos
-        const usuario = await User.findOne({ where: { email } });
-    
-        if (!usuario) {
-            // Si no se encuentra el usuario, redirigir al login con un error
-            return res.render('users/login', { error: 'Usuario no encontrado' });
-        }
-    
-        // Verificar que la contraseña sea correcta
-        const isMatch = await bcrypt.compare(password, usuario.password);
-    
-        if (!isMatch) {
-            // Si la contraseña es incorrecta, redirigir al login con un error
-            return res.render('users/login', { error: 'Contraseña incorrecta' });
-        }
-
-        // Store user info in the session
-        req.session.user = usuario;
-
-        // Set cookie options based on remember me
-        req.session.cookie.maxAge = remember ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000;
-    
-        // Si las credenciales son correctas, generar el token JWT
-        // const token = jwt.sign({
-        //     id: usuario.id,
-        //     firstName: usuario.firstName,
-        //     lastName: usuario.lastName,
-        //     email: usuario.email,
-        //     image: usuario.image
-        // }, 'secreto', { expiresIn: remember ? '30d' : '1d' });
-
-        // // Guardar el token en una cookie
-        // res.cookie('token', token, { httpOnly: true, maxAge: remember ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000 });
-
-        // Redirigir al home (inicio) en caso de éxito
-        return res.redirect('/');
-    } catch (error) {
-        console.error('Error interno del servidor:', error);
-        return res.status(500).send('Error interno del servidor');
-    }
-};
-
-
-
-// exports.iniciarSesion = async function (req, res) {
-//     const { email, password, remember } = req.body;
-
-//     // Example user validation (replace with your actual logic)
-//     const user = { id: 1, firstName: 'John', lastName: 'Doe', email }; // Mock user
-
-//     // If user is authenticated
-//     if (user) {
-//         // Store user info in the session
-//         req.session.user = user;
-
-//         // Set cookie options based on remember me
-//         req.session.cookie.maxAge = remember ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000;
-
-//         return res.status(200).json({ message: 'Login successful' });
-//     }
-
-//     return res.status(401).json({ message: 'Invalid credentials' });
-// };
-
-
-  
 // PERFIL DEL USUARIO
 exports.perfilUsuario = async function (req, res) {
-    if (!req.session.user) {
-        return res.redirect('/user/login');
-    }
-
-    res.render(path.join(__dirname, '..', 'views', 'users', 'profile.ejs'), { user: req.session.user });
-};
-
-//PROCESAR LOGOUT
-
-// exports.cerrarSesion = async function (req, res) {
-//     res.clearCookie('token');
-//     res.redirect('/');
-// };
-
-exports.cerrarSesion = async function (req, res) {
-    req.session.destroy(err => {
-        if (err) {
-            return res.status(500).json({ message: 'Error al cerrarar sesión' });
-        }
-        res.clearCookie('connect.sid'); // Clear the session cookie
-        res.redirect('/');
-});
+    res.render(path.join(__dirname, '..', 'views', 'users', 'profile.ejs'), { user: req.session.user });
 };

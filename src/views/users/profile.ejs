@@ -2,30 +2,43 @@
 <html lang="es">
 
 <%- include('../partials/head', { title: 'Perfil usuario',
-stylesheets: ['/css/styles.css', '/css/form.css'] }) %>
+stylesheets: ['/css/styles.css', '/css/perfil.css'] }) %>
 
 <body>
   <%- include('../partials/header') %>
       <main>
-        <ul>
-          <h1>HOLA USUARIO</h1>
-          <h2>Perfil de <%= user.firstName %> <%= user.lastName %></h2>
-          <h2>NOMBRE: <%= user.firstName %></h2>
-          <h2>APELLIDO: <%= user.lastName %></h2>
-          <h2>ID: <%= user.id %></h2>
-          <h2>Email: <%= user.email %></h2>
-          <pre>datos completos: <%= JSON.stringify(user, null, 2) %></pre>
-          <h1>USER IMAGE: <%= user.image %></h1>
+        <div class="perfil">
+          <div>
+            <% if (user.image) { %>
+              <img src="/images/users/<%= user.image %>" alt="Foto de Perfil">
+            <% } else { %>
+              <p>No hay foto de perfil disponible.</p>
+            <% } %>
+          </div>
+          <div class="datos-usuario">
+            <h2>Datos Personales</h2>
+            <ul>
+              <li>
+                <!-- <span>ID Cliente:</span> <%= user.id %> -->
+                <b>ID Cliente:</b> <%= user.id %>
+              </li>
+              <li>
+                Nombre y apellido: <%= user.firstName %> <%= user.lastName %>
+              </li>
+              <li>
+                Correo: <%= user.email %>
+              </li>
+              <li>
+                <!-- Podría condicionarlo, si es admin mostrarlo y sino no. -->
+                Categoría: <%= user.category %>
+              </li>
+              <li class="cerrar-sesion">
+                <a href="/user/logout">Cerrar Sesión</a>
+              </li>
+            </ul>
+        </div>
+      </div>
 
-          <% if (user.image) { %>
-            <h2>Foto de Perfil:</h2>
-            <img src="/images/users/<%= user.image %>" alt="Foto de Perfil">
-          <% } else { %>
-            <p>No hay foto de perfil disponible.</p>
-          <% } %>
-
-          <a href="/user/logout">Cerrar Sesión</a>
-        </ul>
       </main>
   <%- include('../partials/footer') %>
 </body>

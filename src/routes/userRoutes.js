@@ -3,8 +3,9 @@ const router = express.Router();
 const path = require('path');
 const multer = require('multer');
 const userController = require(path.join(__dirname, '..', 'controllers', 'userController'));
+const authController = require(path.join(__dirname, '..', 'controllers', 'authController'));
+const middlewares = require(path.join(__dirname, '..', 'middlewares', 'middlewares'));
 const { validateLogin, validateRegister } = require(path.join(__dirname, '..', 'validators', 'userValidator'));
-
 
 // ----------------------------------------------------------------------------
 // Configuración de Multer
@@ -22,14 +23,14 @@ upload.single('image');
 // RUTA DE USUARIOS
 // Respetar orden de rutas: rutas específicas vs rutas dinámicas
 router.get('/create', userController.formularioCrearUsuario);
-router.get('/login', userController.formularioAccesoUsuario);
-router.post('/login', validateLogin, userController.iniciarSesion)
-router.get('/profile', userController.perfilUsuario)
-router.get('/logout', userController.cerrarSesion)
-router.post('/', upload.single('image'), validateRegister, userController.crearUsuario);
+router.get('/login', middlewares.guestMiddleware, userController.formularioAccesoUsuario);
+router.post('/login', validateLogin, authController.iniciarSesion);
+router.get('/profile', middlewares.authMiddleware, userController.perfilUsuario);
+router.get('/logout', authController.cerrarSesion);
+router.post('/', upload.single('image'), validateRegister, authController.crearUsuario);
 router.get('/', userController.visualizarUsuarios);
 router.get('/:id', userController.visualizarUsuario);
-router.put('/:id', validateRegister, userController.editarUsuario);
+router.put('/:id', middlewares.authMiddleware, validateRegister, userController.editarUsuario);
 router.delete('/:id', userController.eliminarUsuario);
 router.get('/:id/edit', userController.formularioEditarUsuario);
 
