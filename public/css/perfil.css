@@ -6,14 +6,18 @@ main {
     display: flex;
     align-items: center;
     gap: 50px;
+    background-color: white;
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px 0px;
+    width: 100%;
 }
 
 .perfil img {
     width: 200px;
     height: 200px;
-    border: 2px solid black;
     border-radius: 50%;
-    box-shadow: 0px 0px 10px 0px;
+    box-shadow: 0px 0px 15px 0px;
 }
 
 .datos-usuario {
@@ -25,12 +29,21 @@ main {
     margin-top: 10px;
 }
 
+.campo {
+    font-weight: bold;
+}
+
+.cerrar-sesion {
+    display: flex;
+    gap: 25px;
+}
+
 .cerrar-sesion a {
-    color: black;
+    color: crimson;
     font-size: 12px;
-    transition: ease 0.1s;
+    font-weight: 500;
 }
 
 .cerrar-sesion a:hover {
-    border-bottom: 2px solid orangered;
+    border-bottom: 1px solid crimson;
 }

@@ -30,9 +30,9 @@ router.get('/logout', authController.cerrarSesion);
 router.post('/', upload.single('image'), validateRegister, authController.crearUsuario);
 router.get('/', userController.visualizarUsuarios);
 router.get('/:id', userController.visualizarUsuario);
-router.put('/:id', middlewares.authMiddleware, validateRegister, userController.editarUsuario);
+router.put('/:id',  middlewares.authMiddleware, validateRegister, userController.editarUsuario);
 router.delete('/:id', userController.eliminarUsuario);
-router.get('/:id/edit', userController.formularioEditarUsuario);
+router.get('/:id/edit', middlewares.editUserMiddleware, userController.formularioEditarUsuario);
 
 // ----------------------------------------------------------------------------
 // Exportar rutas

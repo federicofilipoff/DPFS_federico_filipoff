@@ -20,20 +20,21 @@ stylesheets: ['/css/styles.css', '/css/perfil.css'] }) %>
             <ul>
               <li>
                 <!-- <span>ID Cliente:</span> <%= user.id %> -->
-                <b>ID Cliente:</b> <%= user.id %>
+                <span class="campo">ID Cliente:</span> <%= user.id %>
               </li>
               <li>
-                Nombre y apellido: <%= user.firstName %> <%= user.lastName %>
+                <span class="campo">Nombre y apellido: </span><%= user.firstName %> <%= user.lastName %>
               </li>
               <li>
-                Correo: <%= user.email %>
+                <span class="campo">Correo: </span><%= user.email %>
               </li>
               <li>
                 <!-- Podría condicionarlo, si es admin mostrarlo y sino no. -->
-                Categoría: <%= user.category %>
+                <span class="campo">Categoría: </span><%= user.category %>
               </li>
               <li class="cerrar-sesion">
                 <a href="/user/logout">Cerrar Sesión</a>
+                <a href="/user/<%= user.id %>/edit">Editar usuario</a>
               </li>
             </ul>
         </div>

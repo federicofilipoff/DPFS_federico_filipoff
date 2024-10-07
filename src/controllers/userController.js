@@ -1,7 +1,7 @@
 const path = require('path')
 const User = require(path.join('..', 'models', 'User'));
 
-// [1] LEER USUARIOS
+// LEER USUARIOS
 exports.visualizarUsuarios = async function (req, res) {
     try {
         const usuarios = await User.findAll();
@@ -11,7 +11,7 @@ exports.visualizarUsuarios = async function (req, res) {
     }
 };
 
-// [2] LEER USUARIO SEGÚN SU ID
+// LEER USUARIO SEGÚN SU ID
 exports.visualizarUsuario = async function (req, res) {
     try {
         const usuario = await User.findByPk(req.params.id);
@@ -24,12 +24,12 @@ exports.visualizarUsuario = async function (req, res) {
     }
 };
 
-// [3] FORMULARIO PARA CREAR USUARIO
+// FORMULARIO PARA CREAR USUARIO
 exports.formularioCrearUsuario = async function (req, res) {
     res.render(path.join(__dirname, '..', 'views', 'users', 'register.ejs'))
 };
 
-// [5] FORMULARIO EDITAR USUARIO
+// FORMULARIO EDITAR USUARIO
 exports.formularioEditarUsuario = async function (req, res) {
     try {
         const usuario = await User.findByPk(req.params.id);
@@ -42,7 +42,7 @@ exports.formularioEditarUsuario = async function (req, res) {
     }
 };
 
-// [6] EDITAR USUARIO
+// EDITAR USUARIO
 exports.editarUsuario = async function (req, res) {
     try {
         const usuario = req.session.user;
@@ -54,7 +54,7 @@ exports.editarUsuario = async function (req, res) {
     }
 };
 
-// [7] ELIMINAR USUARIO
+// ELIMINAR USUARIO
 exports.eliminarUsuario = async function (req, res) {
     try {
         const usuario = await User.findByPk(req.params.id);

@@ -2,7 +2,6 @@ const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
-const jwt = require('jsonwebtoken');
 
 // Middleware para procesar JSON y formularios
 const bodyParser = express.urlencoded({ extended: true });
@@ -31,9 +30,9 @@ const sessionToViewMiddleware = (req, res, next) => {
 // Autenticar sesion de usuario
 const authMiddleware = (req, res, next) => {
 if (req.session.user) {
-    return next(); // User is authenticated
+    return next();
   } else {
-    return res.redirect('/user/login'); // Redirect to login if not authenticated
+    return res.redirect('/user/login');
   }
 };
 
@@ -42,6 +41,21 @@ const guestMiddleware = (req, res, next) => {
     return res.redirect('/user/profile');
   } else {
     return next();
+  }
+};
+
+const editUserMiddleware = (req, res, next) => {
+  if (req.session.user) {
+    const id_usuario = req.session.user.id.toString();
+    if (id_usuario === req.params.id) {
+      return next();
+    } else {
+      return res.redirect(`/user/${id_usuario}/edit`);
+      // return res.status(403).send('Se requiere permiso para editar a otros usuarios.');
+    }
+  } else {
+
+    return res.redirect('/');
   }
 };
 
@@ -54,5 +68,6 @@ module.exports = {
   sessionMiddleware,
   sessionToViewMiddleware,
   authMiddleware,
-  guestMiddleware
+  guestMiddleware,
+  editUserMiddleware
 };
