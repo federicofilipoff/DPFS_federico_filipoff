@@ -91,41 +91,65 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Validación del formulario de inicio de sesión
-    const loginForm = document.getElementById('loginForm');
+    // // Validación del formulario de inicio de sesión
+    // const loginForm = document.getElementById('loginForm');
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const validationMessage = [];
+    // if (loginForm) {
+    //     loginForm.addEventListener('submit', async function(event) {
+    //         event.preventDefault();
+    //         const email = document.getElementById('email').value.trim();
+    //         const password = document.getElementById('password').value.trim();
+    //         const validationMessage = [];
 
-            // Validaciones
-            if (!email) {
-                validationMessage.push('El email es requerido.');
-            } else if (!/\S+@\S+\.\S+/.test(email)) {
-                validationMessage.push('Debe ser un email válido.');
-            }
+    //         // Validaciones
+    //         if (!email) {
+    //             validationMessage.push('El email es requerido.');
+    //         } else if (!/\S+@\S+\.\S+/.test(email)) {
+    //             validationMessage.push('Debe ser un email válido.');
+    //         }
 
-            if (!password) {
-                validationMessage.push('La contraseña es requerida.');
-            }
+    //         if (!password) {
+    //             validationMessage.push('La contraseña es requerida.');
+    //         }
 
-            // Mostrar mensajes de error o enviar el formulario
-            const messageContainer = document.getElementById('validationMessage');
-            messageContainer.innerHTML = '';
-            if (validationMessage.length > 0) {
-                validationMessage.forEach(message => {
-                    const errorElement = document.createElement('p');
-                    errorElement.textContent = message;
-                    messageContainer.appendChild(errorElement);
-                });
-            } else {
-                loginForm.submit();
-            }
-        });
-    }
+    //         // Mostrar mensajes de error o enviar el formulario
+    //         const messageContainer = document.getElementById('validationMessage');
+    //         messageContainer.innerHTML = '';
+    //         if (validationMessage.length > 0) {
+    //             validationMessage.forEach(message => {
+    //                 const errorElement = document.createElement('p');
+    //                 errorElement.textContent = message;
+    //                 messageContainer.style.color = 'red';
+    //                 messageContainer.appendChild(errorElement);
+    //             });
+    //         } else {
+    //             try {
+    //                 const formData = new FormData(loginForm);
+    //                 const response = await fetch(loginForm.action, {
+    //                     method: loginForm.method,
+    //                     body: formData
+    //                 });
+
+    //                 if (response.ok) {
+    //                     messageContainer.style.color = 'green';
+    //                     messageContainer.textContent = 'Inicio de sesión exitoso.';
+    //                     loginForm.reset();
+    //                 } else {
+    //                     const errorElement = document.createElement('p');
+    //                     console.log(response)
+    //                     errorElement.textContent = "ERROR 1"
+    //                     messageContainer.style.color = 'red';
+    //                     messageContainer.appendChild(errorElement);
+    //                 }
+    //             } catch (error) {
+    //                 const errorElement = document.createElement('p');
+    //                 errorElement.textContent = 'Ocurrió un error al iniciar sesión.';
+    //                 messageContainer.style.color = 'red';
+    //                 messageContainer.appendChild(errorElement);
+    //                 }
+    //             }
+    //         });
+    //     }
 
     // Validación del formulario de edición de usuario
     const editForm = document.getElementById('editForm');

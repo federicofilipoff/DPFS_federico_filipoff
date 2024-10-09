@@ -51,7 +51,6 @@ const editUserMiddleware = (req, res, next) => {
       return next();
     } else {
       return res.redirect(`/user/${id_usuario}/edit`);
-      // return res.status(403).send('Se requiere permiso para editar a otros usuarios.');
     }
   } else {
 

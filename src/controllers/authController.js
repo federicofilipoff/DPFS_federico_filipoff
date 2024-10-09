@@ -12,7 +12,7 @@ exports.iniciarSesion = async function (req, res) {
     
         if (!usuario) {
             // Si no se encuentra el usuario, redirigir al login con un error
-            return res.render('users/login', { error: 'Usuario no encontrado' });
+            return res.render('user/login', { error: 'Usuario no encontrado' });
         }
     
         // Verificar que la contraseña sea correcta
@@ -20,13 +20,13 @@ exports.iniciarSesion = async function (req, res) {
     
         if (!isMatch) {
             // Si la contraseña es incorrecta, redirigir al login con un error
-            return res.render('users/login', { error: 'Contraseña incorrecta' });
+            return res.render('user/login', { error: 'Contraseña incorrecta' });
         }
 
-        // Store user info in the session
+        // Almacenar informacion de la sesión del usuario
         req.session.user = usuario;
 
-        // Set cookie options based on remember me
+        // Configurar la cookie: recordar por tiempo determinado
         req.session.cookie.maxAge = remember ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000;
 
         // Redirigir al home (inicio) en caso de éxito
