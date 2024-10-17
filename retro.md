@@ -16,3 +16,22 @@ y realizable, sin abundar en detalles que podrían complicar labores futuras.
 
 ## Dejar de hacer
 ...
+
+# SPRINT 3
+
+## Comenzar a 
+Implementar EJS para simplificar el maquetado web.
+Buscar formas de reutilizar estilos (css).
+
+## Hacer más
+Enforcarme en las historias del usuario.
+Usar el tablero de trabajo.
+
+## Continuar haciendo
+Adaptar el maquetado web a los Sprint.
+
+## Hacer menos
+...
+
+## Dejar de hacer
+...

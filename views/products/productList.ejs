@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('../partials/head.ejs', {
+    title: 'Productos',
+    stylesheets: [
+        '../stylesheets/style.css',
+        '../stylesheets/layout.css',
+        '../stylesheets/productList.css'
+        ]
+    }) %>
+
+<body>
+    
+    <%- include('../partials/header.ejs') %>
+
+    <main>
+        <div class="product-list">
+            <% products.forEach(product => { %>
+                <div class="product-card">
+                    <h2><%= product.name %></h2>
+                    <img src="<%= product.image %>" alt="<%= product.name %>">
+                    <p><span class="campo">Descripción:</span> <%= product.description %></p>
+                    <p><span class="campo">Categoría:</span> <%= product.category %></p>
+                    <p><span class="campo">Colores:</span> <%= product.colors %></p>
+                    <p><span class="campo">Precio:</span> $<%= product.price %></p>
+                    <a href="/products/edit/<%= product.id %>">Editar</a>
+                </div>
+            <% }); %>
+        </div>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+
+</body>
+</html>

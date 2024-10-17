@@ -33,7 +33,7 @@ Considero que estos sitios cubren los aspectos básicos de una tienda virtual.
 # SPRINT 2
 
 ## Tablero de trabajo
-https://github.com/users/federicofilipoff/projects/2/views/1
+https://github.com/users/federicofilipoff/projects/2
 
 ## Aplicación Node.js + Express
 ### Modelo MVC
@@ -57,3 +57,19 @@ Creación de /controllers para separar la lógica de la definición de las rutas
 ### Modificación
 La Paleta de colores se eliminó de /public/design y se incluyeron
 los colores como variables en /public/stylesheets/variables.css
+
+
+# SPRINT 3
+
+## Tablero de trabajo
+https://github.com/users/federicofilipoff/projects/3
+
+## Entregables
+- Archivos parciales (head, header, footer, etc.)
+- Home
+- Listado de productos
+- Detalle del producto
+- Carrito de productos
+- Formulario de registro y login
+- Formulario de carga y edición de productos
+- Cada plantilla fue vinculada con su ruta y controlador

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('../partials/head.ejs', {
+    title: 'Producto',
+    stylesheets: [
+        '../stylesheets/style.css',
+        '../stylesheets/layout.css',
+        '../stylesheets/productDetail.css'
+        ]
+    }) %>
+
+<body>
+    
+    <%- include('../partials/header.ejs') %>
+
+    <main>
+        <section class="producto-detalle">
+            <div class="producto-imagen">
+            <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
+            </div>
+            <div class="producto-info">
+            <h1>Nombre del Producto</h1>
+            <p class="producto-descripcion">Descripción básicas</p>
+            <ul class="producto-caracteristicas">
+                <li>Característica 1: Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+                <li>Característica 2: Temporibus, veniam! Sed deleniti repudiandae quas</li>
+                <li>Característica 3: ...</li>
+            </ul>
+            <a href="https://redragon.es/products/best-seller/shrapnel-k589/" target="_blank">
+                <span class="producto-descripcion-oficial">Ver descripción oficial</span>
+            </a>
+            <p class="producto-precio">$ 55.555,55</p>
+            <button class="btn-comprar">Agregar al Carrito</button>
+            </div>
+        </section>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+
+</body>
+</html>

@@ -1,11 +1,67 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="es">
+
+<%- include('./partials/head.ejs', {
+    title: 'Inicio',
+    stylesheets: [
+        'stylesheets/style.css',
+        'stylesheets/layout.css',
+        'stylesheets/catalogo.css'
+        ]
+    }) %>
+
+<body>
+
+    <%- include('./partials/header.ejs') %>
+
+    <main class="catalogo">
+        <section>
+
+        </section>
+            <a href="/products/detail">
+                <article class="articulo">
+                    <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
+                    <h3>Signature Slim Keyboard K950</h3>
+                    <p class="marca">Redragon</p>
+                    <p class="precio">$55.555,55</p>
+                </article>
+            </a>
+            <a href="/products/detail">
+                <article class="articulo">
+                    <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
+                    <h3>Signature Slim Keyboard K950</h3>
+                    <p class="marca">Redragon</p>
+                    <p class="precio">$55.555,55</p>
+                </article>
+            </a>
+            <a href="/products/detail">
+                <article class="articulo">
+                    <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
+                    <h3>Signature Slim Keyboard K950</h3>
+                    <p class="marca">Redragon</p>
+                    <p class="precio">$55.555,55</p>
+                </article>
+            </a>
+            <a href="/products/detail">
+                <article class="articulo">
+                    <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
+                    <h3>Signature Slim Keyboard K950</h3>
+                    <p class="marca">Redragon</p>
+                    <p class="precio">$55.555,55</p>
+                </article>
+            </a>
+            <a href="/products/detail">
+                <article class="articulo">
+                    <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
+                    <h3>Signature Slim Keyboard K950</h3>
+                    <p class="marca">Redragon</p>
+                    <p class="precio">$55.555,55</p>
+                </article>
+            </a>
+        </section>
+    </main>
+
+    <%- include('./partials/footer.ejs') %>
+
+</body>
 </html>

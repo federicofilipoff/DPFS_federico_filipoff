@@ -5,7 +5,9 @@ var router = express.Router();
 var userController = require('../controllers/userController')
 
 // Rutas
-router.get('/', userController.index);
-router.get('/:id', userController.show);
+// router.get('/', userController.index);
+// router.get('/:id', userController.show);
+router.get('/login', userController.login);
+router.get('/register', userController.register);
 
 module.exports = router;

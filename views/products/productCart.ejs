@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('../partials/head.ejs', {
+    title: 'Carrito',
+    stylesheets: [
+        '../stylesheets/style.css',
+        '../stylesheets/layout.css',
+        '../stylesheets/productCart.css'
+        ]
+    }) %>
+
+<body>
+    
+    <%- include('../partials/header.ejs') %>
+
+    <main>
+        <section class="carrito">
+            <h2>Productos en tu Carrito</h2>
+            <div class="producto">
+                <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
+                <div class="descripcion">
+                    <h3>Nombre del Producto</h3>
+                    <p>Precio: $55.000,55</p>
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" id="cantidad" name="cantidad" value="1" min="1">
+                    <button class="eliminar">Eliminar</button>
+                </div>
+            </div>
+            <hr>
+            <div class="producto">
+                <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
+                <div class="descripcion">
+                    <h3>Nombre del Producto</h3>
+                    <p>Precio: $55.000,55</p>
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" id="cantidad" name="cantidad" value="1" min="1">
+                    <button class="eliminar">Eliminar</button>
+                </div>
+            </div>
+            <hr>
+            <div class="producto">
+                <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
+                <div class="descripcion">
+                    <h3>Nombre del Producto</h3>
+                    <p>Precio: $55.000,55</p>
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" id="cantidad" name="cantidad" value="1" min="1">
+                    <button class="eliminar">Eliminar</button>
+                </div>
+            </div>
+            <hr>
+            <div class="total">
+                <h3>Total: $XXX.XX</h3>
+                <button class="finalizar">Finalizar Compra</button>
+            </div>
+        </section>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+
+    </body>
+    </html>
