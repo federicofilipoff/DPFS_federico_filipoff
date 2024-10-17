@@ -1,0 +1,81 @@
+/* Importar variables */
+@import url('variables.css');
+ 
+.producto-detalle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--color-gris-claro);
+    border-radius: var(--border-radius);;
+    margin: 20px;
+    max-width: 800px;
+    box-shadow: var(--box-shadow);
+    gap: 20px;
+}
+  
+.producto-imagen img {
+    width: 300px;
+}
+  
+.producto-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+  
+.producto-info h1 {
+    color: var(--color-azul-marino);
+    font-weight: bold;
+}
+  
+.producto-descripcion {
+    color: var(--color-azul-marino);
+    font-weight: bold;
+}
+
+.producto-caracteristicas {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.producto-descripcion-oficial {
+    color: var(--color-cian);
+    font-weight: bold;
+}
+
+.producto-descripcion-oficial:hover{
+    text-decoration: underline;
+}
+  
+.producto-precio {
+    color: var(--color-cian);
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.btn-comprar {
+    background-color: var(--color-azul-marino);
+    color: white;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    font-size: 1em;
+}
+  
+.btn-comprar:hover {
+    background-color: var(--color-cian);
+}
+
+/* Media Query para Responsividad */
+@media (max-width: 768px) {
+
+}
+
+@media (min-width: 769px) {
+
+    .producto-detalle {
+        flex-direction: row;
+    }
+
+}

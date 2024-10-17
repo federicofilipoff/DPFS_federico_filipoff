@@ -1,0 +1,68 @@
+/* Importar variables */
+@import url('variables.css');
+
+.registro {
+    margin: 40px;
+    padding: 20px;
+    width: 300px;
+    background-color: var(--color-gris-claro);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+}
+
+.registro form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.campo {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.registro input[type="text"],
+.registro input[type="email"],
+.registro input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: var(--border-radius);
+}
+
+.registro button {
+    background-color: var(--color-azul-marino);
+    color: white;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    width: 100%;
+}
+
+.registro button:hover {
+    background-color: var(--color-cian);
+}
+
+.login {
+    text-align: center;
+    color: var(--color-cian);
+}
+
+.login:hover {
+    text-decoration: underline;
+}
+
+/* Media Query para Responsividad */
+@media (max-width: 768px) {
+
+}
+
+@media (min-width: 769px) {
+
+    .registro {
+        width: 350px;
+    }
+
+}

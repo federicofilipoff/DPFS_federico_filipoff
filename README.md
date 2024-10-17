@@ -26,6 +26,34 @@ Considero que estos sitios cubren los aspectos básicos de una tienda virtual.
 
 ## Entregables
 - Wireframe: home, detalle de producto, carrito de compras, formulario registro, formulario login.
-- Logo
-- Paleta de colores: #1F3A93, #333333, #ECECEC, #00ADEF, #A3C12F, #F57C00
+- Logo.
+- Paleta de colores.
 - Tipografías: roboto, open sans.
+
+# SPRINT 2
+
+## Tablero de trabajo
+https://github.com/users/federicofilipoff/projects/2/views/1
+
+## Aplicación Node.js + Express
+### Modelo MVC
+Desarrollo básico de la estructura mediante express-generator
+Creación de /controllers para separar la lógica de la definición de las rutas.
+
+### Archivos estáticos (ver carpeta /public/html)
+- Home (index.html)
+- Detalle del producto (productDetail.html)
+- Carrito de compras (productCart.html)
+- Formulario de registro (register.html)
+- Formulario de login (login.html)
+
+#### Rutas de acceso a las páginas estáticas
+- http://localhost:3000/html/index.html
+- http://localhost:3000/html/productDetail.html
+- http://localhost:3000/html/productCart.html
+- http://localhost:3000/html/register.html
+- http://localhost:3000/html/login.html
+
+### Modificación
+La Paleta de colores se eliminó de /public/design y se incluyeron
+los colores como variables en /public/stylesheets/variables.css
