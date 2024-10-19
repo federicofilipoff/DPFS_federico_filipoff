@@ -67,6 +67,36 @@
     background-color: var(--color-cian);
 }
 
+.campo {
+    font-weight: bold;
+}
+
+.edit {
+    background-color: var(--color-naranja);
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    font-size: 1em;
+}
+
+.edit:hover {
+    background-color: var(--color-verde-lima);
+}
+
+.delete {
+    background-color: var(--color-rojo);
+    color: white;
+    text-align: center;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    width: 100%;
+}
+
+.delete:hover {
+    background-color: var(--color-rojo-oscuro);
+}
+
 /* Media Query para Responsividad */
 @media (max-width: 768px) {
 

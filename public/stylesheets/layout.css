@@ -9,6 +9,8 @@ header {
     top: 0;
     position: sticky;
     z-index: 1000;
+    padding: 5px;
+    width: 100%;
 }
  
 header img {
@@ -20,8 +22,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 10px;
-    gap: 50px;
+    gap: 30px;
 }
 
 .search-bar {
@@ -32,18 +33,16 @@ nav {
 .search-bar input {
     width: 100%;
     padding: 8px 15px;
-    border: 1px solid #ccc;
     border-radius: var(--border-radius);;
-    box-sizing: border-box;
 }
   
 .search-bar button {
+    display: flex;
     position: absolute;
     right: 5px;
     top: 50%;
     transform: translateY(-50%);
     background-color: transparent;
-    display: flex;
 }
 
 .header-icons {

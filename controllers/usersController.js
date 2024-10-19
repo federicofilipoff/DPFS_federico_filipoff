@@ -4,7 +4,7 @@ Cada llave contiene una función (controlador).
 El controlador contiene la plantilla que renderiza y puede incluir variables.
 */
 
-let userController = {
+let usersController = {
     // index: function(req, res, next) {
     //     res.send('Ruta raiz de usuarios');
     // },
@@ -19,4 +19,4 @@ let userController = {
     }
 };
 
-module.exports = userController;
+module.exports = usersController;

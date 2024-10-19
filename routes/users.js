@@ -2,12 +2,12 @@ var express = require('express');
 var router = express.Router();
 
 // Importar controladores
-var userController = require('../controllers/userController')
+var usersController = require('../controllers/usersController')
 
 // Rutas
-// router.get('/', userController.index);
-// router.get('/:id', userController.show);
-router.get('/login', userController.login);
-router.get('/register', userController.register);
+// router.get('/', usersController.index);
+// router.get('/:id', usersController.show);
+router.get('/login', usersController.login);
+router.get('/register', usersController.register);
 
 module.exports = router;

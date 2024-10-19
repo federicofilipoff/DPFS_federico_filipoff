@@ -4,9 +4,9 @@
 <%- include('../partials/head.ejs', {
     title: 'Editar producto',
     stylesheets: [
-        '../stylesheets/style.css',
-        '../stylesheets/layout.css',
-        '../stylesheets/productEdit.css'
+        '../../stylesheets/style.css',
+        '../../stylesheets/layout.css',
+        '../../stylesheets/productEdit.css'
         ]
     }) %>
 
@@ -15,58 +15,60 @@
     <%- include('../partials/header.ejs') %>
 
     <main>
-        <form class="editarProducto" action="/products/edit" method="POST" enctype="multipart/form-data">
+        <form class="editarProducto" action="/products/<%= product.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="PUT">
             <h1>Editar Producto</h1>
-            <!-- Nombre del Producto -->
+
             <div>
                 <label for="name">Nombre del Producto:</label>
-                <input type="text" id="name" name="name" autocomplete="off" required>
+                <input type="text" id="name" name="name" value="<%= product.name %>" autocomplete="off" autofocus required>
             </div>
     
-            <!-- Descripción -->
+
             <div>
                 <label for="description">Descripción:</label>
-                <textarea id="description" name="description" rows="4" required></textarea>
+                <textarea id="description" name="description" rows="4" required><%= product.description %></textarea>
             </div>
     
-            <!-- Imagen -->
+
             <div>
                 <label for="image">Imagen:</label>
-                <input type="file" id="image" name="image" accept="image/*" required>
+                <input type="file" id="image" name="image" accept="image/*">
+                <small>Imagen actual: <%= product.image %></small>
             </div>
-    
-            <!-- Categoría -->
+
             <div>
                 <label for="category">Categoría:</label>
                 <select id="category" name="category" required>
-                    <option value="teclado">Teclado</option>
-                    <option value="mouse">Mouse</option>
-                    <option value="auricular">Auricular</option>
-                    <option value="otro">Otro</option>
+                    <option value="teclado" <%= product.category === 'teclado' ? 'selected' : '' %>>Teclado</option>
+                    <option value="mouse" <%= product.category === 'mouse' ? 'selected' : '' %>>Mouse</option>
+                    <option value="auricular" <%= product.category === 'auricular' ? 'selected' : '' %>>Auricular</option>
+                    <option value="otro" <%= product.category === 'otro' ? 'selected' : '' %>>Otro</option>
                 </select>
             </div>
-    
-            <!-- Colores (o Variantes) -->
+
             <div>
                 <label for="colors">Colores:</label>
                 <select id="colors" name="colors" multiple required>
-                    <option value="negro">Negro</option>
-                    <option value="blanco">Blanco</option>
-                    <option value="rojo">Rojo</option>
-                    <option value="azul">Azul</option>
-                    <option value="verde">Verde</option>
-                    <option value="amarillo">Amarillo</option>
+                    <option value="negro" <%= product.colors.includes('negro') ? 'selected' : '' %>>Negro</option>
+                    <option value="blanco" <%= product.colors.includes('blanco') ? 'selected' : '' %>>Blanco</option>
+                    <option value="rojo" <%= product.colors.includes('rojo') ? 'selected' : '' %>>Rojo</option>
+                    <option value="azul" <%= product.colors.includes('azul') ? 'selected' : '' %>>Azul</option>
+                    <option value="verde" <%= product.colors.includes('verde') ? 'selected' : '' %>>Verde</option>
+                    <option value="amarillo" <%= product.colors.includes('amarillo') ? 'selected' : '' %>>Amarillo</option>
                 </select>
                 <small>Usa Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
             </div>
     
-            <!-- Precio -->
             <div>
                 <label for="price">Precio:</label>
-                <input type="number" id="price" name="price" step="0.01" min="0" required>
+                <input type="number" id="price" name="price" step="0.01" min="0" value="<%= product.price %>" required>
             </div>
-    
-            <!-- Botón de Envío -->
+            <div>
+                <label for="officialWeb">Descripción oficial (URL):</label>
+                <input type="text" name="officialWeb" id="officialWeb" autocomplete="off" value="<%= product.officialWeb %>">
+            </div>
+
             <button type="submit">Actualizar Producto</button>
         </form>
     </main>

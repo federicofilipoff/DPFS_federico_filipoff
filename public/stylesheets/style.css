@@ -56,10 +56,6 @@ input {
   border: none;
 }
 
-input:focus {
-  outline: none;
-}
-
 a,
 svg,
 button {

@@ -73,3 +73,8 @@ https://github.com/users/federicofilipoff/projects/3
 - Formulario de registro y login
 - Formulario de carga y edición de productos
 - Cada plantilla fue vinculada con su ruta y controlador
+
+# SPRINT 4
+
+## Tablero de trabajo
+https://github.com/users/federicofilipoff/projects/4

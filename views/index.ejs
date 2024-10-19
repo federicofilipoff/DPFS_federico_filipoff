@@ -6,7 +6,7 @@
     stylesheets: [
         'stylesheets/style.css',
         'stylesheets/layout.css',
-        'stylesheets/catalogo.css'
+        'stylesheets/productList.css'
         ]
     }) %>
 
@@ -15,52 +15,22 @@
     <%- include('./partials/header.ejs') %>
 
     <main class="catalogo">
-        <section>
-
-        </section>
-            <a href="/products/detail">
-                <article class="articulo">
-                    <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
-                    <h3>Signature Slim Keyboard K950</h3>
-                    <p class="marca">Redragon</p>
-                    <p class="precio">$55.555,55</p>
-                </article>
-            </a>
-            <a href="/products/detail">
-                <article class="articulo">
-                    <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
-                    <h3>Signature Slim Keyboard K950</h3>
-                    <p class="marca">Redragon</p>
-                    <p class="precio">$55.555,55</p>
-                </article>
-            </a>
-            <a href="/products/detail">
-                <article class="articulo">
-                    <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
-                    <h3>Signature Slim Keyboard K950</h3>
-                    <p class="marca">Redragon</p>
-                    <p class="precio">$55.555,55</p>
-                </article>
-            </a>
-            <a href="/products/detail">
-                <article class="articulo">
-                    <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
-                    <h3>Signature Slim Keyboard K950</h3>
-                    <p class="marca">Redragon</p>
-                    <p class="precio">$55.555,55</p>
-                </article>
-            </a>
-            <a href="/products/detail">
-                <article class="articulo">
-                    <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
-                    <h3>Signature Slim Keyboard K950</h3>
-                    <p class="marca">Redragon</p>
-                    <p class="precio">$55.555,55</p>
-                </article>
-            </a>
-        </section>
+        <div class="product-list">
+            <% products.slice(0, 2).forEach(product => { %>
+                <div class="product-card">
+                    <a href="/products/<%= product.id %>">
+                        <h2><%= product.name %></h2>
+                        <img src="/images/products/<%= product.image %>" alt="<%= product.name %>">
+                        <p><span class="campo">Descripción:</span> <%= product.description %></p>
+                        <p><span class="campo">Categoría:</span> <%= product.category %></p>
+                        <p><span class="campo">Colores:</span> <%= product.colors %></p>
+                        <p><span class="campo">Precio:</span> $<%= product.price %></p>
+                    </a>
+                </div>
+            <% }); %>
+        </div>
     </main>
-
+    
     <%- include('./partials/footer.ejs') %>
 
 </body>

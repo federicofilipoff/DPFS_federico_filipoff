@@ -17,21 +17,31 @@
     <main>
         <section class="producto-detalle">
             <div class="producto-imagen">
-            <img src="https://redragon.es/content/uploads/2021/04/SHRAPNEL.png" alt="teclado">
+                <img src="/images/products/<%= product.image %>" alt="<%= product.name %>">
             </div>
             <div class="producto-info">
-            <h1>Nombre del Producto</h1>
-            <p class="producto-descripcion">Descripción básicas</p>
-            <ul class="producto-caracteristicas">
-                <li>Característica 1: Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                <li>Característica 2: Temporibus, veniam! Sed deleniti repudiandae quas</li>
-                <li>Característica 3: ...</li>
-            </ul>
-            <a href="https://redragon.es/products/best-seller/shrapnel-k589/" target="_blank">
-                <span class="producto-descripcion-oficial">Ver descripción oficial</span>
-            </a>
-            <p class="producto-precio">$ 55.555,55</p>
-            <button class="btn-comprar">Agregar al Carrito</button>
+                <h1><%= product.name %></h1>
+                <div>
+                    <span class="campo">Descripción:</span>
+                    <%= product.description %>
+                </div>
+                <div>
+                    <span class="campo">Categoría:</span>
+                    <%= product.category %>
+                </div>
+                <div>
+                    <span class="campo">Color/es:</span>
+                    <%= product.colors %>
+                </div>
+                <a href="<%= product.officialWeb %>" target="_blank">
+                    <span class="producto-descripcion-oficial">Ver descripción oficial</span>
+                </a>
+                <p class="producto-precio">Precio: $ <%= product.price %></p>
+                <button class="btn-comprar">Agregar al Carrito</button>
+                <a href="<%= product.id %>/edit" class="edit">Editar producto</a>
+                <form action="/products/<%= product.id %>?_method=DELETE" method="POST" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este producto?');">
+                    <button type="submit" class="delete">Eliminar producto</button>
+                </form>                
             </div>
         </section>
     </main>
