@@ -66,19 +66,6 @@
     "price": 90
   },
   {
-    "id": 7,
-    "name": "Teclado Mecánico Tenkeyless",
-    "description": "Teclado mecánico sin pad numérico con retroiluminación LED blanca.",
-    "image": "KUMARA.png",
-    "category": "teclados",
-    "colors": [
-      "negro",
-      "azul"
-    ],
-    "officialWeb": "https://redragon.es/products/best-seller/ziggs-k669/",
-    "price": 110
-  },
-  {
     "id": 8,
     "name": "Mouse para Diseño Gráfico",
     "description": "Mouse inalámbrico con botones programables ideal para diseño gráfico.",

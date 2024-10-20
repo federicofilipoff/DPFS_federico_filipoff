@@ -1,182 +1,137 @@
 [
-    {
-        "id": 1,
-        "firstName": "Juan",
-        "lastName": "Pérez",
-        "email": "juan.perez@example.com",
-        "password": "password123",
-        "category": "user",
-        "image": "https://example.com/images/juan.jpg"
-    },
-    {
-        "id": 2,
-        "firstName": "María",
-        "lastName": "García",
-        "email": "maria.garcia@example.com",
-        "password": "password456",
-        "category": "user",
-        "image": "https://example.com/images/maria.jpg"
-    },
-    {
-        "id": 3,
-        "firstName": "Carlos",
-        "lastName": "López",
-        "email": "carlos.lopez@example.com",
-        "password": "password789",
-        "category": "user",
-        "image": "https://example.com/images/carlos.jpg"
-    },
-    {
-        "id": 4,
-        "firstName": "Ana",
-        "lastName": "Rodríguez",
-        "email": "ana.rodriguez@example.com",
-        "password": "password321",
-        "category": "admin",
-        "image": "https://example.com/images/ana.jpg"
-    },
-    {
-        "id": 5,
-        "firstName": "José",
-        "lastName": "Martínez",
-        "email": "jose.martinez@example.com",
-        "password": "password654",
-        "category": "user",
-        "image": "https://example.com/images/jose.jpg"
-    },
-    {
-        "id": 6,
-        "firstName": "Lucía",
-        "lastName": "Fernández",
-        "email": "lucia.fernandez@example.com",
-        "password": "password987",
-        "category": "user",
-        "image": "https://example.com/images/lucia.jpg"
-    },
-    {
-        "id": 7,
-        "firstName": "Miguel",
-        "lastName": "Gómez",
-        "email": "miguel.gomez@example.com",
-        "password": "password246",
-        "category": "admin",
-        "image": "https://example.com/images/miguel.jpg"
-    },
-    {
-        "id": 8,
-        "firstName": "Sofía",
-        "lastName": "Díaz",
-        "email": "sofia.diaz@example.com",
-        "password": "password135",
-        "category": "user",
-        "image": "https://example.com/images/sofia.jpg"
-    },
-    {
-        "id": 9,
-        "firstName": "Fernando",
-        "lastName": "Ruiz",
-        "email": "fernando.ruiz@example.com",
-        "password": "password579",
-        "category": "user",
-        "image": "https://example.com/images/fernando.jpg"
-    },
-    {
-        "id": 10,
-        "firstName": "Laura",
-        "lastName": "Morales",
-        "email": "laura.morales@example.com",
-        "password": "password852",
-        "category": "user",
-        "image": "https://example.com/images/laura.jpg"
-    },
-    {
-        "id": 11,
-        "firstName": "Andrés",
-        "lastName": "Ramírez",
-        "email": "andres.ramirez@example.com",
-        "password": "password951",
-        "category": "user",
-        "image": "https://example.com/images/andres.jpg"
-    },
-    {
-        "id": 12,
-        "firstName": "Paula",
-        "lastName": "Herrera",
-        "email": "paula.herrera@example.com",
-        "password": "password753",
-        "category": "admin",
-        "image": "https://example.com/images/paula.jpg"
-    },
-    {
-        "id": 13,
-        "firstName": "Ricardo",
-        "lastName": "Jiménez",
-        "email": "ricardo.jimenez@example.com",
-        "password": "password864",
-        "category": "user",
-        "image": "https://example.com/images/ricardo.jpg"
-    },
-    {
-        "id": 14,
-        "firstName": "Elena",
-        "lastName": "Cruz",
-        "email": "elena.cruz@example.com",
-        "password": "password369",
-        "category": "user",
-        "image": "https://example.com/images/elena.jpg"
-    },
-    {
-        "id": 15,
-        "firstName": "Diego",
-        "lastName": "Flores",
-        "email": "diego.flores@example.com",
-        "password": "password987",
-        "category": "user",
-        "image": "https://example.com/images/diego.jpg"
-    },
-    {
-        "id": 16,
-        "firstName": "Isabel",
-        "lastName": "Vargas",
-        "email": "isabel.vargas@example.com",
-        "password": "password135",
-        "category": "user",
-        "image": "https://example.com/images/isabel.jpg"
-    },
-    {
-        "id": 17,
-        "firstName": "Roberto",
-        "lastName": "Castro",
-        "email": "roberto.castro@example.com",
-        "password": "password753",
-        "category": "user",
-        "image": "https://example.com/images/roberto.jpg"
-    },
-    {
-        "id": 18,
-        "firstName": "Verónica",
-        "lastName": "Silva",
-        "email": "veronica.silva@example.com",
-        "password": "password951",
-        "category": "admin",
-        "image": "https://example.com/images/veronica.jpg"
-    },
-    {
-        "id": 19,
-        "firstName": "Pablo",
-        "lastName": "Mendoza",
-        "email": "pablo.mendoza@example.com",
-        "password": "password852",
-        "category": "user",
-        "image": "https://example.com/images/pablo.jpg"
-    },
-    {
-        "id": 20,
-        "firstName": "Claudia",
-        "lastName": "Navarro",
-        "email": "claudia.navarro@example.com",
-        "password": "password246",
-        "category": "user",
-        "image": "https://example.com/images/claudia.jpg"
-    }
+  {
+    "id": 1,
+    "firstName": "Juan",
+    "lastName": "Pérez",
+    "email": "juan.perez@example.com",
+    "password": "password123",
+    "category": "user",
+    "profileImage": "/images/users/imagen_perfil_1.jpeg"
+  },
+  {
+    "id": 2,
+    "firstName": "María",
+    "lastName": "García",
+    "email": "maria.garcia@example.com",
+    "password": "password456",
+    "category": "user",
+    "profileImage": "/images/users/imagen_perfil_2.jpeg"
+  },
+  {
+    "id": 3,
+    "firstName": "Carlos",
+    "lastName": "López",
+    "email": "carlos.lopez@example.com",
+    "password": "password789",
+    "category": "user",
+    "profileImage": "/images/users/imagen_perfil_3.jpeg"
+  },
+  {
+    "id": 4,
+    "firstName": "Ana",
+    "lastName": "Rodríguez",
+    "email": "ana.rodriguez@example.com",
+    "password": "password321",
+    "category": "admin",
+    "profileImage": "/images/users/imagen_perfil_4.jpeg"
+  },
+  {
+    "id": 5,
+    "firstName": "José",
+    "lastName": "Martínez",
+    "email": "jose.martinez@example.com",
+    "password": "password654",
+    "category": "user",
+    "profileImage": "/images/users/imagen_perfil_1.jpeg"
+  },
+  {
+    "id": 6,
+    "firstName": "Lucía",
+    "lastName": "Fernández",
+    "email": "lucia.fernandez@example.com",
+    "password": "password987",
+    "category": "user",
+    "profileImage": "/images/users/imagen_perfil_2.jpeg"
+  },
+  {
+    "id": 7,
+    "firstName": "Miguel",
+    "lastName": "Gómez",
+    "email": "miguel.gomez@example.com",
+    "password": "password246",
+    "category": "admin",
+    "profileImage": "/images/users/imagen_perfil_3.jpeg"
+  },
+  {
+    "id": 8,
+    "firstName": "Sofía",
+    "lastName": "Díaz",
+    "email": "sofia.diaz@example.com",
+    "password": "password135",
+    "category": "user",
+    "profileImage": "/images/users/imagen_perfil_4.jpeg"
+  },
+  {
+    "id": 9,
+    "firstName": "Fernando",
+    "lastName": "Burlando",
+    "email": "f.burlando@gmail.com",
+    "password": "$2b$10$NyHn34lZGlNE83NQWEe2Quj4Mx.KzXaa13rd.fra7tYoBxv/Rgk9u",
+    "category": "admin",
+    "profileImage": "/images/users/1729377159796.png"
+  },
+  {
+    "id": 10,
+    "firstName": "Oggi",
+    "lastName": "Junco",
+    "email": "o.junco@gmail.com",
+    "password": "$2b$10$4ZDMCrZrAlYmM1xCoxVDCev9jS3SP1Vs.8ZwIlRB0Z/pt2oZJjlVy",
+    "category": "user",
+    "profileImage": "/images/users/1729377528724.jpg"
+  },
+  {
+    "id": 11,
+    "firstName": "Guido",
+    "lastName": "Suller",
+    "email": "g.suller@gmail.com",
+    "password": "$2b$10$Q2EuxZOz1Sqo3CPhTXkLrOtL4vf2IdlKmh7E1bJfo0TIxgBHir7R2",
+    "category": "admin",
+    "profileImage": "/images/users/1729378849512.jpg"
+  },
+  {
+    "id": 12,
+    "firstName": "Traniela",
+    "lastName": "Campolieto",
+    "email": "traniela@gmail.com",
+    "password": "$2b$10$TKm9tu3lJvou.mQWatPaUubuqVa/XguVfj8kn9VqfBFT6ESJ8yqIS",
+    "category": "admin",
+    "profileImage": "/images/users/1729379988542.jpeg"
+  },
+  {
+    "id": 13,
+    "firstName": "Nino",
+    "lastName": "",
+    "email": "nino@gmail.com",
+    "password": "$2b$10$x/cGlldJgHPWwOvYa2M2A.Ijy7pI7Z91eI6NIujwtibjrxj7yWee6",
+    "category": "user",
+    "profileImage": "/images/users/1729383679728.jpg"
+  },
+  {
+    "id": 14,
+    "firstName": "Ricardo",
+    "lastName": "Fort",
+    "email": "r.fort@gmail.com",
+    "password": "$2b$10$n4O0TNkAQtyjGCSahd434.VREbEcZlGQcpsD5gbIUDOspqmhRxt/e",
+    "category": "user",
+    "profileImage": "/images/users/1729415577307.jpg"
+  },
+  {
+    "id": 15,
+    "firstName": "Zulma",
+    "lastName": "Lobato",
+    "email": "z.lobato@gmail.com",
+    "password": "$2b$10$wSPOgZRuy3sd/9C0toDYdugQSlTyDWYRBvSu4nQ5Jt.5Z4iFCJFNa",
+    "category": "user",
+    "profileImage": "/images/users/1729415931310.jpg"
+  }
 ]

@@ -60,6 +60,11 @@ p {
     text-decoration: underline;
 }
 
+.rememberMe {
+    display: flex;
+    gap: 15px;
+}
+
 /* Media Query para Responsividad */
 @media (max-width: 768px) {
 

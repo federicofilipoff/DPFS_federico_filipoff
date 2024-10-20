@@ -16,10 +16,16 @@
 
     <main>
         <section class="registro">
-            <form action="ruta-al-servidor-para-registrar" method="POST">
+            <form action="/users/" method="POST" enctype="multipart/form-data">
+                
                 <div class="campo">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" autocomplete="off" autofocus required>
+                    <label for="firstName">Nombre:</label>
+                    <input type="text" id="firstName" name="firstName" autocomplete="off" autofocus required>
+                </div>
+                
+                <div class="campo">
+                    <label for="lastName">Apellido:</label>
+                    <input type="text" id="lastName" name="lastName" autocomplete="off" required>
                 </div>
                 
                 <div class="campo">
@@ -33,9 +39,18 @@
                 </div>
 
                 <div class="campo">
-                    <label for="confirm-password">Confirmar Contraseña:</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required>
+                    <label for="category">Categoría:</label>
+                    <select id="category" name="category" required>
+                        <option value="user">Usuario</option>
+                        <option value="admin">Administrador</option>
+                    </select>
                 </div>
+
+                <div class="campo">
+                    <label for="profileImage">Imagen de Perfil:</label>
+                    <input type="file" id="profileImage" name="profileImage" accept="image/*">
+                </div>
+
                 <button type="submit">Registrarse</button>
                 <a class="login" href="/users/login">Iniciar sesión</a>
             </form>

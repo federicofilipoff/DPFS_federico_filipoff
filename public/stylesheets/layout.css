@@ -23,6 +23,7 @@ nav {
     align-items: center;
     justify-content: space-between;
     gap: 30px;
+    padding: 0px 20px;
 }
 
 .search-bar {
@@ -48,6 +49,13 @@ nav {
 .header-icons {
     display: flex;
     gap: 30px;
+}
+
+.imagen-perfil {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--color-naranja);
 }
 
 header nav div svg:hover,

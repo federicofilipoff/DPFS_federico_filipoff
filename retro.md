@@ -11,12 +11,6 @@ Confiar más en la mejora contínua, equivocarme temprano.
 Desarrollar un diseño web minimalista, con la intención de ser funcional
 y realizable, sin abundar en detalles que podrían complicar labores futuras.
 
-## Hacer menos
-...
-
-## Dejar de hacer
-...
-
 # SPRINT 3
 
 ## Comenzar a 
@@ -30,8 +24,17 @@ Usar el tablero de trabajo.
 ## Continuar haciendo
 Adaptar el maquetado web a los Sprint.
 
-## Hacer menos
-...
+# SPRINT 5
 
-## Dejar de hacer
-...
+## Observaciones
+### Mejoras pendientes
+- Me falta incluir menu de navegación vertical para diseño responsivo
+- Tengo muchos estilos y podría refactorizarlo para no duplicar CSS.
+- Tengo problemas con la imagen de perfil en la barra de navegación y el logotipo.
+- Implementar BOOTSTRAP más adelante, cuando termine la lógica de la web.
+    Quiero facilitar la gestion de estilos y evitar repetirlos o superponerlos,
+    además quiero aprender a usar dicha tecnología.
+- Implementar la función de recordar al usuario:
+    cookies para guardar esa información en el navegador.
+    Utilizar cookies para guardar esa información en el navegador.
+    Implementar un middleware de aplicación que busque la cookie y loguee al usuario en caso de que exista y sus datos sean correctos.

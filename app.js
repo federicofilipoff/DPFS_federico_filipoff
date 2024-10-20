@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const methodOverride = require('method-override');
+const session = require('express-session')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -21,6 +22,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
+
+app.use(session({
+  secret: 'DHproyectoFullStack', // Crear variable de entorno en un futuro
+  resave: false,
+  saveUninitialized: true,
+}));
+
+// Middleware para mostrar `user` en todas las vistas
+app.use((req, res, next) => {
+  res.locals.user = req.session.user;
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

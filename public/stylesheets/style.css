@@ -58,7 +58,8 @@ input {
 
 a,
 svg,
-button {
+button,
+.sidebar {
   transition: ease 0.33s
 }
 

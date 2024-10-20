@@ -3,7 +3,6 @@ const path = require('path');
 
 // IMPORTAR DATOS
 const productList = require('../data/products.json');
-const { Console } = require('console');
 
 // CREAR OBJETO CON LOS CONTROLADORES
 let productController = {

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('../partials/head.ejs', {
+    title: 'Perfil de Usuario',
+    stylesheets: [
+        '../stylesheets/style.css',
+        '../stylesheets/layout.css',
+        '../stylesheets/userProfile.css'
+        ]
+    }) %>
+
+<body>
+
+    <%- include('../partials/header.ejs') %>
+
+    <main>
+        <section class="perfil-usuario">
+            <div class="perfil-contenido">
+                <div class="perfil-imagen">
+                    <img src="<%= user.profileImage %>" alt="Imagen de perfil de <%= user.firstName %>">
+                </div>
+
+                <div class="perfil-info">
+                    <h1><%= user.firstName %> <%= user.lastName %></h1>
+
+                    <div class="perfil-detalle">
+                        <span class="campo">Correo Electrónico:</span>
+                        <p><%= user.email %></p>
+                    </div>
+
+                    <div class="perfil-detalle">
+                        <span class="campo">Categoría:</span>
+                        <p><%= user.category === 'admin' ? 'Administrador' : 'Usuario' %></p>
+                    </div>
+                    <a href="/users/logout" class="btn-logout">Cerrar Sesión</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+
+</body>
+</html>
