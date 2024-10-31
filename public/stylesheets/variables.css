@@ -1,23 +1,27 @@
-/* variables.css */
+/* VARIABLES */
 :root {
-    /* Colores Principales */
-    --color-azul-marino: #1F3A93;
-    --color-gris-oscuro: #333333;
-    --color-rojo-oscuro: #911a1a;
-  
-    /* Colores Secundarios */
-    --color-gris-claro: #ECECEC;
-    --color-cian: #00ADEF;
-  
-    /* Colores de Acento */
-    --color-verde-lima: #A3C12F;
-    --color-naranja: #F57C00;
-    --color-rojo: #cc3939;
 
-    /* Sombreado */
-    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.250);
+  /* Colores Principales */
+  --color-azul-marino: #1F3A93;
+  --color-gris-oscuro: #333333;
+  --color-rojo-oscuro: #911a1a;
 
-    /* Radio de bordes */
-    --border-radius: 10px
-  }
-  
+  /* Colores Secundarios */
+  --color-gris-claro: #ECECEC;
+  --color-cian: #00ADEF;
+
+  /* Colores de Acento */
+  --color-verde-lima: #A3C12F;
+  --color-naranja: #F57C00;
+  --color-rojo: #cc3939;
+
+  /* Sombreado */
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.250);
+
+  /* Radio de bordes */
+  --border-radius: 10px;
+
+  /* Transiciones */
+  --transition: ease 0.3s;
+
+}

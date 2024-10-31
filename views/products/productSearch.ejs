@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('../partials/head.ejs', {
+    title: 'Resultados de Búsqueda',
+    stylesheets: [
+        '../stylesheets/style.css',
+        '../stylesheets/layout.css',
+        '../stylesheets/productList.css',
+        '../stylesheets/productSearch.css'
+        ]
+    }) %>
+
+<body>
+    
+    <%- include('../partials/header.ejs') %>
+
+    <main>
+        <h1>Resultados de búsqueda para "<%= searchQuery %>"</h1>
+        <% if (products.length > 0) { %>
+            <div class="product-list">
+                <% products.forEach(product => { %>
+                    <div class="product-card">
+                        <a href="/products/<%= product.id %>" class="product-link">
+                            <h2><%= product.name %></h2>
+                            <% if (product.image) { %>
+                                <img src="/images/products/<%= product.image %>" alt="<%= product.name %>">
+                            <% } %>
+                            <p><span class="campo">Marca:</span> <%= product.Brand ? product.Brand.name : 'Sin marca' %></p>
+                            <p><span class="campo">Categoría:</span> <%= product.Category ? product.Category.name : 'Sin categoría' %></p>
+                            <p><span class="campo">Precio:</span> $<%= product.price %></p>
+                        </a>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p>No se encontraron productos.</p>
+        <% } %>
+    </main>   
+
+    <%- include('../partials/footer.ejs') %>
+
+</body>
+</html>

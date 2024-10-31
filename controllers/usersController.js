@@ -1,90 +1,216 @@
-const fs = require('fs');
-const path = require('path');
+// Importar "db" contiene todos los modelos
+const db = require('../database/models')
 const bcrypt = require('bcrypt');
-
-// IMPORTAR DATOS
-const usersList = require('../data/users.json');
+const fs = require('fs');
 
 // CREAR OBJETO CON LOS CONTROLADORES
 let usersController = {
-
+    // ------------------------------------------------------------------------
     index: function(req, res) {
-        return res.send(usersList);
+        db.User.findAll()
+        .then(function(data) {
+            return res.send(data);
+        })
+        .catch(function(e) {
+            console.log(e);
+            return res.status(500).send('Error al obtener datos');
+        });
     },
     login: function(req, res) {
         return res.render('users/login');
     },
+    // ------------------------------------------------------------------------
     authenticate: function(req, res) {
         const { email, password, rememberMe } = req.body;
-        const user = usersList.find(u => u.email === email);
 
-        // Si el usuario es encontrado y la contraseña es correcta
-        if (user && bcrypt.compareSync(password, user.password)) {
-            req.session.user = {
-                id: user.id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                category: user.category
-            };
+        // Buscar usuario por email usando Sequelize
+        db.User.findOne({where: { email: email }})
+        .then(function(data) {
 
-            // Si el usuario elige ser recordado: configurar la cookie
-            if (rememberMe) {
-                res.cookie('rememberMe', user.id, { maxAge: 7 * 24 * 60 * 60 * 1000 }); // 1 semana
+            // Si el usuario es encontrado y la contraseña es correcta
+            if (data && bcrypt.compareSync(password, data.password)) {
+
+                // Guardar datos de sesión
+                req.session.user = {
+                    id: data.id,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    email: data.email,
+                    category: data.category,
+                    profileImage: data.profileImage
+                };
+
+                // Si el usuario elige ser recordado: configurar la cookie
+                if (rememberMe) {
+                    res.cookie('rememberMe', data.id, { maxAge: 7 * 24 * 60 * 60 * 1000 });
+                }
+
+                return res.redirect(`/users/${data.id}`);
+            } else {
+                return res.redirect('/users/login');
             }
-            
-            return res.redirect(`/users/${user.id}`);
-        } else {
-            // Si hay un error
-            return res.redirect('/users/login');
-        }
+        })
+        .catch(function(e) {
+            console.log(e);
+            return res.status(500).send('Error: usuario no encontrado');
+        });
     },
+    // ------------------------------------------------------------------------
     logout: function(req, res) {
         req.session.destroy();
         return res.redirect('/users/login');
     },
+    // ------------------------------------------------------------------------
     create: function(req, res) {
         return res.render('users/register');
     },
+    // ------------------------------------------------------------------------
     store: function (req, res) {
-        // Manejar los datos del formulario
+        // Obtener datos del formulario
         const { firstName, lastName, email, password, category } = req.body;
 
-        // Encriptar la contraseña
-        const hashedPassword = bcrypt.hashSync(password, 10);
-
-        // Crear un nuevo usuario con los datos proporcionados
-        let newUser = {
-            id: usersList.length > 0 ? Math.max(...usersList.map(u => u.id)) + 1 : 1, 
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            password: hashedPassword,
-            category: category,
-            profileImage: req.file ? `/images/users/${req.file.filename}` : null
-        };
-
-        // Guardar el nuevo usuario en el archivo JSON
-        let usersFilePath = path.join(__dirname, '../data/users.json');
-        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'));
-        users.push(newUser);
-        fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
-
-        // Redirigir al perfil o a la lista de usuarios
-        return res.redirect(`/users/login`);
+        // Verificar que el correo no exista previamente
+        db.User.findOne({ where: { email: email } })
+        .then(function(data) {
+            if (data) { 
+                // Si el usuario ya existe
+                return res.status(400).send('Error: El correo ya fue registrado.');
+            } else {
+                // Encriptar la contraseña
+                const hashedPassword = bcrypt.hashSync(password, 10);
+    
+                // Crear un nuevo usuario con los datos proporcionados
+                const nuevoUsuario = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    password: hashedPassword,
+                    category: category,
+                    profileImage: req.file ? `${req.file.filename}` : null
+                };
+    
+                return db.User.create(nuevoUsuario)
+                .then(function() {
+                    // Redirigir al perfil o a la lista de usuarios
+                    return res.redirect('/users/login');
+                });
+            }
+        })
+        .catch(function(e) {
+            console.log(e);
+            return res.status(500).send('Error: usuario no creado');
+        });
     },
-    profile: function(req, res) {
-        // Obtener el ID del usuario desde los parámetros
-        const userId = parseInt(req.params.id);
+    // ------------------------------------------------------------------------
+    show: function(req, res) {
 
-        // Buscar el usuario en la lista de usuarios
-        const user = usersList.find(u => u.id === userId);
-        if (user) {
-            return res.render('users/profile', { user });
+        // Obtener el ID del usuario desde la sesión
+        const userId = parseInt(req.session.user.id);
+        
+        db.User.findByPk(userId)
+        .then(function(data) {
+            return res.render('users/profile', { data });
+        })
+        .catch(function(e) {
+            console.log(e);
+            return res.status(500).send('Usuario no encontrado');
+        });
+    },
+    // ------------------------------------------------------------------------
+    edit: function(req, res) {
+        // Obtener el ID del usuario desde la sesión
+        const userId = req.session.user.id;
+    
+        // Verificar si el usuario está autenticado
+        if (userId) {
+            db.User.findByPk(userId)
+            .then(function(data) {
+                // Verificar si se encontró el usuario
+                if (!data) {
+                    return res.status(404).send('Usuario no encontrado');
+                }
+                return res.render('users/edit', { data });
+            })
+            .catch(function(e) {
+                console.log(e);
+                return res.status(500).send('Error al obtener el usuario');
+            });
         } else {
+            // Redirigir a la página de login si el usuario no está autenticado
+            return res.redirect('/users/login');
+        }
+    },
+    // ------------------------------------------------------------------------
+    update: function(req, res) {
+        const userId = req.session.user.id;
+    
+        // Obtener los datos del formulario
+        const { firstName, lastName, email, password } = req.body;
+        const updates = {};
+    
+        // Solo agregar los campos que no están vacíos
+        if (firstName) updates.firstName = firstName;
+        if (lastName) updates.lastName = lastName;
+        if (email) updates.email = email;
+    
+        // Verificar si se ha ingresado una nueva contraseña
+        if (password) {
+            updates.password = bcrypt.hashSync(password, 10);
+        }
+    
+        // Verificar si se subió una nueva imagen de perfil
+        if (req.file) {
+            updates.profileImage = req.file.filename; // Solo actualizar si hay un archivo
+        }
+    
+        // Verificar que el email no esté en uso por otro usuario
+        db.User.findOne({
+            where: {
+                email: email,
+                id: { [db.Sequelize.Op.ne]: userId } // Ignorar el ID del usuario actual
+            }
+        })
+        .then(function(existingUser) {
+            if (existingUser) {
+                // Si otro usuario ya tiene el mismo email
+                return res.status(400).send('Error: El email ya está en uso por otro usuario.');
+            } else {
+                // Actualizar el usuario en la base de datos con los campos modificados
+                return db.User.update(updates, { where: { id: userId } });
+            }
+        })
+        .then(function() {
+            // Redirigir al perfil del usuario después de actualizar
+            return res.redirect(`/users/${userId}`);
+        })
+        .catch(function(e) {
+            console.log(e);
+            return res.status(500).send('Error al actualizar el usuario');
+        });
+    },    
+    // ------------------------------------------------------------------------
+    delete: function(req, res) {
+
+    // Obtener ID de la sesión del usuario
+    const userId = req.session.user.id;
+    
+    db.User.destroy({ where: { id: userId } })
+    .then(function(deletedCount) {
+        // Si se elimina el registro
+        if (deletedCount === 1) {
+            return res.redirect('/users/logout');
+        }
+        // Si no se elimina el registro
+        else {
             return res.status(404).send('Usuario no encontrado');
         }
+    })
+    .catch(function(e) {
+        console.log(e);
+        return res.status(500).send('Error al eliminar el usuario');
+    });
     }
+
 };
 
 module.exports = usersController;

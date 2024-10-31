@@ -23,7 +23,16 @@
                 <label for="name">Nombre del Producto:</label>
                 <input type="text" id="name" name="name" value="<%= product.name %>" autocomplete="off" autofocus required>
             </div>
-    
+
+            <div>
+                <label for="brand">Marca:</label>
+                <select id="brand" name="brand" required>
+                    <option value=1 <%= product.Brand.id === '1' ? 'selected' : '' %>>Logitech</option>
+                    <option value=2 <%= product.Brand.id === '2' ? 'selected' : '' %>>Redragon</option>
+                    <option value=3 <%= product.Brand.id === '3' ? 'selected' : '' %>>Corsair</option>
+                    <option value=4 <%= product.Brand.id === '4' ? 'selected' : '' %>>Razer</option>
+                </select>
+            </div>    
 
             <div>
                 <label for="description">Descripción:</label>
@@ -40,22 +49,24 @@
             <div>
                 <label for="category">Categoría:</label>
                 <select id="category" name="category" required>
-                    <option value="teclado" <%= product.category === 'teclado' ? 'selected' : '' %>>Teclado</option>
-                    <option value="mouse" <%= product.category === 'mouse' ? 'selected' : '' %>>Mouse</option>
-                    <option value="auricular" <%= product.category === 'auricular' ? 'selected' : '' %>>Auricular</option>
-                    <option value="otro" <%= product.category === 'otro' ? 'selected' : '' %>>Otro</option>
+                    <option value=1 <%= product.Category.id === 1 ? 'selected' : '' %>>Teclado</option>
+                    <option value=2 <%= product.Category.id === 2 ? 'selected' : '' %>>Mouse</option>
+                    <option value=3 <%= product.Category.id === 3 ? 'selected' : '' %>>Auricular</option>
+                    <option value=4 <%= product.Category.id === 4 ? 'selected' : '' %>>Otro</option>
                 </select>
             </div>
 
             <div>
                 <label for="colors">Colores:</label>
                 <select id="colors" name="colors" multiple required>
-                    <option value="negro" <%= product.colors.includes('negro') ? 'selected' : '' %>>Negro</option>
-                    <option value="blanco" <%= product.colors.includes('blanco') ? 'selected' : '' %>>Blanco</option>
-                    <option value="rojo" <%= product.colors.includes('rojo') ? 'selected' : '' %>>Rojo</option>
-                    <option value="azul" <%= product.colors.includes('azul') ? 'selected' : '' %>>Azul</option>
-                    <option value="verde" <%= product.colors.includes('verde') ? 'selected' : '' %>>Verde</option>
-                    <option value="amarillo" <%= product.colors.includes('amarillo') ? 'selected' : '' %>>Amarillo</option>
+                    <option value=1 <%= product.Colors.id === 1 ? 'selected' : '' %>>Rojo</option>
+                    <option value=2 <%= product.Colors.id === 2 ? 'selected' : '' %>>Azul</option>
+                    <option value=3 <%= product.Colors.id === 3 ? 'selected' : '' %>>Negro</option>
+                    <option value=4 <%= product.Colors.id === 4 ? 'selected' : '' %>>Blanco</option>
+                    <option value=5 <%= product.Colors.id === 5 ? 'selected' : '' %>>Verde</option>
+                    <option value=6 <%= product.Colors.id === 6 ? 'selected' : '' %>>Amarillo</option>
+                    <option value=7 <%= product.Colors.id === 7 ? 'selected' : '' %>>Gris</option>
+                    <option value=8 <%= product.Colors.id === 8 ? 'selected' : '' %>>Naranja</option>
                 </select>
                 <small>Usa Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
             </div>
@@ -63,6 +74,10 @@
             <div>
                 <label for="price">Precio:</label>
                 <input type="number" id="price" name="price" step="0.01" min="0" value="<%= product.price %>" required>
+            </div>
+            <div>
+                <label for="size">Tamaño:</label>
+                <input type="input" id="size" name="size" value="<%= product.size %>">
             </div>
             <div>
                 <label for="officialWeb">Descripción oficial (URL):</label>

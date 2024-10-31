@@ -38,3 +38,9 @@ Adaptar el maquetado web a los Sprint.
     cookies para guardar esa información en el navegador.
     Utilizar cookies para guardar esa información en el navegador.
     Implementar un middleware de aplicación que busque la cookie y loguee al usuario en caso de que exista y sus datos sean correctos.
+
+# SPRINT 6
+
+## Observaciones
+Resolver las observaciones del SPRINT 5 y además
+corregir que, después de editar un producto, se pierde la sesión del usuario.

@@ -13,7 +13,7 @@
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
-    max-width: 600px;
+    max-width: 900px;
     width: 100%;
     display: flex;
     gap: 2rem;
@@ -49,6 +49,28 @@
 .perfil-detalle p {
     margin: 0;
     color: #666;
+}
+
+.btn-edit {
+    background-color: var(--color-azul-marino);
+    color: white;
+    padding: 10px 30px;
+    border-radius: var(--border-radius);
+}
+
+.btn-edit:hover {
+    background-color: var(--color-cian);
+}
+
+.btn-destroy {
+    background-color: var(--color-rojo);
+    color: white;
+    padding: 10px 30px;
+    border-radius: var(--border-radius);
+}
+
+.btn-destroy:hover {
+    background-color: var(--color-rojo-oscuro);
 }
 
 .btn-logout {

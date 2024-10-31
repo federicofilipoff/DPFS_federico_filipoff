@@ -17,31 +17,44 @@
     <main>
         <section class="producto-detalle">
             <div class="producto-imagen">
-                <img src="/images/products/<%= product.image %>" alt="<%= product.name %>">
+                <img src="/images/products/<%= data.image %>" alt="<%= data.name %>">
             </div>
             <div class="producto-info">
-                <h1><%= product.name %></h1>
+                <h1><%= data.name %></h1>
                 <div>
-                    <span class="campo">Descripción:</span>
-                    <%= product.description %>
+                    <span class="campo">Marca:</span>
+                    <%= data.Brand.name %>
                 </div>
                 <div>
                     <span class="campo">Categoría:</span>
-                    <%= product.category %>
+                    <%= data.Category.name %>
+                </div>
+                <div>
+                    <span class="campo">Descripción:</span>
+                    <%= data.description %>
+                </div>
+                <div>
+                    <span class="campo">Dimensiones:</span>
+                    <%= data.size %>
                 </div>
                 <div>
                     <span class="campo">Color/es:</span>
-                    <%= product.colors %>
+                    <% for (let i = 0; i < data.Colors.length; i++) { %>
+                        <span><%= data.Colors[i].name %></span>
+                        <% if (i < data.Colors.length - 1) { %>, <% } %>
+                    <% } %>
                 </div>
-                <a href="<%= product.officialWeb %>" target="_blank">
+                <a href="<%= data.officialWeb %>" target="_blank">
                     <span class="producto-descripcion-oficial">Ver descripción oficial</span>
                 </a>
-                <p class="producto-precio">Precio: $ <%= product.price %></p>
+                <p class="producto-precio">Precio: $ <%= data.price %></p>
                 <button class="btn-comprar">Agregar al Carrito</button>
-                <a href="<%= product.id %>/edit" class="edit">Editar producto</a>
-                <form action="/products/<%= product.id %>?_method=DELETE" method="POST" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este producto?');">
+                <% if (user && user.category == 'admin') { %>
+                <a href="<%= data.id %>/edit" class="edit">Editar producto</a>
+                <form action="/products/<%= data.id %>?_method=DELETE" method="POST" onsubmit="return confirm('¿Estás seguro de que querés eliminar este producto?');">
                     <button type="submit" class="delete">Eliminar producto</button>
-                </form>                
+                </form>
+                <% } %>
             </div>
         </section>
     </main>

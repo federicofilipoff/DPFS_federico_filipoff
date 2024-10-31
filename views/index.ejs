@@ -21,9 +21,8 @@
                     <a href="/products/<%= product.id %>">
                         <h2><%= product.name %></h2>
                         <img src="/images/products/<%= product.image %>" alt="<%= product.name %>">
-                        <p><span class="campo">Descripción:</span> <%= product.description %></p>
-                        <p><span class="campo">Categoría:</span> <%= product.category %></p>
-                        <p><span class="campo">Colores:</span> <%= product.colors %></p>
+                        <p><span class="campo">Categoría:</span> <%= product.Category.name %></p>
+                        <p><span class="campo">Marca:</span> <%= product.Brand.name %></p>
                         <p><span class="campo">Precio:</span> $<%= product.price %></p>
                     </a>
                 </div>
