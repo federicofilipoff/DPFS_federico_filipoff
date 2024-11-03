@@ -1,9 +1,11 @@
-// Importar "db" contiene todos los modelos
-const db = require('../database/models')
+// Por si solas las validaciones (/validators/) no se muestran al usuario,
+// se deben asociar a la ruta como middleware y enviar por controlador.
+const { validationResult } = require('express-validator');
+const db = require('../database/models') // "db" contiene todos los modelos
 
 // CREAR OBJETO CON LOS CONTROLADORES
 let productController = {
-    // ------------------------------------------------------------------------
+
     index: function(req, res) {
         db.Product.findAll({
             // Combinar tablas para obtener nombre de marca y categoría, sino renderizo el ID.
@@ -28,8 +30,20 @@ let productController = {
     },
     // ------------------------------------------------------------------------
     create: function(req, res) {
-        return res.render('products/productCreate')
-    },
+        // Hacer consultas en paralelo
+        Promise.all([
+            db.Brand.findAll(),
+            db.Category.findAll(),
+            db.Color.findAll()
+        ])
+        .then(([brands, categories, colors]) => {
+            // Renderizar la vista
+            return res.render('products/productCreate', { brands, categories, colors });
+        })
+        .catch(error => {
+            return res.status(500).send(error);
+        });
+    },      
     // ------------------------------------------------------------------------
     show: function(req, res) {
 
@@ -64,14 +78,25 @@ let productController = {
     // ------------------------------------------------------------------------
     store: function (req, res) {
 
+        // Crear contenedor de errores (validaciones)
+        const result = validationResult(req);
+
         // Obtener  datos del formulario
         const { name, brand, description, category, colors, officialWeb, size, price } = req.body;
+
+        // Convertir color en arreglo si se elige uno solo o ninguno
+        const colorsArray = Array.isArray(colors) ? colors : (colors ? colors.split(',') : []);
+
+        // Si hay errores envia una respuesta con los errores.
+        if (!result.isEmpty()) {
+            return res.status(400).json({ errors: result.array() });
+        }
 
         // Verificar que el producto no exista
         db.Product.findOne({ where: { name: name } })
         .then(function(data) {
-            if (data) { 
-                // Si el usuario ya existe
+            if (data) {
+                // Si el nombre del producto ya existe
                 return res.status(400).send('Error: El producto ya fue registrado.');
             } else {
                 // Crear un nuevo producto con los datos proporcionados
@@ -90,15 +115,14 @@ let productController = {
             }
         })
         .then((productoCreado) => {
-            // Una vez creado el producto, insertar los colores en product_colors
-            const colorPromises = colors.map(colorId => {
+            // Insertar colores asociados al producto
+            const colorPromises = colorsArray.map(colorId => {
                 return db.ProductColor.create({
-                    product_id: productoCreado.id, // ID del producto recién creado
-                    color_id: parseInt(colorId) // ID del color
+                    product_id: productoCreado.id,
+                    color_id: parseInt(colorId)
                 });
             });
-    
-            // Esperar a que se inserten todos los colores
+
             return Promise.all(colorPromises);
         })
         .then(() => {
@@ -112,42 +136,52 @@ let productController = {
 
     // ------------------------------------------------------------------------
     edit: function(req, res) {
-        // Obtener el ID del producto desde los parámetros de la URL
         const productId = req.params.id;
     
-        // Buscar el producto por ID
-        db.Product.findByPk(productId, { 
-            include: [{ model: db.Brand }, { model: db.Category }, { model: db.Color }] 
-        })
-        .then(function(product) {
-            console.log(product)
+        Promise.all([
+            db.Product.findByPk(productId, { 
+                include: [{ model: db.Brand }, { model: db.Category }, { model: db.Color }] 
+            }),
+            db.Brand.findAll(),
+            db.Category.findAll(),
+            db.Color.findAll()
+        ])
+        .then(([product, brands, categories, colors]) => {
             // Verificar si se encontró el producto
             if (!product) {
                 return res.status(404).send('Producto no encontrado');
             }
 
-            // Renderizar la vista de edición del producto
-            return res.render('products/productEdit', { product });
+            // Renderizar la vista
+            return res.render('products/productEdit', { product, brands, categories, colors });
         })
-        .catch(function(e) {
-            console.log(e);
-            return res.status(500).send('Error al obtener el producto');
+        .catch(error => {
+            return res.status(500).send(error);
         });
     },
-
     // ------------------------------------------------------------------------
     update: function(req, res) {
         const productId = req.params.id;
     
+        // Crear contenedor de errores (validaciones)
+        const result = validationResult(req);
+        
+        // Si hay errores, enviar una respuesta con los errores.
+        if (!result.isEmpty()) {
+            return res.status(400).json({ errors: result.array() });
+        }
+    
         // Obtener los datos del formulario
         const { name, description, price, category, brand, colors, size, officialWeb } = req.body;
+    
+        // Convertir color en arreglo si se elige uno solo o ninguno
+        const colorsArray = Array.isArray(colors) ? colors : (colors ? colors.split(',') : []);
     
         const actualProducto = {
             name,
             description,
             category_id: parseInt(category),
             brand_id: parseInt(brand),
-            colors,
             size,
             price: parseFloat(price) || 0.00,
             officialWeb
@@ -157,7 +191,8 @@ let productController = {
         if (req.file) {
             actualProducto.image = req.file.filename;
         }
-
+    
+        // Comprobar si el nombre del producto ya está en uso
         db.Product.findOne({ where: { name: name, id: { [db.Sequelize.Op.ne]: productId } } })
             .then(product => {
                 if (product) {
@@ -166,28 +201,33 @@ let productController = {
                 // Actualizar el producto con los nuevos datos
                 return db.Product.update(actualProducto, { where: { id: productId } });
             })
-            .then(() => {
+            .then(([updatedRows]) => {
+                if (updatedRows === 0) {
+                    throw new Error('No se actualizó el producto. Asegúrate de que el ID es correcto.');
+                }
+    
                 // Eliminar los colores actuales
                 return db.ProductColor.destroy({ where: { product_id: productId } });
             })
             .then(() => {
-                // Insertar los nuevos colores
-                const colorPromises = colors.map(colorId => {
+                // Insertar colores asociados al producto
+                const colorPromises = colorsArray.map(colorId => {
                     return db.ProductColor.create({
-                        product_id: productId, // ID del producto que se está actualizando
-                        color_id: parseInt(colorId) // ID del nuevo color
+                        product_id: productId,
+                        color_id: parseInt(colorId)
                     });
                 });
+    
                 return Promise.all(colorPromises);
             })
             .then(() => {
                 return res.redirect(`/products/${productId}`);
             })
             .catch(function(e) {
-                console.log(e);
+                console.error("Error en el controlador de actualización de producto:", e.message);
                 return res.status(500).send('Error al actualizar el producto');
             });
-    },        
+    },      
     // ------------------------------------------------------------------------
     delete: function(req, res) {
 
@@ -218,11 +258,11 @@ let productController = {
             include: [
                 {
                     model: db.Brand,
-                    required: false  // Permite productos sin marca asociada
+                    required: false
                 },
                 {
-                    model: db.Category, // Asegúrate de que el modelo de Category esté correctamente configurado
-                    required: false  // Permite productos sin categoría asociada
+                    model: db.Category,
+                    required: false 
                 }
             ],
             where: {
@@ -238,7 +278,7 @@ let productController = {
                         `%${searchQuery}%`
                     ),
                     db.Sequelize.where(
-                        db.Sequelize.fn('LOWER', db.Sequelize.col('Category.name')), // Asegúrate de que 'name' sea el nombre de la columna correcta
+                        db.Sequelize.fn('LOWER', db.Sequelize.col('Category.name')),
                         'LIKE',
                         `%${searchQuery}%`
                     )

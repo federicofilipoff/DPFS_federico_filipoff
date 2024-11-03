@@ -17,7 +17,7 @@ CREATE TABLE Brands (
 -- Crear la tabla de productos
 CREATE TABLE Products (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
     description TEXT,
     image VARCHAR(255),
     category_id INT,

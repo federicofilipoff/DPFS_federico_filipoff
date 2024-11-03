@@ -97,10 +97,14 @@ Se creará la base de datos "ecommerce" y sus tablas.
 
 ## Contraseñas de usuarios:
 Los usuarios creados por script de SQL inician sesión con la siguiente contraseña: 123
-La misma debe ser encriptada encriptada, usar el comando:
+La misma debe ser encriptada, usar el comando:
 > npx sequelize db:seed --seed database/seeders/encrypt-passwords.js
 
 Esto es así porque en el controlador de Users (login),
 cuando comparo la contraseña ingresada por formulario con la registrada
 en la base de datos, si ambas no fueron cifradas, la comparación retorna falso.
 
+# SPRINT 7
+
+## Tablero de trabajo
+https://github.com/users/federicofilipoff/projects/7

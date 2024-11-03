@@ -39,10 +39,7 @@
                 </div>
                 <div>
                     <span class="campo">Color/es:</span>
-                    <% for (let i = 0; i < data.Colors.length; i++) { %>
-                        <span><%= data.Colors[i].name %></span>
-                        <% if (i < data.Colors.length - 1) { %>, <% } %>
-                    <% } %>
+                    <%= data.Colors.map(color => color.name).join(", ") %>
                 </div>
                 <a href="<%= data.officialWeb %>" target="_blank">
                     <span class="producto-descripcion-oficial">Ver descripción oficial</span>

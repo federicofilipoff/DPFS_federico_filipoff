@@ -56,7 +56,7 @@ INSERT INTO Users (firstName, lastName, email, password, category, profileImage,
 ('Carlos', 'Gómez', 'carlos.gomez@gmail.com', '123', 'user', 'imagen_perfil_3.jpg', NOW(), NOW());
 
 INSERT INTO Colors (name) VALUES
-('Rojo') -- 1
+('Rojo'), -- 1
 ('Azul'), -- 2
 ('Negro'), -- 3
 ('Blanco'), -- 4
@@ -66,6 +66,7 @@ INSERT INTO Colors (name) VALUES
 ('Naranja'); -- 8
 
 INSERT INTO Product_Colors (product_id, color_id) VALUES 
+-- NO SE CREARON LOS COLORES
 (1, 4), (1, 3),
 (2, 7),
 (3, 1),
@@ -79,17 +80,17 @@ INSERT INTO Product_Colors (product_id, color_id) VALUES
 (11, 4),
 (12, 8), (12, 6),
 (13, 3),
-(14, 8), 
+(14, 8), (14, 1),
 (15, 3),
 (16, 7),
-(17, 6),
+(17, 6), (17, 5),
 (18, 4), 
 (19, 7),
-(20, 5),
+(20, 5), (20, 4),
 (21, 8), 
 (22, 1),
 (23, 5),
-(24, 2), 
+(24, 2), (24, 7),
 (25, 3),
 (26, 7), 
 (27, 5),
@@ -101,18 +102,4 @@ INSERT INTO Product_Colors (product_id, color_id) VALUES
 (33, 5),
 (34, 4), 
 (35, 6),
-(36, 7),
-(37, 3), 
-(38, 5),
-(39, 4), 
-(40, 6),
-(41, 2), 
-(42, 3),
-(43, 7), 
-(44, 4),
-(45, 8),
-(46, 6), 
-(47, 3),
-(48, 5),
-(49, 7),
-(50, 1);
+(36, 7);

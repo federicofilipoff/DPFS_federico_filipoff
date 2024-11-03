@@ -1,11 +1,12 @@
-// Importar "db" contiene todos los modelos
-const db = require('../database/models')
-const bcrypt = require('bcrypt');
-const fs = require('fs');
+// Por si solas las validaciones (/validators/) no se muestran al usuario,
+// se deben asociar a la ruta como middleware y enviar por controlador.
+const { validationResult } = require('express-validator');
+const db = require('../database/models') // "db" contiene todos los modelos
+const bcrypt = require('bcrypt'); // encriptar contraseña ("hashing")
 
 // CREAR OBJETO CON LOS CONTROLADORES
 let usersController = {
-    // ------------------------------------------------------------------------
+
     index: function(req, res) {
         db.User.findAll()
         .then(function(data) {
@@ -21,6 +22,15 @@ let usersController = {
     },
     // ------------------------------------------------------------------------
     authenticate: function(req, res) {
+        
+        // Crear contenedor de errores (validaciones)
+        const result = validationResult(req);
+        
+        // Si hay errores envia una respuesta con los errores.
+        if (!result.isEmpty()) {
+            return res.status(400).json({ errors: result.array() });
+        }
+
         const { email, password, rememberMe } = req.body;
 
         // Buscar usuario por email usando Sequelize
@@ -42,6 +52,7 @@ let usersController = {
 
                 // Si el usuario elige ser recordado: configurar la cookie
                 if (rememberMe) {
+                    // Expira en 7 días
                     res.cookie('rememberMe', data.id, { maxAge: 7 * 24 * 60 * 60 * 1000 });
                 }
 
@@ -66,6 +77,15 @@ let usersController = {
     },
     // ------------------------------------------------------------------------
     store: function (req, res) {
+
+        // Crear contenedor de errores (validaciones)
+        const result = validationResult(req);
+        
+        // Si hay errores envia una respuesta con los errores.
+        if (!result.isEmpty()) {
+            return res.status(400).json({ errors: result.array() });
+        }
+
         // Obtener datos del formulario
         const { firstName, lastName, email, password, category } = req.body;
 
@@ -91,7 +111,6 @@ let usersController = {
     
                 return db.User.create(nuevoUsuario)
                 .then(function() {
-                    // Redirigir al perfil o a la lista de usuarios
                     return res.redirect('/users/login');
                 });
             }
@@ -143,31 +162,31 @@ let usersController = {
     // ------------------------------------------------------------------------
     update: function(req, res) {
         const userId = req.session.user.id;
-    
+
+        // Crear contenedor de errores (validaciones)
+        const result = validationResult(req);
+        
+        // Si hay errores envia una respuesta con los errores.
+        if (!result.isEmpty()) {
+            return res.status(400).json({ errors: result.array() });
+        }
+
         // Obtener los datos del formulario
-        const { firstName, lastName, email, password } = req.body;
+        const { firstName, lastName, email, passwordEdit } = req.body;
         const updates = {};
     
         // Solo agregar los campos que no están vacíos
         if (firstName) updates.firstName = firstName;
         if (lastName) updates.lastName = lastName;
         if (email) updates.email = email;
-    
-        // Verificar si se ha ingresado una nueva contraseña
-        if (password) {
-            updates.password = bcrypt.hashSync(password, 10);
-        }
-    
-        // Verificar si se subió una nueva imagen de perfil
-        if (req.file) {
-            updates.profileImage = req.file.filename; // Solo actualizar si hay un archivo
-        }
+        if (req.file) {updates.profileImage = req.file.filename};   
+        if (passwordEdit) {updates.password = bcrypt.hashSync(passwordEdit, 10)};
     
         // Verificar que el email no esté en uso por otro usuario
         db.User.findOne({
             where: {
                 email: email,
-                id: { [db.Sequelize.Op.ne]: userId } // Ignorar el ID del usuario actual
+                id: { [db.Sequelize.Op.ne]: userId }
             }
         })
         .then(function(existingUser) {
@@ -187,7 +206,7 @@ let usersController = {
             console.log(e);
             return res.status(500).send('Error al actualizar el usuario');
         });
-    },    
+    },
     // ------------------------------------------------------------------------
     delete: function(req, res) {
 
@@ -210,7 +229,6 @@ let usersController = {
         return res.status(500).send('Error al eliminar el usuario');
     });
     }
-
 };
 
 module.exports = usersController;

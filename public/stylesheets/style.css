@@ -70,3 +70,8 @@ li {
 button:active {
   transform: scale(0.95);
 }
+
+.error {
+  color: red;
+  font-size: 0.9em;
+}
