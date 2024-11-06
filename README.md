@@ -91,8 +91,8 @@ https://github.com/users/federicofilipoff/projects/6
 
 ## Base de datos
 Ejecutar scripts (usando MySQL) ubicados en:
-"/data/structure.sql"
-"/data/data.sql"
+- "/data/structure.sql"
+- "/data/data.sql"
 Se creará la base de datos "ecommerce" y sus tablas.
 
 ## Contraseñas de usuarios:
@@ -108,3 +108,8 @@ en la base de datos, si ambas no fueron cifradas, la comparación retorna falso.
 
 ## Tablero de trabajo
 https://github.com/users/federicofilipoff/projects/7
+
+# SPRINT 8
+
+## Tablero de trabajo
+https://github.com/users/federicofilipoff/projects/8

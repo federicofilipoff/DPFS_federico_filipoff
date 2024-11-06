@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 border rounded p-4 shadow bg-light">
+
+            <form id="userForm" action="<%= isRegister ? '/users/' : `/users/${user.id}?_method=PUT` %>" 
+                method="POST" enctype="multipart/form-data" data-action="<%= isRegister ? 'crearUsuario' : 'editarUsuario' %>">
+
+                <h2><%= formTitle %></h2>
+
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">Nombre</label>
+                    <input type="text" id="firstName" name="firstName" class="form-control" autocomplete="off" autofocus value="<%= user ? data.firstName : '' %>">
+                    <div id="firstNameError" class="text-danger"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Apellido</label>
+                    <input type="text" id="lastName" name="lastName" class="form-control" autocomplete="off" value="<%= user ? data.lastName : '' %>">
+                    <div id="lastNameError" class="text-danger"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="email" name="email" autocomplete="off" value="<%= user ? data.email : '' %>">
+                    <div id="emailError" class="text-danger"></div>
+                </div>
+
+                <div class="mb-3 position-relative">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <div class="input-group">
+                        <input type="password" id="password" name="password" class="form-control">
+                        <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                            <i class="bi bi-eye-slash" id="toggleIcon">
+                                <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"/></svg>
+                            </i>
+                        </span>
+                    </div>
+                    <div id="passwordError" class="text-danger"></div>
+                </div>
+
+                <% if (isRegister) { %>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Categoría</label>
+                        <select id="category" name="category" class="form-select">
+                            <option value="user">Usuario</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </div>
+                <% } %>
+
+                <div class="mb-3">
+                    <label for="profileImage" class="form-label">Imagen de Perfil</label>
+                    <input type="file" id="profileImage" name="profileImage" class="form-control" accept="image/*">
+                    <div id="profileImageError" class="text-danger"></div>
+                </div>
+
+                <% if (isRegister) { %>
+                    <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+                    <a class="login mt-3 d-block text-center" href="/users/login">Iniciar sesión</a>
+                <% } else { %>
+                    <button type="submit" class="btn btn-primary w-100">Guardar cambios</button>
+                <% } %>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 border rounded p-4 shadow bg-light">
+
+            <form id="productForm" class="container <%= formClass %>" action="<%= formAction %>" method="POST" enctype="multipart/form-data">
+                <% if (formMethod === 'PUT') { %>
+                    <input type="hidden" name="_method" value="PUT">
+                <% } %>
+                
+                <h2><%= formTitle %></h2>
+            
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre del Producto:</label>
+                    <input type="text" id="name" name="name" class="form-control" value="<%= product ? product.name : '' %>" autocomplete="off" autofocus placeholder="Introducir nombre de al menos 5 caracteres">
+                    <div id="nameError" class="form-text text-danger"></div>
+                </div>
+            
+                <div class="mb-3">
+                    <label for="brand" class="form-label">Marca:</label>
+                    <select id="brand" name="brand" class="form-select">
+                        <% if (brands && brands.length > 0) { %>
+                            <% brands.forEach(brand => { %>
+                                <option value="<%= brand.id %>" <%= product && product.Brand && product.Brand.id === brand.id ? 'selected' : '' %>><%= brand.name %></option>
+                            <% }); %>
+                        <% } else { %>
+                            <option value="">No hay marcas disponibles</option>
+                        <% } %>
+                    </select>
+                </div>
+            
+                <div class="mb-3">
+                    <label for="description" class="form-label">Descripción:</label>
+                    <textarea id="description" name="description" class="form-control" rows="4" placeholder="Introducir descripción de al menos 20 caracteres"><%= product ? product.description : '' %></textarea>
+                    <div id="descriptionError" class="form-text text-danger"></div>
+                </div>
+            
+                <div class="mb-3">
+                    <label for="image" class="form-label">Imagen:</label>
+                    <input type="file" id="image" name="image" class="form-control" accept="image/*">
+                    <% if (product && product.image) { %>
+                        <small class="form-text">Imagen actual: <%= product.image %></small>
+                    <% } %>
+                    <div id="imageError" class="form-text text-danger"></div>
+                </div>
+            
+                <div class="mb-3">
+                    <label for="category" class="form-label">Categoría:</label>
+                    <select id="category" name="category" class="form-select">
+                        <% if (categories && categories.length > 0) { %>
+                            <% categories.forEach(category => { %>
+                                <option value="<%= category.id %>" <%= product && product.Category && product.Category.id === category.id ? 'selected' : '' %>><%= category.name %></option>
+                            <% }); %>
+                        <% } else { %>
+                            <option value="">No hay categorías disponibles</option>
+                        <% } %>
+                    </select>
+                </div>
+            
+                <div class="mb-3">
+                    <label for="colors" class="form-label">Colores:</label>
+                    <select id="colors" name="colors" class="form-select" multiple>
+                        <% if (colors && colors.length > 0) { %>
+                            <% colors.forEach(color => { %>
+                                <option value="<%= color.id %>" <%= product && product.Colors && product.Colors.some(prodColor => prodColor.id === color.id) ? 'selected' : '' %>><%= color.name %></option>
+                            <% }); %>
+                        <% } else { %>
+                            <option value="">No hay colores disponibles</option>
+                        <% } %>
+                    </select>
+                    <small class="form-text">Usa Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
+                </div>
+            
+                <div class="mb-3">
+                    <label for="price" class="form-label">Precio:</label>
+                    <input type="number" id="price" name="price" class="form-control" step="0.01" min="0" value="<%= product ? product.price : '' %>">
+                </div>
+            
+                <div class="mb-3">
+                    <label for="size" class="form-label">Tamaño:</label>
+                    <input type="text" id="size" name="size" class="form-control" value="<%= product ? product.size : '' %>">
+                </div>
+            
+                <div class="mb-3">
+                    <label for="officialWeb" class="form-label">Descripción oficial (URL):</label>
+                    <input type="text" id="officialWeb" name="officialWeb" class="form-control" autocomplete="off" value="<%= product ? product.officialWeb : '' %>">
+                </div>
+            
+                <button type="submit" class="btn btn-primary w-100"><%= buttonText %></button>
+            </form>
+            
+        </div>
+    </div>
+</div>

@@ -3,40 +3,55 @@
 
 <%- include('../partials/head.ejs', {
     title: 'Resultados de Búsqueda',
-    stylesheets: [
-        '../stylesheets/style.css',
-        '../stylesheets/layout.css',
-        '../stylesheets/productList.css',
-        '../stylesheets/productSearch.css'
-        ]
-    }) %>
+    stylesheets: []
+}) %>
 
 <body>
-    
+
     <%- include('../partials/header.ejs') %>
 
-    <main>
-        <h1>Resultados de búsqueda para "<%= searchQuery %>"</h1>
-        <% if (products.length > 0) { %>
-            <div class="product-list">
-                <% products.forEach(product => { %>
-                    <div class="product-card">
-                        <a href="/products/<%= product.id %>" class="product-link">
-                            <h2><%= product.name %></h2>
-                            <% if (product.image) { %>
-                                <img src="/images/products/<%= product.image %>" alt="<%= product.name %>">
-                            <% } %>
-                            <p><span class="campo">Marca:</span> <%= product.Brand ? product.Brand.name : 'Sin marca' %></p>
-                            <p><span class="campo">Categoría:</span> <%= product.Category ? product.Category.name : 'Sin categoría' %></p>
-                            <p><span class="campo">Precio:</span> $<%= product.price %></p>
-                        </a>
-                    </div>
-                <% }) %>
-            </div>
-        <% } else { %>
-            <p>No se encontraron productos.</p>
-        <% } %>
-    </main>   
+    <main class="catalogo">
+        <div class="container">
+            <% if (searchQuery) { %>
+                <h1 class="text-center my-4">Resultados de búsqueda para "<%= searchQuery %>"</h1>
+            <% } %>
+            <% if (products.length > 0) { %>
+                <div class="row justify-content-center">
+                    <% products.forEach(product => { %>
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100 bg-light product-card">
+                                <a href="/products/<%= product.id %>" class="text-decoration-none text-dark">
+                                    <% if (product.image) { %>
+                                        <img src="/images/products/<%= product.image %>" 
+                                             class="card-img-top img-fluid" 
+                                             alt="<%= product.name %>" 
+                                             style="height: 200px; width: 100%; object-fit: cover;">
+                                    <% } %>
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold text-primary"><%= product.name %></h5>
+                                        <p class="card-text">
+                                            <span class="fw-bold">Marca:</span> 
+                                            <%= product.Brand ? product.Brand.name : 'Sin marca' %>
+                                        </p>
+                                        <p class="card-text">
+                                            <span class="fw-bold">Categoría:</span> 
+                                            <%= product.Category ? product.Category.name : 'Sin categoría' %>
+                                        </p>
+                                        <p class="card-text">
+                                            <span class="fw-bold">Precio:</span> 
+                                            $<%= product.price %>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <p class="text-center my-5">No se encontraron productos.</p>
+            <% } %>
+        </div>
+    </main>
 
     <%- include('../partials/footer.ejs') %>
 

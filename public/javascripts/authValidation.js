@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Validar correo electrónico
         if (!emailInput.value) {
-            emailError.textContent = 'Campo requerido.';
+            emailError.textContent = 'Campo requerido';
             valid = false;
         } else if (!validateEmail(emailInput.value)) {
             emailError.textContent = 'Ingrese un correo electrónico válido.';
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Validar contraseña
         if (!passwordInput.value) {
-            passwordError.textContent = 'Campo requerido.';
+            passwordError.textContent = 'Campo requerido';
             valid = false;
         }
 
@@ -34,21 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Verificar si el correo existe en la base de datos
-        const emailExists = await checkEmailExists(emailInput.value);
-        if (!emailExists) {
-            emailError.textContent = 'Este correo no está registrado.';
-            event.preventDefault(); // Evitar el envío del formulario
-            return;
-        }
-
-        // Validar la contraseña en el servidor
-        const passwordValid = await validatePassword(emailInput.value, passwordInput.value);
-        if (!passwordValid) {
-            passwordError.textContent = 'Contraseña incorrecta.';
-            event.preventDefault(); // Evitar el envío del formulario
-            return;
-        }
     });
 
     // Función para validar formato de correo electrónico

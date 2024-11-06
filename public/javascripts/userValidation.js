@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const firstName = document.getElementById('firstName');
     const lastName = document.getElementById('lastName');
     const email = document.getElementById('email');
-    const password = document.getElementById('password') || document.getElementById('passwordEdit');
+    const password = document.getElementById('password');
     const profileImage = document.getElementById("profileImage");
 
     const firstNameError = document.getElementById('firstNameError');
     const lastNameError = document.getElementById('lastNameError');
     const emailError = document.getElementById('emailError');
-    const passwordError = document.getElementById('passwordEditError') || document.getElementById('passwordError');
+    const passwordError = document.getElementById('passwordError');
     const profileImageError = document.getElementById("profileImageError");
 
     userForm.addEventListener('submit', async (event) => {
@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Validar Nombre
         if (!firstName.value.trim()) {
-            firstNameError.textContent = 'Campo requerido.';
+            firstNameError.textContent = 'Campo requerido';
             valid = false;
         } else if (firstName.value.trim().length < 2) {
-            firstNameError.textContent = "El Campo debe tener al menos 2 caracteres.";
+            firstNameError.textContent = "El Campo debe tener al menos 2 caracteres";
             valid = false;
         } else {
             firstNameError.textContent = '';
@@ -28,10 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Validar Apellido
         if (!lastName.value.trim()) {
-            lastNameError.textContent = 'Campo requerido.';
+            lastNameError.textContent = 'Campo requerido';
             valid = false;
         } else if (lastName.value.trim().length < 2) {
-            lastNameError.textContent = "El Campo debe tener al menos 2 caracteres.";
+            lastNameError.textContent = "El Campo debe tener al menos 2 caracteres";
             valid = false;
         } else {
             lastNameError.textContent = '';
@@ -39,10 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Validar correo electrónico
         if (!email.value.trim()) {
-            emailError.textContent = 'Campo requerido.';
+            emailError.textContent = 'Campo requerido';
             valid = false;
         } else if (!validateEmail(email.value)) {
-            emailError.textContent = 'Ingrese un correo electrónico válido.';
+            emailError.textContent = 'Correo electrónico inválido';
             valid = false;
         } else {
             emailError.textContent = '';
@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Validar Contraseña
         if (password) { // Solo validar si el campo de contraseña está presente
-            if (!password.value.trim() && userForm.dataset.action === 'register') {
-                passwordError.textContent = 'Campo requerido.';
+            if (!password.value.trim() && userForm.dataset.action === 'crearUsuario') {
+                passwordError.textContent = 'Campo requerido';
                 valid = false;
             } else if (password.value.trim() && !validatePassword(password.value)) {
                 passwordError.textContent = "La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula, una minúscula, un número y un carácter especial.";

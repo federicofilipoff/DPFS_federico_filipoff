@@ -31,11 +31,14 @@ Adaptar el maquetado web a los Sprint.
 - Me falta incluir menu de navegación vertical para diseño responsivo
 - El Navbar no se desplaza (funciona mal la propiedad stickly).
 - Tengo muchos estilos y podría refactorizarlo para no duplicar CSS.
-- Tengo problemas con la imagen de perfil en la barra de navegación y el logotipo.
-- Implementar BOOTSTRAP más adelante, cuando termine la lógica de la web.
-    Quiero facilitar la gestion de estilos y evitar repetirlos o superponerlos,
-    además quiero aprender a usar dicha tecnología.
-    Agregar ícono para activar/desactivar visibilidad del campo "password"
+
+- Tengo problemas con la imagen de perfil en la barra de navegación.
+    La imagen de perfil se toma de la sesión (user), no de la base de datos (data).
+    Si uso "user" en el renderizado de la plantilla, se muestra la foto de la sesión sin ser actualizada,
+        tengo que reiniciar la sesión,
+    si uso "data" tendría que envíar la consulta del modelo a todas las vistas...
+        teóricamente podría crear un middleware para obtener los datos de la consulta por única vez y reutilizarlos en la navegación.
+
 - Implementar cookie para recordar sesión del usuario y evitar que inicie sesión cada vez que cierre el navegador.
 
 # SPRINT 6
@@ -65,3 +68,7 @@ pero no elimina la imagen asociada al usuario/producto en /public/images/.
 Esto es útil para tener una imagen única para usuario sin imagen de perfil o
 para reciclar las imágenes de productos. En otros casos puede dejar imágenes sin uso y ocupar espacio innecesariamente.
 
+# SPRINT 8
+## Mejoras
+- Refactoricé los estilos utilizando Bootstrap
+- Simplifiqué formularios con plantillas parciales: crear y editar usuario, crear y editar producto.

@@ -17,6 +17,7 @@ let usersController = {
             return res.status(500).send('Error al obtener datos');
         });
     },
+    // ------------------------------------------------------------------------
     login: function(req, res) {
         return res.render('users/login');
     },

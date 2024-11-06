@@ -2,31 +2,34 @@
 <html lang="es">
 
 <%- include('../partials/head.ejs', {
-    title: 'Productos',
-    stylesheets: [
-        '../stylesheets/style.css',
-        '../stylesheets/layout.css',
-        '../stylesheets/productList.css'
-        ]
-    }) %>
+    title: 'Inicio',
+    stylesheets: []
+}) %>
 
 <body>
-    
+
     <%- include('../partials/header.ejs') %>
 
-    <main>
-        <div class="product-list">
-            <% data.forEach(product => { %>
-                <div class="product-card">
-                    <a href="/products/<%= product.id %>">
-                        <h2><%= product.name %></h2>
-                        <img src="/images/products/<%= product.image %>" alt="<%= product.name %>">
-                        <p><span class="campo">Categoría:</span> <%= product.Category.name %></p>
-                        <p><span class="campo">Marca:</span> <%= product.Brand.name %></p>
-                        <p><span class="campo">Precio:</span> $<%= product.price %></p>
-                    </a>
-                </div>
-            <% }); %>
+    <main class="catalogo">
+        <div class="container">
+            <div class="row justify-content-center">
+                <% data.forEach(product => { %>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 bg-light product-card">
+                            <a href="/products/<%= product.id %>" class="text-decoration-none text-dark">
+                                <img src="/images/products/<%= product.image %>" class="card-img-top img-fluid" alt="<%= product.name %>"
+                                    style="height: 200px; width: 100%; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold text-primary"><%= product.name %></h5>
+                                    <p class="card-text"><span class="fw-bold">Categoría:</span> <%= product.Category.name %></p>
+                                    <p class="card-text"><span class="fw-bold">Marca:</span> <%= product.Brand.name %></p>
+                                    <p class="card-text"><span class="fw-bold">Precio:</span> $<%= product.price %></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
         </div>
     </main>
 

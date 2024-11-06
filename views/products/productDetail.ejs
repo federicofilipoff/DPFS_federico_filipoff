@@ -3,60 +3,81 @@
 
 <%- include('../partials/head.ejs', {
     title: 'Producto',
-    stylesheets: [
-        '../stylesheets/style.css',
-        '../stylesheets/layout.css',
-        '../stylesheets/productDetail.css'
-        ]
-    }) %>
+    stylesheets: []
+}) %>
 
 <body>
-    
     <%- include('../partials/header.ejs') %>
 
-    <main>
-        <section class="producto-detalle">
-            <div class="producto-imagen">
-                <img src="/images/products/<%= data.image %>" alt="<%= data.name %>">
-            </div>
-            <div class="producto-info">
-                <h1><%= data.name %></h1>
-                <div>
-                    <span class="campo">Marca:</span>
-                    <%= data.Brand.name %>
+    <main class="container">
+        <section class="row">
+            <div class="col-md-12">
+                <div class="card mb-4 bg-light shadow">
+                    <div class="row g-0">
+                        <!-- Imagen del producto -->
+                        <div class="col-md-6">
+                            <img src="/images/products/<%= data.image %>" alt="<%= data.name %>" class="img-fluid rounded-start" style="object-fit: cover; height: 100%;">
+                        </div>
+
+                        <!-- Información del producto -->
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h1 class="fw-bold mb-3"><%= data.name %></h1>
+
+                                <div class="mb-2">
+                                    <span class="fw-bold">Marca:</span> <%= data.Brand.name %>
+                                </div>
+
+                                <div class="mb-2">
+                                    <span class="fw-bold">Categoría:</span> <%= data.Category.name %>
+                                </div>
+
+                                <div class="mb-2">
+                                    <span class="fw-bold">Descripción:</span>
+                                    <p><%= data.description %></p>
+                                </div>
+
+                                <div class="mb-2">
+                                    <span class="fw-bold">Dimensiones:</span> <%= data.size %>
+                                </div>
+
+                                <div class="mb-2">
+                                    <span class="fw-bold">Color/es:</span> <%= data.Colors.map(color => color.name).join(", ") %>
+                                </div>
+
+                                <!-- Enlace a la descripción oficial -->
+                                <a href="<%= data.officialWeb %>" target="_blank" class="d-block mt-3">
+                                    Ver descripción oficial
+                                </a>
+
+                                <!-- Precio y botón de compra -->
+                                <p class="producto-precio fs-4 mt-3 fw-bold">Precio: $<%= data.price %></p>
+
+                                <button class="btn btn-primary btn-lg w-100 mb-4">Agregar al Carrito</button>
+
+                                <!-- Opciones de edición y eliminación para administradores -->
+                                <% if (user && user.category == 'admin') { %>
+                                    <div class="d-flex justify-content-between mt-4">
+                                        <div class="row w-100">
+                                            <div class="col-6">
+                                                <a href="<%= data.id %>/edit" class="btn btn-secondary w-100">Editar producto</a>
+                                            </div>
+                                            <div class="col-6">
+                                                <form action="/products/<%= data.id %>?_method=DELETE" method="POST" onsubmit="return confirm('¿Estás seguro de que querés eliminar este producto?');">
+                                                    <button type="submit" class="btn btn-danger w-100">Eliminar producto</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <span class="campo">Categoría:</span>
-                    <%= data.Category.name %>
-                </div>
-                <div>
-                    <span class="campo">Descripción:</span>
-                    <%= data.description %>
-                </div>
-                <div>
-                    <span class="campo">Dimensiones:</span>
-                    <%= data.size %>
-                </div>
-                <div>
-                    <span class="campo">Color/es:</span>
-                    <%= data.Colors.map(color => color.name).join(", ") %>
-                </div>
-                <a href="<%= data.officialWeb %>" target="_blank">
-                    <span class="producto-descripcion-oficial">Ver descripción oficial</span>
-                </a>
-                <p class="producto-precio">Precio: $ <%= data.price %></p>
-                <button class="btn-comprar">Agregar al Carrito</button>
-                <% if (user && user.category == 'admin') { %>
-                <a href="<%= data.id %>/edit" class="edit">Editar producto</a>
-                <form action="/products/<%= data.id %>?_method=DELETE" method="POST" onsubmit="return confirm('¿Estás seguro de que querés eliminar este producto?');">
-                    <button type="submit" class="delete">Eliminar producto</button>
-                </form>
-                <% } %>
             </div>
         </section>
     </main>
 
     <%- include('../partials/footer.ejs') %>
-
 </body>
 </html>

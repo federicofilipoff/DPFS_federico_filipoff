@@ -2,95 +2,26 @@
 <html lang="es">
 
 <%- include('../partials/head.ejs', {
-    title: 'Crear producto',
-    stylesheets: [
-        '../stylesheets/style.css',
-        '../stylesheets/layout.css',
-        '../stylesheets/productCreate.css'
-        ]
-    }) %>
+    title: 'Registrar Producto',
+    stylesheets: []
+}) %>
 
 <body>
-    
+
     <%- include('../partials/header.ejs') %>
 
     <main>
-        <form id="productForm" class="crearProducto" action="/products/" method="POST" enctype="multipart/form-data">
-            <h1>Registrar producto</h1>
-
-            <div>
-                <label for="name">Nombre del Producto:</label>
-                <input type="text" id="name" name="name" autocomplete="off" autofocus placeholder="Introducir nombre de al menos 5 caracteres">
-                <span id="nameError" class="error"></span>
-            </div>
-
-            <div>
-                <label for="brand">Marca:</label>
-                <select id="brand" name="brand">
-                    <% if (brands && brands.length > 0) { %>
-                        <% brands.forEach(brand => { %>
-                            <option value="<%= brand.id %>"><%= brand.name %></option>
-                        <% }); %>
-                    <% } else { %>
-                        <option value="">No hay marcas disponibles</option>
-                    <% } %>
-                </select>                            
-            </div>  
-    
-            <div>
-                <label for="description">Descripción:</label>
-                <textarea id="description" name="description" rows="4" placeholder="Introducir descripción de al menos 20 caracteres"></textarea>
-                <span id="descriptionError" class="error"></span>
-            </div>
-    
-            <div>
-                <label for="image">Imagen:</label>
-                <input type="file" id="image" name="image" accept="image/*">
-                <span id="imageError" class="error"></span>
-            </div>
-    
-            <div>
-                <label for="category">Categoría:</label>
-                <select id="category" name="category">
-                    <% if (categories && categories.length > 0) { %>
-                        <% categories.forEach(category => { %>
-                            <option value="<%= category.id %>"><%= category.name %></option>
-                        <% }); %>
-                    <% } else { %>
-                        <option value="">No hay categorías disponibles</option>
-                    <% } %>
-                </select>
-            </div>
-    
-            <div>
-                <label for="colors">Colores:</label>
-                <select id="colors" name="colors">
-                    <% if (colors && colors.length > 0) { %>
-                        <% colors.forEach(color => { %>
-                            <option value="<%= color.id %>"><%= color.name %></option>
-                        <% }); %>
-                    <% } else { %>
-                        <option value="">No hay categorías disponibles</option>
-                    <% } %>
-                </select>
-                <small>Usa Ctrl (Cmd en Mac) para seleccionar múltiples opciones</small>
-            </div>
-    
-            <div>
-                <label for="price">Precio:</label>
-                <input type="number" id="price" name="price" step="0.01" min="0">
-            </div>
-            <div>
-                <label for="size">Tamaño:</label>
-                <input type="input" id="size" name="size">
-            </div>
-            <div>
-                <label for="officialWeb">Descripción oficial (URL):</label>
-                <input type="text" name="officialWeb" id="officialWeb" autocomplete="off">
-            </div>
-    
-            <button type="submit">Registrar Producto</button>
-        </form>
+        <%- include('../partials/productForm.ejs', {
+            formClass: 'crearProducto',
+            formAction: '/products/',
+            formMethod: 'POST',
+            formTitle: 'Registrar producto',
+            buttonText: 'Registrar producto',
+            brands: brands,
+            categories: categories,
+            colors: colors,
+            product: null
+        }) %>
     </main>
 
     <%- include('../partials/footer.ejs') %>

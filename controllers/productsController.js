@@ -296,7 +296,91 @@ let productController = {
     // ------------------------------------------------------------------------
     cart: function(req, res) {
         return res.render('products/productCart')
-    }
+    },
+
+
+    // ------------------------------------------------------------------------
+    addToCart: function(req, res) {
+        const productId = parseInt(req.body.productId); // ID del producto a agregar
+        const quantity = parseInt(req.body.quantity) || 1; // Cantidad del producto (por defecto 1)
+        const userId = req.session.user.id; // Obtener el ID del usuario desde la sesión
+
+        // Verificar si el carrito ya existe para el usuario
+        db.ShoppingCart.findOne({
+            where: {
+                user_id: userId,
+                // Puedes agregar un estado de carrito si es necesario (activo, pendiente, etc.)
+            },
+            include: [
+                {
+                    model: db.CartItem, // Incluimos CartItem para ver los productos en el carrito
+                    where: {
+                        product_id: productId // Comprobamos si el producto ya está en el carrito
+                    },
+                    required: false
+                }
+            ]
+        })
+        .then(cart => {
+            if (cart) {
+                // Si el carrito ya existe
+                const cartItem = cart.CartItems[0]; // Obtener el CartItem asociado al producto
+
+                if (cartItem) {
+                    // Si el producto ya está en el carrito, actualizamos la cantidad
+                    return cartItem.update({ quantity: cartItem.quantity + quantity })
+                        .then(() => {
+                            // Recalcular el total del carrito
+                            return cart.updateTotal();
+                        })
+                        .then(() => {
+                            return res.redirect('/cart'); // Redirigir a la página del carrito
+                        });
+                } else {
+                    // Si el producto no está en el carrito, agregamos un nuevo CartItem
+                    return db.CartItem.create({
+                        cart_id: cart.id,
+                        product_id: productId,
+                        quantity: quantity
+                    })
+                    .then(() => {
+                        // Recalcular el total del carrito
+                        return cart.updateTotal();
+                    })
+                    .then(() => {
+                        return res.redirect('/cart'); // Redirigir a la página del carrito
+                    });
+                }
+            } else {
+                // Si el carrito no existe, creamos uno nuevo
+                return db.ShoppingCart.create({
+                    user_id: userId,
+                    total: 0 // Inicializamos el total a 0
+                })
+                .then(newCart => {
+                    // Agregar el producto al nuevo carrito
+                    return db.CartItem.create({
+                        cart_id: newCart.id,
+                        product_id: productId,
+                        quantity: quantity
+                    })
+                    .then(() => {
+                        // Recalcular el total del carrito
+                        return newCart.updateTotal();
+                    })
+                    .then(() => {
+                        return res.redirect('/cart'); // Redirigir a la página del carrito
+                    });
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(500).send('Error al agregar producto al carrito');
+        });
+    },
+
+
 };
 
 module.exports = productController;
