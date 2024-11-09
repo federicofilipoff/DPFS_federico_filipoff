@@ -381,6 +381,50 @@ let productController = {
     },
 
 
+
+
+    // ------------------------------------------------------------------------
+    showCart: function(req, res) {
+        const userId = req.session.user.id; // Obtener el ID del usuario desde la sesión
+    
+        // Buscar el carrito del usuario, incluyendo los productos
+        db.ShoppingCart.findOne({
+            where: {
+                user_id: userId
+            },
+            include: [
+                {
+                    model: db.CartItem,
+                    include: [
+                        { 
+                            model: db.Product, 
+                            attributes: ['name', 'price', 'image', 'Category.name'] // Asegúrate de incluir los atributos del producto
+                        }
+                    ]
+                }
+            ]
+        })
+        .then(cart => {
+            if (!cart) {
+                return res.render('cart', { cart: [], message: 'Tu carrito está vacío.' });
+            }
+            
+            // Pasar los productos asociados al carrito (CartItems)
+            const cartItems = cart.CartItems.map(item => {
+                return {
+                    ...item.toJSON(),
+                    product: item.Product // Relacionar el producto con cada CartItem
+                };
+            });
+    
+            return res.render('cart', { cart: cartItems, message: 'Aquí están los productos en tu carrito.' });
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(500).send('Error al obtener el carrito');
+        });
+    }
+
 };
 
 module.exports = productController;

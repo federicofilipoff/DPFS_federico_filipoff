@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('../partials/head.ejs', { title: 'Carrito de Compras' , stylesheets: [] }) %>
+
+    <body>
+        <%- include('../partials/header.ejs') %>
+
+            <main class="container my-5">
+                <!-- Título de la página -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Carrito de Compras</h2>
+                    <a href="/products" class="btn btn-secondary">Volver a Productos</a>
+                </div>
+
+                <!-- Tabla del carrito -->
+                <div class="table-responsive">
+                    <table class="table table-striped align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">Producto</th>
+                                <th scope="col" class="text-center">Precio</th>
+                                <th scope="col" class="text-center">Cantidad</th>
+                                <th scope="col" class="text-center">Subtotal</th>
+                                <th scope="col" class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% cart.forEach(item=> { %>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="/images/products/<%= item.product.image %>"
+                                                alt="<%= item.product.name %>" class="img-fluid"
+                                                style="width: 50px; height: 50px; object-fit: cover;">
+                                            <div class="ms-3">
+                                                <p class="mb-1">
+                                                    <%= item.product.name %>
+                                                </p>
+                                                <p class="text-muted mb-0"><span class="fw-bold">Categoría:</span>
+                                                    <%= item.product.Category.name %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">$<%= item.product.price %>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <form action="/cart/update/<%= item.product.id %>" method="POST"
+                                                class="d-inline">
+                                                <input type="number" name="quantity" value="<%= item.quantity %>"
+                                                    min="1" class="form-control w-50 text-center">
+                                            </form>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">$<%= item.product.price * item.quantity %>
+                                    </td>
+                                    <td class="text-center">
+                                        <form action="/cart/remove/<%= item.product.id %>" method="POST"
+                                            class="d-inline">
+                                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Resumen del carrito -->
+                <div class="d-flex justify-content-end">
+                    <div class="text-end">
+                        <h4>Total: $<%= cart.reduce((sum, item)=> sum + item.product.price * item.quantity, 0) %></h4>
+                        <form action="/checkout" method="POST">
+                            <button type="submit" class="btn btn-primary mt-3">Proceder al Pago</button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+
+            <%- include('../partials/footer.ejs') %>
+    </body>
+
+</html>
