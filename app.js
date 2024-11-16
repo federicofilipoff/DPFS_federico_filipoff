@@ -15,7 +15,7 @@ var indexRouter = require("./src/routes/web/index");
 var usersRoutes = require("./src/routes/web/usersRoutes");
 var productsRoutes = require("./src/routes/web/productsRoutes");
 var usersApi = require("./src/routes/api/usersApi");
-// var productRouter = require("./src/routes/api/productsApi");
+var productsApi = require("./src/routes/api/productsApi");
 
 // view engine setup
 app.set("views", path.join(__dirname, "src", "views"));
@@ -53,6 +53,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
 app.use("/api/users", usersApi);
+app.use("/api/products", productsApi);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

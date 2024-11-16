@@ -10,7 +10,8 @@ const isAdmin = require("../../middlewares/isAdmin");
 const productValidator = require("../../validators/productValidator");
 
 // Rutas
-router.get("/", productController.index);
+// acceder desde /products/...
+router.get("/", productController.productList);
 router.post(
   "/",
   isAdmin,

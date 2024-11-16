@@ -82,9 +82,40 @@ let usersController = {
       .then(function (data) {
         return res.render("users/profile", { data });
       })
-      .catch(function (e) {
-        console.log(e);
-        return res.status(500).send("Usuario no encontrado");
+      .catch(function (error) {
+        return res
+          .status(500)
+          .json({ error: error, msg: "Usuario no encontrado" });
+      });
+  },
+  // ------------------------------------------------------------------------
+  showApi: function (req, res) {
+    // Obtener el ID del usuario desde los parámetros
+    const userId = parseInt(req.params.id);
+
+    db.User.findByPk(userId)
+      .then(function (user) {
+        if (!user) {
+          return res.status(404).json({ msg: "Usuario no encontrado" });
+        }
+
+        // Formatear el usuario según la consigna
+        const formattedUser = {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          profileImage: `/images/users/${user.profileImage}`,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+        };
+
+        return res.status(200).json(formattedUser);
+      })
+      .catch(function (error) {
+        return res
+          .status(500)
+          .json({ error: error.message, msg: "Error en el servidor" });
       });
   },
   // ------------------------------------------------------------------------

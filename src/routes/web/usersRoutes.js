@@ -12,6 +12,7 @@ const authValidator = require("../../validators/authValidator");
 const userValidator = require("../../validators/userValidator");
 
 // Rutas
+// acceder desde /users/...
 router.get("/login", authMiddleware.isGuest, authController.login);
 router.post(
   "/login",
