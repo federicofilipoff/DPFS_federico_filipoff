@@ -36,6 +36,10 @@ button {
     color: darkorange;
 }
 
+.nav-link svg:hover {
+    fill: darkorange;
+}
+
 /* footer styles */
 footer h2 {
     color: darkorange;
@@ -73,6 +77,12 @@ footer svg:hover {
 }
 
 /* LOGOTIPO */
+.navbar-brand, .gradiente {
+    font-weight: 700;
+    letter-spacing: .1rem;
+    font-size: 18px;
+}
+
 .gradiente {
     background: linear-gradient(45deg, orange, red);
     color: transparent;
