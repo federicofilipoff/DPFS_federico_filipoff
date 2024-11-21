@@ -1,0 +1,59 @@
+.dashboard {
+    padding: 1rem;
+  }
+  
+.cards-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+  
+.card {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+  
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+    text-align: left;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    color: #f1f1f1;
+}
+  
+.table th, .table td {
+    padding: 12px 15px;
+    border: 1px solid #333;
+}
+  
+.table th {
+    background-color: #333;
+    color: #f9f9f9;
+    font-weight: bold;
+}
+  
+.table tbody tr:nth-child(even) {
+    background-color: #292929;
+}
+  
+.table tbody tr:nth-child(odd) {
+    background-color: #1e1e1e;
+}
+  
+.table tbody tr:hover {
+    background-color: #444;
+    cursor: pointer;
+}
+
+.css-1eg20ca-MuiResponsiveChart-container {
+    background-color: rgb(230, 230, 230);
+    border-radius: 25px;
+    padding: 25px;
+}

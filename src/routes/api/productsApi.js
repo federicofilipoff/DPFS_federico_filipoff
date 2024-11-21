@@ -9,7 +9,7 @@ const isAdmin = require("../../middlewares/isAdmin");
 
 // Rutas
 // acceder desde api/products/...
-router.get("/", isAdmin, productController.index);
-router.get("/:id", isAdmin, productController.showApi);
+router.get("/", productController.index);
+router.get("/:id", productController.showApi);
 
 module.exports = router;

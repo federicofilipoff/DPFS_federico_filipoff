@@ -6,9 +6,17 @@ var logger = require("morgan");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const rememberMiddleware = require("./src/middlewares/rememberMiddleware");
+const cors = require("cors");
 
 // Instanciar Express
 var app = express();
+
+// Permitir conecciones de Vite
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 
 // Importar rutas
 var indexRouter = require("./src/routes/web/index");
