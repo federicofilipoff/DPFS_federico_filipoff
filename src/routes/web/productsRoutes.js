@@ -21,7 +21,12 @@ router.post(
 );
 router.get("/search", productController.search);
 router.get("/create", isAdmin, productController.create);
-router.get("/cart", productController.cart);
+router.get("/cart", productController.showCart);
+router.post("/cart/increase/:id", productController.increaseItem);
+router.post("/cart/decrease/:id", productController.decreaseItem);
+router.post("/cart/remove/:id", productController.removeItem);
+router.post("/checkout", productController.checkout);
+router.post("/addItem/:id", productController.addToCart);
 router.get("/:id/edit", isAdmin, productController.edit);
 router.put(
   "/:id",

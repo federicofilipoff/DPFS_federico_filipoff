@@ -1,83 +1,123 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<%- include('../partials/head.ejs', {
-    title: 'Producto',
-    stylesheets: []
-}) %>
+<%- include('../partials/head.ejs', { title: 'Producto' , stylesheets: [] }) %>
 
-<body>
-    <%- include('../partials/header.ejs') %>
+    <body>
+        <%- include('../partials/header.ejs') %>
 
-    <main class="container">
-        <section class="row">
-            <div class="col-md-12">
-                <div class="card mb-4 bg-light shadow">
-                    <div class="row g-0">
-                        <!-- Imagen del producto -->
-                        <div class="col-md-6">
-                            <img src="/images/products/<%= data.image %>" alt="<%= data.name %>" class="img-fluid rounded-start" style="object-fit: cover; height: 100%;">
-                        </div>
-
-                        <!-- Información del producto -->
-                        <div class="col-md-6">
-                            <div class="card-body">
-                                <h1 class="fw-bold mb-3"><%= data.name %></h1>
-
-                                <div class="mb-2">
-                                    <span class="fw-bold">Marca:</span> <%= data.Brand.name %>
+            <main class="container">
+                <section class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-4 bg-light shadow">
+                            <div class="row g-0">
+                                <!-- Imagen del producto -->
+                                <div class="col-md-6">
+                                    <img src="/images/products/<%= data.image %>" alt="<%= data.name %>"
+                                        class="img-fluid rounded-start" style="object-fit: cover; height: 100%;">
                                 </div>
 
-                                <div class="mb-2">
-                                    <span class="fw-bold">Categoría:</span> <%= data.Category.name %>
-                                </div>
+                                <!-- Información del producto -->
+                                <div class="col-md-6">
+                                    <div class="card-body">
+                                        <h1 class="fw-bold mb-3">
+                                            <%= data.name %>
+                                        </h1>
 
-                                <div class="mb-2">
-                                    <span class="fw-bold">Descripción:</span>
-                                    <p><%= data.description %></p>
-                                </div>
-
-                                <div class="mb-2">
-                                    <span class="fw-bold">Dimensiones:</span> <%= data.size %>
-                                </div>
-
-                                <div class="mb-2">
-                                    <span class="fw-bold">Color/es:</span> <%= data.Colors.map(color => color.name).join(", ") %>
-                                </div>
-
-                                <!-- Enlace a la descripción oficial -->
-                                <a href="<%= data.officialWeb %>" target="_blank" class="d-block mt-3">
-                                    Ver descripción oficial
-                                </a>
-
-                                <!-- Precio y botón de compra -->
-                                <p class="producto-precio fs-4 mt-3 fw-bold">Precio: $<%= data.price %></p>
-
-                                <button class="btn btn-primary btn-lg w-100 mb-4">Agregar al Carrito</button>
-
-                                <!-- Opciones de edición y eliminación para administradores -->
-                                <% if (user && user.category == 'admin') { %>
-                                    <div class="d-flex justify-content-between mt-4">
-                                        <div class="row w-100">
-                                            <div class="col-6">
-                                                <a href="<%= data.id %>/edit" class="btn btn-secondary w-100">Editar producto</a>
-                                            </div>
-                                            <div class="col-6">
-                                                <form action="/products/<%= data.id %>?_method=DELETE" method="POST" onsubmit="return confirm('¿Estás seguro de que querés eliminar este producto?');">
-                                                    <button type="submit" class="btn btn-danger w-100">Eliminar producto</button>
-                                                </form>
-                                            </div>
+                                        <div class="mb-2">
+                                            <span class="fw-bold">Marca:</span>
+                                            <%= data.Brand.name %>
                                         </div>
+
+                                        <div class="mb-2">
+                                            <span class="fw-bold">Categoría:</span>
+                                            <%= data.Category.name %>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <span class="fw-bold">Descripción:</span>
+                                            <p>
+                                                <%= data.description %>
+                                            </p>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <span class="fw-bold">Dimensiones:</span>
+                                            <%= data.size %>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <span class="fw-bold">Color/es:</span>
+                                            <%= data.Colors.map(color=> color.name).join(", ") %>
+                                        </div>
+
+                                        <!-- Enlace a la descripción oficial -->
+                                        <a href="<%= data.officialWeb %>" target="_blank" class="d-block mt-3">
+                                            Ver descripción oficial
+                                        </a>
+
+                                        <!-- Precio y botón de compra -->
+                                        <p class="producto-precio fs-4 mt-3 fw-bold">Precio: $<%= data.price %>
+                                        </p>
+
+
+                                        <% if (user) { %>
+                                            <form action="/products/addItem/<%= data.id %>" method="POST">
+                                                <input type="hidden" name="quantity" value="1">
+                                                <button type="submit" class="btn btn-primary btn-lg w-100 mb-4">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                                                        viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                                        <path
+                                                            d="M440-600v-120H320v-80h120v-120h80v120h120v80H520v120h-80ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM40-800v-80h131l170 360h280l156-280h91L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68.5-39t-1.5-79l54-98-144-304H40Z" />
+                                                    </svg>
+                                                    Agregar al Carrito
+                                                </button>
+                                            </form>
+                                            <% } else { %>
+                                                <form action="/users/requirelogin" method="GET">
+                                                    <button type="submit" class="btn btn-primary btn-lg w-100 mb-4">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                                                            viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                                            <path
+                                                                d="M440-600v-120H320v-80h120v-120h80v120h120v80H520v120h-80ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM40-800v-80h131l170 360h280l156-280h91L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68.5-39t-1.5-79l54-98-144-304H40Z" />
+                                                        </svg>
+                                                        Agregar al Carrito
+                                                    </button>
+                                                </form>
+                                                <% } %>
+
+
+                                                    <!-- Opciones de edición y eliminación para administradores -->
+                                                    <% if (user && user.category=='admin' ) { %>
+                                                        <div class="d-flex justify-content-between mt-4">
+                                                            <div class="row w-100">
+                                                                <div class="col-6">
+                                                                    <a href="<%= data.id %>/edit"
+                                                                        class="btn btn-secondary w-100">Editar
+                                                                        producto</a>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <form
+                                                                        action="/products/<%= data.id %>?_method=DELETE"
+                                                                        method="POST"
+                                                                        onsubmit="return confirm('¿Estás seguro de que querés eliminar este producto?');">
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger w-100">Eliminar
+                                                                            producto</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <% } %>
                                     </div>
-                                <% } %>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-    </main>
+                </section>
+            </main>
 
-    <%- include('../partials/footer.ejs') %>
-</body>
+            <%- include('../partials/footer.ejs') %>
+    </body>
+
 </html>

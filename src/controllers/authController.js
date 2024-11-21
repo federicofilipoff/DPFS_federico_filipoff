@@ -110,6 +110,12 @@ let authController = {
       return res.status(500).json({ error: "Error interno del servidor." });
     }
   },
+  // ------------------------------------------------------------------------
+  requireLogin: (req, res) => {
+    res.render("users/requireLogin", {
+      title: "Acceso Restringido",
+    });
+  },
 };
 
 module.exports = authController;

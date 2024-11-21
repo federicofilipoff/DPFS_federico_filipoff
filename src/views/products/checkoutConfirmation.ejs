@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('../partials/head.ejs', { title: 'Confirmación de Compra' , stylesheets: [] }) %>
+
+    <body>
+        <%- include('../partials/header.ejs') %>
+
+            <main class="container text-center">
+                <div class="alert alert-success">
+                    <h1>
+                        <%= message %>
+                    </h1>
+                    <p>Gracias por tu compra. ¡Esperamos verte pronto!</p>
+                    <a href="/products" class="btn btn-primary mt-3">Seguir comprando</a>
+                </div>
+            </main>
+
+            <%- include('../partials/footer.ejs') %>
+    </body>
+
+</html>

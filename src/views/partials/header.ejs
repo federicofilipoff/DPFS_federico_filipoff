@@ -15,10 +15,10 @@
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <% if (user && user.profileImage ) { %>
               <img src="/images/users/<%= user.profileImage ?? 'user-undefined.png' %>" alt="perfil"
-                class="img-fluid rounded-circle border border-2" style="max-width: 32px; height: auto;">
+                class="img-fluid rounded-circle border border-2" style="max-width: 24px; height: auto;">
               <% } else { %>
                 <img src="/images/users/user-undefined.png" alt="perfil"
-                  class="img-fluid rounded-circle border border-2" style="max-width: 32px; height: auto;">
+                  class="img-fluid rounded-circle border border-2" style="max-width: 24px; height: auto;">
                 <% } %>
           </a>
           <ul class="dropdown-menu">
@@ -130,13 +130,31 @@
               <% } %>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="/products/cart">
+                  <a class="nav-link" href="/">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                       fill="#CCCCCC">
                       <path
-                        d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z" />
+                        d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
                     </svg>
                   </a>
+                </li>
+
+                <li class="nav-item">
+                  <% if (user) { %>
+                    <a class="nav-link" href="/products/cart">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="#CCCCCC">
+                        <path
+                          d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z" />
+                      </svg>
+                    </a>
+                    <% } else { %>
+                      <a class="nav-link" href="/users/requirelogin"> <svg xmlns="http://www.w3.org/2000/svg"
+                          height="24px" viewBox="0 -960 960 960" width="24px" fill="#CCCCCC">
+                          <path
+                            d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z" />
+                        </svg></a>
+                      <% } %>
                 </li>
       </ul>
       <form action="/products/search" method="get" class="d-flex" role="search">
