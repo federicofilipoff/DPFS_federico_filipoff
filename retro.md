@@ -53,11 +53,6 @@ Adaptar el maquetado web a los Sprint.
   Esto es útil para tener una imagen única para usuario sin imagen de perfil o
   para reciclar las imágenes de productos. En otros casos puede dejar imágenes sin uso y ocupar espacio innecesariamente.
 
-- Crear vista para el carrito + controlador para incorporar productos al mismo: ¿aplicar React? necesito actualizar estados para añadir o quitar unidades y actualizar los totales.
-  falta mejorar carrito y función para incorporar productos al carrito.
-- Crear API (usuario y productos) según Sprint 8: 2 pares de rutas y controladores
-- Consumir dichas API para mostrar datos en Dashboard.
-
 ## Mejoré
 
 - Mostrar colores en la descripción (detail) del producto.
