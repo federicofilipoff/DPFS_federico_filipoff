@@ -2,7 +2,6 @@ import React from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
 
 const CategoryPieChart = ({ categories }) => {
-  // Convertir categorías y totales en el formato requerido por PieChart
   const data = Object.entries(categories).map(([category, total], index) => ({
     id: index,
     value: total,

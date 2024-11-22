@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Table from "../components/Table";
-import CategoryPieChart from "../components/CategoryPieChart"; // Importar la gráfica
+import CategoryPieChart from "../components/CategoryPieChart";
 import "../styles/dashboard.css";
 import { fetchUsers, fetchProducts } from "../services/api";
 
@@ -12,10 +12,15 @@ const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [lastUser, setLastUser] = useState(null);
   const [lastProduct, setLastProduct] = useState(null);
+  const [latestSales, setLatestSales] = useState([]);
+  const [topProducts, setTopProducts] = useState([]);
+  const [totalUnitsSold, setTotalUnitsSold] = useState(0);
+  const [totalSalesAmount, setTotalSalesAmount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Obtener usuarios
         const userResponse = await fetchUsers();
         setTotalUsers(userResponse.count);
         if (userResponse.users.length > 0) {
@@ -26,15 +31,24 @@ const Dashboard = () => {
       }
 
       try {
+        // Obtener productos y datos relacionados
         const productResponse = await fetchProducts();
         setTotalProducts(productResponse.count);
         setCategories(productResponse.countByCategory);
         setProducts(productResponse.products);
+
+        // Último producto creado
         if (productResponse.products.length > 0) {
           setLastProduct(
             productResponse.products[productResponse.products.length - 1]
           );
         }
+
+        // Nuevos datos desde la API
+        setTotalUnitsSold(productResponse.totalUnitsSold || 0);
+        setTotalSalesAmount(productResponse.totalSalesAmount || 0);
+        setLatestSales(productResponse.latestSales || []);
+        setTopProducts(productResponse.topProducts || []);
       } catch (error) {
         console.error("Error al obtener productos:", error.message);
       }
@@ -42,23 +56,6 @@ const Dashboard = () => {
 
     fetchData();
   }, []);
-
-  const handleDelete = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:3000/api/products/${id}`, {
-        method: "DELETE",
-      });
-      if (response.ok) {
-        setProducts(products.filter((prod) => prod.id !== id));
-        alert("Producto eliminado con éxito");
-      } else {
-        console.error("Error al eliminar el producto");
-        alert("No se pudo eliminar el producto.");
-      }
-    } catch (error) {
-      console.error("Error al realizar la solicitud:", error.message);
-    }
-  };
 
   return (
     <div className="dashboard">
@@ -69,6 +66,11 @@ const Dashboard = () => {
         <Card
           title="Total de Categorías"
           value={Object.keys(categories).length}
+        />
+        <Card title="Total de Unidades Vendidas" value={totalUnitsSold} />
+        <Card
+          title="Monto Total de Ventas"
+          value={`$${totalSalesAmount.toFixed(2)}`}
         />
       </div>
 
@@ -105,20 +107,44 @@ const Dashboard = () => {
       <div className="list-container">
         <h2>Listado de Productos</h2>
         <Table
-          headers={["ID", "Nombre", "Descripción", "Acciones"]}
+          headers={["ID", "Nombre", "Descripción"]}
           data={products.map((prod) => ({
             ID: prod.id,
             Nombre: prod.name,
             Descripción: prod.description,
-            Acciones: (
-              <button
-                onClick={() => handleDelete(prod.id)}
-                className="delete-button"
-              >
-                Eliminar
-              </button>
-            ),
           }))}
+        />
+      </div>
+
+      {/* Tabla de Últimas Ventas */}
+      <div className="list-container">
+        <h2>Últimas Ventas</h2>
+        <Table
+          headers={["Producto", "Cantidad", "Total", "Fecha"]}
+          data={latestSales.map((sale) => ({
+            Producto: sale.productName,
+            Cantidad: sale.quantity,
+
+            Total:
+              typeof sale.total === "number"
+                ? `$${sale.total.toFixed(2)}`
+                : `$${sale.total}`,
+            Fecha: new Date(sale.saleDate).toLocaleDateString(),
+          }))}
+        />
+      </div>
+
+      {/* Tabla de Top 5 Productos Vendidos (unidades) */}
+      <div className="list-container">
+        <h2>Top 5 Productos Más Vendidos (unidades)</h2>
+        <Table
+          headers={["Producto", "Unidades Vendidas"]}
+          data={topProducts.map((product) => {
+            return {
+              Producto: product.productName,
+              "Unidades Vendidas": product.totalSold,
+            };
+          })}
         />
       </div>
     </div>

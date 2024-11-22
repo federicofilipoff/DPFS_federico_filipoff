@@ -82,3 +82,18 @@ CREATE TABLE CartItems (
     FOREIGN KEY (product_id) REFERENCES Products(id),
     UNIQUE(cart_id, product_id)
 );
+
+-- Crear la tabla de ventas
+CREATE TABLE Sales (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    sale_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('completed', 'cancelled', 'pending') DEFAULT 'completed',
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (product_id) REFERENCES Products(id)
+);

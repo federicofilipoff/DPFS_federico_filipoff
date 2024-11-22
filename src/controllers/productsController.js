@@ -1,6 +1,7 @@
 // Por si solas las validaciones (/validators/) no se muestran al usuario,
 // se deben asociar a la ruta como middleware y enviar por controlador.
 const { validationResult } = require("express-validator");
+const { Sequelize } = require("sequelize");
 const db = require("../database/models"); // "db" contiene todos los modelos
 
 // CREAR OBJETO CON LOS CONTROLADORES
@@ -28,61 +29,111 @@ let productController = {
       });
   },
   // ------------------------------------------------------------------------
-  index: function (req, res) {
-    db.Product.findAll({
-      // Combinar tablas para obtener nombre de marca y categoría
-      include: [
-        {
-          model: db.Brand,
-          attributes: ["name"],
-        },
-        {
-          model: db.Category,
-          attributes: ["name"],
-        },
-        {
-          model: db.Color,
-          attributes: ["name"],
-        },
-      ],
-    })
-      .then(function (products) {
-        // Contar el total de productos
-        const count = products.length;
-
-        // Contar los productos por categoría
-        const countByCategory = products.reduce((acc, product) => {
-          const categoryName = product.Category.name;
-          if (!acc[categoryName]) {
-            acc[categoryName] = 0;
-          }
-          acc[categoryName] += 1;
-          return acc;
-        }, {});
-
-        // Crear un array con la colección de productos
-        const productDetails = products.map((product) => {
-          return {
-            id: product.id,
-            name: product.name,
-            description: product.description,
-            category: product.Category.name,
-            brand: product.Brand.name,
-            colors: product.Colors.map((color) => color.name),
-            detail: `/products/${product.id}`,
-          };
-        });
-
-        // Devolver el objeto en el formato solicitado
-        return res.json({
-          count: count,
-          countByCategory: countByCategory,
-          products: productDetails,
-        });
-      })
-      .catch(function (error) {
-        return res.status(500).send("Error al obtener los productos");
+  index: async function (req, res) {
+    try {
+      // Obtener todos los productos con sus relaciones
+      const products = await db.Product.findAll({
+        include: [
+          {
+            model: db.Brand,
+            attributes: ["name"],
+          },
+          {
+            model: db.Category,
+            attributes: ["name"],
+          },
+          {
+            model: db.Color,
+            attributes: ["name"],
+          },
+        ],
       });
+
+      // Contar el total de productos
+      const count = products.length;
+
+      // Contar los productos por categoría
+      const countByCategory = products.reduce((acc, product) => {
+        const categoryName = product.Category.name;
+        if (!acc[categoryName]) {
+          acc[categoryName] = 0;
+        }
+        acc[categoryName] += 1;
+        return acc;
+      }, {});
+
+      // Crear un array con la colección de productos
+      const productDetails = products.map((product) => ({
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        category: product.Category.name,
+        brand: product.Brand.name,
+        colors: product.Colors.map((color) => color.name),
+        detail: `/products/${product.id}`,
+      }));
+
+      // Consultas a la tabla Sales
+      const [totalUnitsSold, totalSalesAmount, latestSales, topProducts] =
+        await Promise.all([
+          // Total de productos vendidos en unidades
+          db.Sale.sum("quantity"),
+
+          // Suma total de productos vendidos en valor monetario
+          db.Sale.sum("total"),
+
+          // Últimos 5 productos vendidos
+          db.Sale.findAll({
+            include: [{ model: db.Product, attributes: ["name"] }],
+            order: [["sale_date", "DESC"]],
+            limit: 5,
+          }),
+
+          // Top 5 productos más vendidos
+          db.Sale.findAll({
+            attributes: [
+              "product_id",
+              [Sequelize.fn("SUM", Sequelize.col("quantity")), "totalSold"],
+            ],
+            include: [{ model: db.Product, attributes: ["name"] }],
+            group: ["product_id", "Product.id"],
+            order: [[Sequelize.literal("totalSold"), "DESC"]],
+            limit: 5,
+          }),
+        ]);
+
+      // Formatear los últimos 5 productos vendidos
+      const latestSalesDetails = latestSales.map((sale) => ({
+        productName: sale.Product
+          ? sale.Product.name
+          : "Producto no encontrado",
+        quantity: sale.quantity,
+        total: sale.total,
+        saleDate: sale.sale_date,
+      }));
+
+      // Formatear los 5 productos más vendidos
+      const topProductsDetails = topProducts.map((sale) => ({
+        productName: sale.Product
+          ? sale.Product.name
+          : "Producto no encontrado",
+        totalSold: sale.dataValues.totalSold,
+      }));
+
+      // Respuesta en formato JSON
+      return res.json({
+        count: count,
+        countByCategory: countByCategory,
+        totalUnitsSold: totalUnitsSold || 0,
+        totalSalesAmount: totalSalesAmount || 0.0,
+        latestSales: latestSalesDetails || 0,
+        topProducts: topProductsDetails || 0,
+        products: productDetails,
+      });
+    } catch (error) {
+      console.error("Error en el controlador index:", error);
+      return res.status(500).send("Error al obtener los productos");
+    }
   },
   // ------------------------------------------------------------------------
   create: function (req, res) {
@@ -675,6 +726,15 @@ let productController = {
             .status(404)
             .send(`Producto con ID ${item.product_id} no encontrado.`);
         }
+
+        // Registrar cada venta en la tabla Sales
+        await db.Sale.create({
+          user_id: userId,
+          product_id: item.product_id,
+          quantity: item.quantity,
+          total: item.price,
+          sale_date: new Date(),
+        });
       }
 
       // Limpiar el carrito después de la compra
