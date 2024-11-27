@@ -11,7 +11,7 @@ const cors = require("cors");
 // Instanciar Express
 var app = express();
 
-// Permitir conecciones de Vite
+// Permitir conecciones con Vite
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -25,7 +25,7 @@ var productsRoutes = require("./src/routes/web/productsRoutes");
 var usersApi = require("./src/routes/api/usersApi");
 var productsApi = require("./src/routes/api/productsApi");
 
-// view engine setup
+// CONFIGURACIONES: definir motor de vistas
 app.set("views", path.join(__dirname, "src", "views"));
 app.set("view engine", "ejs");
 
@@ -56,7 +56,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Crear rutas
+// DEFINIR RUTAS
 app.use("/", indexRouter);
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);

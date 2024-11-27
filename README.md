@@ -1,3 +1,90 @@
+# INSTRUCCIONES: CARRITO DE COMPRA
+
+## Requisitos
+
+Tener instaladas las siguientes herramientas:
+
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/)
+- (Opcional) [Git](https://git-scm.com/) para clonar el repositorio
+
+## Pasos
+
+Usando la consola de comandos del sistema operativo:
+
+1. Clonar repositorio:
+
+```bash
+git clone https://github.com/federicofilipoff/DPFS_federico_filipoff
+```
+
+2. Dirigirse a la carpeta del proyecto:
+
+```bash
+cd DPFS_federico_filipoff
+```
+
+3. Instalar dependencias:
+
+```bash
+npm install
+```
+
+4.  Base de datos: crear base de datos y los datos para cada tabla.
+
+Crear la base de datos "ecommerce" y sus tablas.
+Ejecutar scripts, usando MySQL Workbench:
+
+- "/src/database/seeders/structure.sql"
+- "/src/database/seeders/data.sql"
+
+Contraseñas de usuarios
+
+Los usuarios creados por script de SQL inician sesión con la siguiente contraseña: 123
+La misma debe ser encriptada, usar el comando:
+
+```bash
+npx sequelize db:seed --seed src/database/seeders/encrypt-passwords.js
+```
+
+Esto es así porque en el controlador de Users (login),
+cuando comparo la contraseña ingresada por formulario con la registrada
+en la base de datos, si ambas no fueron cifradas, la comparación retorna falso.
+
+5.  Ejecutar Back-end:
+
+```bash
+nodemon
+```
+
+6. Ejecutar Front-end usando otra instancia de la consola de comandos del sistema operativo:
+
+```bash
+cd dashboard
+```
+
+```bash
+npm run dev
+```
+
+# APIs
+
+## GET /api/products
+
+- Descripción: visualizar lista de productos y analíticas básicas.
+
+## GET /api/products/:id
+
+- Descripción: visualizar información detallada del artículo, según su ID.
+
+## GET /api/users
+
+- Descripción: visualizar cantidad y lista de usuarios registrados.
+
+## GET /api/users/:id
+
+- Descripción: visualizar información básica del usuario, según su ID.
+
 # SPRINT 1
 
 ## Temática del sitio y Público objetivo
@@ -42,50 +129,11 @@ Considero que estos sitios cubren los aspectos básicos de una tienda virtual.
 
 https://github.com/users/federicofilipoff/projects/2
 
-## Aplicación Node.js + Express
-
-### Modelo MVC
-
-Desarrollo básico de la estructura mediante express-generator
-Creación de /controllers para separar la lógica de la definición de las rutas.
-
-### Archivos estáticos (ver carpeta /public/html)
-
-- Home (index.html)
-- Detalle del producto (productDetail.html)
-- Carrito de compras (productCart.html)
-- Formulario de registro (register.html)
-- Formulario de login (login.html)
-
-#### Rutas de acceso a las páginas estáticas
-
-- http://localhost:3000/html/index.html
-- http://localhost:3000/html/productDetail.html
-- http://localhost:3000/html/productCart.html
-- http://localhost:3000/html/register.html
-- http://localhost:3000/html/login.html
-
-### Modificación
-
-La Paleta de colores se eliminó de /public/design y se incluyeron
-los colores como variables en /public/stylesheets/variables.css
-
 # SPRINT 3
 
 ## Tablero de trabajo
 
 https://github.com/users/federicofilipoff/projects/3
-
-## Entregables
-
-- Archivos parciales (head, header, footer, etc.)
-- Home
-- Listado de productos
-- Detalle del producto
-- Carrito de productos
-- Formulario de registro y login
-- Formulario de carga y edición de productos
-- Cada plantilla fue vinculada con su ruta y controlador
 
 # SPRINT 4
 
@@ -104,25 +152,6 @@ https://github.com/users/federicofilipoff/projects/5
 ## Tablero de trabajo
 
 https://github.com/users/federicofilipoff/projects/6
-
-## Base de datos
-
-Ejecutar scripts (usando MySQL) ubicados en:
-
-- "/src/database/seeders/structure.sql"
-- "src/database/seeders/data.sql"
-  Se creará la base de datos "ecommerce" y sus tablas.
-
-## Contraseñas de usuarios:
-
-Los usuarios creados por script de SQL inician sesión con la siguiente contraseña: 123
-La misma debe ser encriptada, usar el comando:
-
-> npx sequelize db:seed --seed src/database/seeders/encrypt-passwords.js
-
-Esto es así porque en el controlador de Users (login),
-cuando comparo la contraseña ingresada por formulario con la registrada
-en la base de datos, si ambas no fueron cifradas, la comparación retorna falso.
 
 # SPRINT 7
 
