@@ -7,6 +7,8 @@ const methodOverride = require("method-override");
 const session = require("express-session");
 const rememberMiddleware = require("./src/middlewares/rememberMiddleware");
 const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swaggerConfig");
 
 // Instanciar Express
 var app = express();
@@ -49,6 +51,9 @@ app.use(
 
 // Middlware para recordar sesión
 app.use(rememberMiddleware);
+
+// Swagger
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Middleware de sesión para mostrar 'user' en todas las vistas
 app.use((req, res, next) => {
