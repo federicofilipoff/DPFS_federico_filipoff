@@ -77,7 +77,7 @@ let authController = {
 
       const isPasswordValid = bcrypt.compareSync(password, user.password);
 
-      // Si el usuario existe: verifica que la contraseña corresponda.
+      // Si el usuario existe: verifica que la contraseña.
       if (!isPasswordValid) {
         return res.status(401).json({ error: "Contraseña incorrecta." });
       }
@@ -89,7 +89,7 @@ let authController = {
   },
   // ------------------------------------------------------------------------
   checkEmail: async function (req, res) {
-    const { email, currentEmail } = req.body; // currentEmail viene del front-end
+    const { email, currentEmail } = req.body;
     try {
       // Buscar usuario por email
       const user = await db.User.findOne({ where: { email } });

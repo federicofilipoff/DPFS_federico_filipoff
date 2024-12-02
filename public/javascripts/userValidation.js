@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
       valid = false;
     } else {
       try {
-        const response = await fetch("/api/users/email", {
+        const response = await fetch("/api/users/check-email", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

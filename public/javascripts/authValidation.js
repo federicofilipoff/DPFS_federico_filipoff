@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Validar en el servidor
     try {
-      const response = await fetch("/api/users/", {
+      const response = await fetch("/api/users/check-credentials", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

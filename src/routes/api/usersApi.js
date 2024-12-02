@@ -10,9 +10,17 @@ const isAdmin = require("../../middlewares/isAdmin");
 
 /**
  * @swagger
+ * tags:
+ *   name: Usuarios
+ *   description: APIs para gestionar usuarios
+ */
+
+/**
+ * @swagger
  * /api/users:
  *   get:
  *     summary: Obtiene todos los usuarios
+ *     tags: [Usuarios]
  *     description: Devuelve la cantidad de usuarios registrados y una lista de todos los usuarios disponibles.
  *     responses:
  *       200:
@@ -47,33 +55,10 @@ router.get("/", usersController.index);
 
 /**
  * @swagger
- * /api/users:
- *   post:
- *     summary: Verifica un usuario
- *     description: Verifica si un usuario existe en la base de datos.
- *     responses:
- *       200:
- *         description: Usuario verificado.
- */
-router.post("/", authController.checkUser);
-
-/**
- * @swagger
- * /api/users/email:
- *   post:
- *     summary: Verifica un email
- *     description: Verifica si un email existe en la base de datos.
- *     responses:
- *       200:
- *         description: Email verificado.
- */
-router.post("/email", authController.checkEmail);
-
-/**
- * @swagger
  * /api/users/{id}:
  *   get:
  *     summary: Obtiene los detalles de un usuario
+ *     tags: [Usuarios]
  *     description: Devuelve la información de un usuario específico basado en su ID.
  *     parameters:
  *       - in: path
@@ -114,5 +99,132 @@ router.post("/email", authController.checkEmail);
  *                   example: "2024-11-21T23:46:03.000Z"
  */
 router.get("/:id", usersController.showApi);
+
+/**
+ * @swagger
+ * /api/users/check-credentials:
+ *   post:
+ *     summary: Verificar credenciales de usuario
+ *     tags: [Usuarios]
+ *     description: Valida si un usuario existe en la base de datos y si las credenciales son correctas (útil para el formulario "Login").
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Correo electrónico del usuario.
+ *                 example: email@example.com
+ *               password:
+ *                 type: string
+ *                 description: Contraseña del usuario.
+ *                 example: asdASD123!
+ *     responses:
+ *       200:
+ *         description: Credenciales válidas.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Credenciales válidas.
+ *       400:
+ *         description: Faltan datos en la solicitud.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Email y contraseña son requeridos.
+ *       404:
+ *         description: Usuario no encontrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: El correo no está registrado.
+ *       401:
+ *         description: Contraseña incorrecta.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Contraseña incorrecta.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.post("/check-credentials", authController.checkUser);
+
+/**
+ * @swagger
+ * /api/users/check-email:
+ *   post:
+ *     summary: Verifica si un email existe o está en uso.
+ *     tags: [Usuarios]
+ *     description: Comprueba si un email ya está registrado en la base de datos y maneja casos especiales como el email actual del usuario (útil para crear y editar usuario).
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Correo electrónico a verificar.
+ *                 example: new-email@example.com
+ *               currentEmail:
+ *                 type: string
+ *                 description: Correo actual del usuario logueado (si corresponde).
+ *                 example: current-email@example.com
+ *     responses:
+ *       200:
+ *         description: Resultado de la verificación del email.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *                   example: El correo no está registrado.
+ *       404:
+ *         description: El correo ya está en uso.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *                   example: Correo en uso.
+ *                 email:
+ *                   type: string
+ *                   example: usado.email@gmail.com
+ *       500:
+ *         description: Error interno del servidor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Error interno del servidor.
+ */
+router.post("/check-email", authController.checkEmail);
 
 module.exports = router;
