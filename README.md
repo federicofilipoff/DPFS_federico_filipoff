@@ -30,26 +30,23 @@ cd DPFS_federico_filipoff
 npm install
 ```
 
-4.  Base de datos: crear base de datos y los datos para cada tabla.
-
-Crear la base de datos "ecommerce" y sus tablas.
-Ejecutar scripts, usando MySQL Workbench:
-
-- "/src/database/seeders/structure.sql"
-- "/src/database/seeders/data.sql"
-
-Contraseñas de usuarios
-
-Los usuarios creados por script de SQL inician sesión con la siguiente contraseña: 123
-La misma debe ser encriptada, usar el comando:
+4.  Crear base de datos y poblar las tablas con datos.
 
 ```bash
-npx sequelize db:seed --seed src/database/seeders/encrypt-passwords.js
+node src/database/config/syncDatabase.js
 ```
 
-Esto es así porque en el controlador de Users (login),
-cuando comparo la contraseña ingresada por formulario con la registrada
-en la base de datos, si ambas no fueron cifradas, la comparación retorna falso.
+```bash
+npx sequelize-cli db:seed:all
+```
+
+Nota 1: el sprint 6 solicita crear datos mediante SQL (extensión .sql).
+En este caso preferí sincronizar los modelos para crear la base de datos
+y sus datos mediante el ORM para no depender de MySQL Workbench.
+Además facilita la encriptación de contraseñas de los usuarios modelos.
+
+Nota 2: Contraseñas de usuarios
+Los usuarios creados por script inician sesión con la siguiente contraseña: 123
 
 5.  Ejecutar Back-end:
 
@@ -69,21 +66,8 @@ npm run dev
 
 # APIs
 
-## GET /api/products
-
-- Descripción: visualizar lista de productos y analíticas básicas.
-
-## GET /api/products/:id
-
-- Descripción: visualizar información detallada del artículo, según su ID.
-
-## GET /api/users
-
-- Descripción: visualizar cantidad y lista de usuarios registrados.
-
-## GET /api/users/:id
-
-- Descripción: visualizar información básica del usuario, según su ID.
+Las APIs las documenté usando Swagger.
+Se puede acceder a dicha documentación desde la URL que se indica en la consola al ejecutar el servidor.
 
 # SPRINT 1
 

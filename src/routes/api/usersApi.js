@@ -6,7 +6,7 @@ const usersController = require("../../controllers/usersController");
 const authController = require("../../controllers/authController");
 
 // Importar middlewares
-const isAdmin = require("../../middlewares/isAdmin");
+const authorize = require("../../middlewares/authorize");
 
 /**
  * @swagger
@@ -51,7 +51,7 @@ const isAdmin = require("../../middlewares/isAdmin");
  *                         type: string
  *                         example: "http://localhost:3000/users/1"
  */
-router.get("/", usersController.index);
+router.get("/", authorize("admin"), usersController.index);
 
 /**
  * @swagger
@@ -98,7 +98,7 @@ router.get("/", usersController.index);
  *                   type: string
  *                   example: "2024-11-21T23:46:03.000Z"
  */
-router.get("/:id", usersController.showApi);
+router.get("/:id", authorize("admin"), usersController.showApi);
 
 /**
  * @swagger

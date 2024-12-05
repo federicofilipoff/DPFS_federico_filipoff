@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt"); // encriptar contraseña ("hashing")
 
 // CREAR OBJETO CON LOS CONTROLADORES
 let usersController = {
+  // ------------------------------------------------------------------------
   index: function (req, res) {
     db.User.findAll()
       .then(function (data) {
