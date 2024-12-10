@@ -100,13 +100,6 @@ Elegí los sitios mencionados ya que comparten una estructura similar:
 
 Considero que estos sitios cubren los aspectos básicos de una tienda virtual.
 
-## Entregables
-
-- Wireframe: home, detalle de producto, carrito de compras, formulario registro, formulario login.
-- Logo.
-- Paleta de colores.
-- Tipografías: roboto, open sans.
-
 # SPRINT 2
 
 ## Tablero de trabajo

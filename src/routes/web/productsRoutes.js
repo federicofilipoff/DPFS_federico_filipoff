@@ -13,14 +13,7 @@ const index = require("../../controllers/products");
 const search = require("../../controllers/products/search");
 const deleteProduct = require("../../controllers/products/delete");
 const show = require("../../controllers/products/show");
-const {
-  increaseItem,
-  decreaseItem,
-  removeItem,
-  checkout,
-  addToCart,
-  showCart,
-} = require("../../controllers/products/cart");
+const cartControllers = require("../../controllers/products/cart");
 
 router.get("/", index);
 router.post(
@@ -32,12 +25,12 @@ router.post(
 );
 router.get("/search", search);
 router.get("/create", authorize("admin"), create);
-router.get("/cart", showCart);
-router.post("/cart/increase/:id", increaseItem);
-router.post("/cart/decrease/:id", decreaseItem);
-router.post("/cart/remove/:id", removeItem);
-router.post("/checkout", checkout);
-router.post("/addItem/:id", addToCart);
+router.get("/cart", cartControllers.showCart);
+router.post("/cart/increase/:id", cartControllers.increaseItem);
+router.post("/cart/decrease/:id", cartControllers.decreaseItem);
+router.post("/cart/remove/:id", cartControllers.removeItem);
+router.post("/checkout", cartControllers.checkout);
+router.post("/addItem/:id", cartControllers.addToCart);
 router.get("/:id/edit", authorize("admin"), edit);
 router.put(
   "/:id",

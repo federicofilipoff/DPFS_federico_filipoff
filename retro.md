@@ -31,27 +31,14 @@ Usar el tablero de trabajo.
 
 Adaptar el maquetado web a los Sprint.
 
-# SPRINT 5
-
-## Observaciones: sin
-
-# SPRINT 6
-
-## Observaciones: sin
-
-# SPRINT 7
-
-## Pendientes
-
-# SPRINT 8
-
-## Pendiente
+# Pendiente
 
 - falta hacer un filtro para ordenar los productos según precio.
 - El controlador "delete" (tanto de usuario como productos) elimina el registro en la base de datos,
   pero no elimina la imagen asociada al usuario/producto en /public/images/.
   Esto es útil para tener una imagen única para usuario sin imagen de perfil o
   para reciclar las imágenes de productos. En otros casos puede dejar imágenes sin uso y ocupar espacio innecesariamente.
+- El catálogo de productos no tiene paginado.
 
 ## Mejoré
 
