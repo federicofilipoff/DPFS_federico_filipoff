@@ -61,6 +61,10 @@ cd dashboard
 ```
 
 ```bash
+npm install vite --save-dev
+```
+
+```bash
 npm run dev
 ```
 
