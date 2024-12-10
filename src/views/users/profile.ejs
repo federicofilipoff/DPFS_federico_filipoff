@@ -1,54 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<%- include('../partials/head.ejs', {
-    title: 'Perfil de Usuario',
-    stylesheets: []
-    }) %>
+<%- include('../partials/head.ejs', { title: 'Perfil de Usuario' , stylesheets: [] }) %>
 
-<body>
+  <body>
 
     <%- include('../partials/header.ejs') %>
 
-    <main>
+      <main>
 
         <div class="container">
-            <div class="card mb-3 mx-auto bg-light shadow border" style="max-width: 640px;">
-              <div class="row g-0">
-                <div class="col-md-4 border-end d-flex align-items-center justify-content-center">
-                  <% if (data.profileImage) { %>
-                    <img src="/images/users/<%= data.profileImage %>" class="profile-img" alt="Imagen de perfil de <%= data.firstName %>">
+          <div class="card mb-3 mx-auto bg-light shadow border" style="max-width: 640px;">
+            <div class="row g-0">
+              <div class="col-md-4 border-end d-flex align-items-center justify-content-center">
+                <% if (user.profileImage) { %>
+                  <img src="/images/users/<%= user.profileImage %>" class="profile-img"
+                    alt="Imagen de perfil de <%= user.firstName %>">
                   <% } else { %>
-                    <img src="/images/users/user-undefined.png" class="profile-img" alt="Imagen de perfil de <%= data.firstName %>">
-                  <% } %>
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title fw-bold"><%= data.firstName %> <%= data.lastName %></h5>
-                    <div class="mt-3">
-                      <span class="fw-bold">Correo Electrónico</span>
-                      <p class="card-text text-body-secondary"><%= data.email %></p>
-                    </div>
-                    <div class="d-flex mt-2">
-                        <span class="fw-bold">Categoría:&nbsp</span>
-                        <p class="card-text text-body-secondary"><%= data.category === 'admin' ? 'administrador' : 'usuario' %></p>
-                    </div>
-                    <div class="mt-2">
-                        <a href="/users/edit" class="btn btn-primary">Editar usuario</a>
-                        <a href="/users/logout" class="btn btn-secondary">Cerrar Sesión</a>
-                        <form action="/users/<%= data.id %>?_method=DELETE" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que querés eliminar este usuario?');">
-                          <button type="submit" class="btn btn-danger">Eliminar usuario</button>
-                        </form>
-                    </div>
+                    <img src="/images/users/user-undefined.png" class="profile-img"
+                      alt="Imagen de perfil de <%= user.firstName %>">
+                    <% } %>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title fw-bold">
+                    <%= user.firstName %>
+                      <%= user.lastName %>
+                  </h5>
+                  <div class="mt-3">
+                    <span class="fw-bold">Correo Electrónico:
+                      <p class="card-text text-body-secondary">
+                        <%= user.email %>
+                      </p>
+                    </span>
+                  </div>
+                  <div class="d-flex mt-2">
+                    <span class="fw-bold">Categoría:&nbsp</span>
+                    <p class="card-text text-body-secondary">
+                      <%= user.category==='admin' ? 'administrador' : 'usuario' %>
+                    </p>
+                  </div>
+                  <div class="mt-2">
+                    <a href="/users/edit" class="btn btn-primary">Editar usuario</a>
+                    <a href="/users/logout" class="btn btn-secondary">Cerrar Sesión</a>
+                    <form action="/users/<%= user.id %>?_method=DELETE" method="POST" style="display:inline;"
+                      onsubmit="return confirm('¿Estás seguro de que querés eliminar este usuario?');">
+                      <button type="submit" class="btn btn-danger">Eliminar usuario</button>
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-    </main>
+      </main>
 
-    <%- include('../partials/footer.ejs') %>
+      <%- include('../partials/footer.ejs') %>
 
-</body>
+  </body>
+
 </html>

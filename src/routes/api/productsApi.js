@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-// Importar controladores
-const productController = require("../../controllers/productsController");
-
-// Importar middlewares
 const authorize = require("../../middlewares/authorize");
+
+const {
+  showAllProducts,
+  showAProduct,
+} = require("../../controllers/api/products");
 
 /**
  * @swagger
@@ -127,7 +128,7 @@ const authorize = require("../../middlewares/authorize");
  *       500:
  *         description: Error interno del servidor.
  */
-router.get("/", authorize("admin"), productController.index);
+router.get("/", authorize("admin"), showAllProducts);
 
 /**
  * @swagger
@@ -203,6 +204,6 @@ router.get("/", authorize("admin"), productController.index);
  *       500:
  *         description: Error interno del servidor.
  */
-router.get("/:id", authorize("admin"), productController.showApi);
+router.get("/:id", authorize("admin"), showAProduct);
 
 module.exports = router;

@@ -18,21 +18,21 @@
                 <div class="mb-3">
                     <label for="firstName" class="form-label">Nombre</label>
                     <input type="text" id="firstName" name="firstName" class="form-control" autocomplete="off" autofocus
-                        value="<%= user ? data.firstName : '' %>">
+                        value="<%= user ? user.firstName : '' %>">
                     <div id="firstNameError" class="text-danger"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="lastName" class="form-label">Apellido</label>
                     <input type="text" id="lastName" name="lastName" class="form-control" autocomplete="off"
-                        value="<%= user ? data.lastName : '' %>">
+                        value="<%= user ? user.lastName : '' %>">
                     <div id="lastNameError" class="text-danger"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo electrónico</label>
                     <input type="email" class="form-control" id="email" name="email" autocomplete="off"
-                        value="<%= user ? data.email : '' %>">
+                        value="<%= user ? user.email : '' %>">
                     <div id="emailError" class="text-danger"></div>
                 </div>
 

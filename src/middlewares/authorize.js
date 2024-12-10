@@ -7,8 +7,6 @@ module.exports = (requiredRole) => {
     if (req.session.user.category !== requiredRole) {
       return res.status(403).send("Acceso denegado: permisos insuficientes.");
     }
-
-    // Si el usuario tiene los permisos adecuados, continuar
     next();
   };
 };

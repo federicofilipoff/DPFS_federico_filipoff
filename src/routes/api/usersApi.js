@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-// Importar controladores
-const usersController = require("../../controllers/usersController");
-const authController = require("../../controllers/authController");
-
-// Importar middlewares
 const authorize = require("../../middlewares/authorize");
+
+const { showAllUsers, showUser } = require("../../controllers/api/users");
+const { checkUser, checkEmail } = require("../../controllers/api/authUsers");
 
 /**
  * @swagger
@@ -51,7 +49,7 @@ const authorize = require("../../middlewares/authorize");
  *                         type: string
  *                         example: "http://localhost:3000/users/1"
  */
-router.get("/", authorize("admin"), usersController.index);
+router.get("/", authorize("admin"), showAllUsers);
 
 /**
  * @swagger
@@ -98,7 +96,7 @@ router.get("/", authorize("admin"), usersController.index);
  *                   type: string
  *                   example: "2024-11-21T23:46:03.000Z"
  */
-router.get("/:id", authorize("admin"), usersController.showApi);
+router.get("/:id", authorize("admin"), showUser);
 
 /**
  * @swagger
@@ -166,7 +164,7 @@ router.get("/:id", authorize("admin"), usersController.showApi);
  *       500:
  *         description: Error interno del servidor.
  */
-router.post("/check-credentials", authController.checkUser);
+router.post("/check-credentials", checkUser);
 
 /**
  * @swagger
@@ -225,6 +223,6 @@ router.post("/check-credentials", authController.checkUser);
  *                   type: string
  *                   example: Error interno del servidor.
  */
-router.post("/check-email", authController.checkEmail);
+router.post("/check-email", checkEmail);
 
 module.exports = router;
